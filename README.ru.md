@@ -50,7 +50,19 @@
 Директорию **`App/Http/Controllers`** перенесем и в **`App/Http/AdminPanel/Admins/Controllers`** и в 
 **`App/Http/Shop/Customers/Controllers`**
 
-Сделаем коммит #2
+Сделаем коммит [#2](https://github.com/acwstudio/DDD-demo/commit/41ce7ed6a9d7a4f8a8238d5f53595d6ff3de23ac)
 
-На этом со слоем **`App`** пока остановимся и перейдем к слою **`Domain`**
+На этом со слоем **`App`** пока остановимся и перейдем к слою **`Domain`** и создадим следующие директории
+
+- **`Domain/Admins/Models`** домен **`Admins`** с директорией для **`Models`**
+- **`Domain/Customers/Models`** домен **`Customers`** с директорией для **`Models`**
+
+Дефолтную директорию **`App/Models`** вместе с моделью **`User.php`** удаляем. У нас будет два типа пользователей 
+и две модели **`Admin.php`** и **`Customer.php`**. К их созданию перейдем чуть позже. 
+
+Сделаем коммит #3
+
+### Готовим фронтенд
+
+
 
