@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Shop\Customers\Controllers\ShopLoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('shop.pages.shop');
 });
+
+/**************************************
+ ******* Authentication Routes ********
+ **************************************/
+
+//Login Routes
+Route::get('/login', [ShopLoginController::class, 'showLoginForm'])->name('shop.login');
