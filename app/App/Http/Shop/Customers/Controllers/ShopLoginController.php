@@ -4,6 +4,7 @@
 namespace App\Http\Shop\Customers\Controllers;
 
 
+use App\Http\Shop\Customers\Requests\ShopLoginRequest;
 use Illuminate\Routing\Controller;
 
 /**
@@ -21,5 +22,17 @@ class ShopLoginController extends Controller
     {
         $title = 'Login';
         return view('shop.auth.customer-login', compact('title'));
+    }
+
+    /**
+     * Handle a login request to the application.
+     *
+     * @param ShopLoginRequest $request
+     * @return array
+     *
+     */
+    public function login(ShopLoginRequest $request)
+    {
+        return $request->all();
     }
 }

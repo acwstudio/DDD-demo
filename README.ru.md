@@ -152,6 +152,20 @@
 
 Набираем в броузере **`http://localhost:8004/login`** Все ОК.
 
-Сделаем коммит #6
+Сделаем коммит [#6](https://github.com/acwstudio/DDD-demo/commit/67750e400c3352b2a90c4a96d9e54660cb5765e3)
+
+**Отправка данных для аутентификации**
+
+Прежде всего, необходимо произвести валидацию данных. Создадим класс 
+**`App/Http/Shop/Customers/Requests/ShopLoginRequest.php`** в котором будет валидировать данные из формы.
+
+В контроллере **`App/Http/Shop/Customers/Controllers/ShopLoginController.php`** создадим пока пустой метод 
+**`login`**, только внедрим в него **`App/Http/Shop/Customers/Requests/ShopLoginRequest.php`** и вернем 
+**`$request->all()`**. Проверим как работает валидация, наберем пароль меньше 8 знаков, а затем 8 или больше.
+Все ОК
+
+Сделаем коммит #7
+
+В файле **`routes/web.php`** укажем роут к этому методу
 
 

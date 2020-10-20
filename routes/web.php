@@ -24,3 +24,4 @@ Route::get('/', function () {
 
 //Login Routes
 Route::get('/login', [ShopLoginController::class, 'showLoginForm'])->name('shop.login');
+Route::post('/login', [ShopLoginController::class, 'login'])->name('shop');
