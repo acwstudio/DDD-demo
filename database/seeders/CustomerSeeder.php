@@ -30,10 +30,12 @@ class CustomerSeeder extends Seeder
         Customer::factory()->times(10)->create();
 
         foreach (Customer::all() as $item) {
+            $email = strtolower(str_replace(' ', '.', $item->name)) . '@customer.loc';
             $item->update([
-                'email' => strtolower(str_replace(' ', '.', $item->name)) . '@customer.loc',
+                'email' => $email,
                 'password' => \Hash::make('12345678')
             ]);
+            $this->command->info('email is ' . $email);
         }
     }
 }
