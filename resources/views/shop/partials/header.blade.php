@@ -103,27 +103,29 @@
                             </ul>
                         </li>
                         <li><a href="contact.html">CONTACT</a></li>
-{{--                        @auth('customer')--}}
+                        @auth('customer')
 {{--                            <li><a href="{{ route('shop.account') }}">{{ Auth::guard('customer')->user()->name }}</a>--}}
-{{--                                <ul class="sub-menu">--}}
-{{--                                    <li><a href="{{ route('shop.logout') }}"--}}
-{{--                                           onclick="event.preventDefault();--}}
-{{--                                                     document.getElementById('logout-form').submit();">--}}
-{{--                                            {{ __('Logout') }}</a></li>--}}
-{{--                                    <form id="logout-form" action="{{ route('shop.logout') }}"--}}
-{{--                                          method="POST" class="d-none">--}}
-{{--                                        @csrf--}}
-{{--                                    </form>--}}
-{{--                                </ul>--}}
-{{--                            </li>--}}
-{{--                        @else--}}
-{{--                            <li><a href="#">GUEST</a>--}}
-{{--                                <ul class="sub-menu">--}}
-{{--                                    <li><a href="{{ route('shop.login') }}">Login</a></li>--}}
+                            <li><a href="#">{{ Auth::guard('customer')->user()->name }}</a>
+                                <ul class="sub-menu">
+                                    <li><a href="{{ route('shop.logout') }}"
+                                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}</a></li>
+                                    <form id="logout-form" action="{{ route('shop.logout') }}"
+                                          method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </ul>
+                            </li>
+                        @else
+                            <li><a href="#">GUEST</a>
+                                <ul class="sub-menu">
+                                    <li><a href="{{ route('shop.login') }}">Login</a></li>
+                                    <li><a href="#">Register</a></li>
 {{--                                    <li><a href="{{ route('shop.register') }}">Register</a></li>--}}
-{{--                                </ul>--}}
-{{--                            </li>--}}
-{{--                        @endauth--}}
+                                </ul>
+                            </li>
+                        @endauth
                     </ul>
                 </nav>
             </div>
@@ -131,7 +133,7 @@
             <!-- Header Action -->
             <div class="col">
                 <div class="header-action">
-{{--                    @auth('customer')--}}
+                    @auth('customer')
                     <!-- Wishlist -->
                     <a href="wishlist.html" class="header-wishlist"><span class="icon">wishlist</span></a>
 
@@ -214,7 +216,7 @@
 {{--                        --}}
 {{--                            <a href="{{ route('shop.login') }}" class="header-wishlist">--}}
 {{--                                <span class="icon">Login</span></a>--}}
-{{--                        @endauth--}}
+                        @endauth
 
                 </div>
             </div>

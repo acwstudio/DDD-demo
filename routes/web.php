@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Shop\Customers\Controllers\ShopLoginController;
+use App\Http\Shop\Customers\Controllers\ShopLogoutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,3 +26,5 @@ Route::get('/', function () {
 //Login Routes
 Route::get('/login', [ShopLoginController::class, 'showLoginForm'])->name('shop.login');
 Route::post('/login', [ShopLoginController::class, 'login'])->name('shop');
+//Logout Routes
+Route::post('/logout', [ShopLogoutController::class, 'logout'])->name('shop.logout');
