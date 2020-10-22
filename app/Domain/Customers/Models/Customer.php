@@ -12,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
  * Class Customer
  * @package Domain\Customers\Models
  */
-class Customer extends Authenticatable implements MustVerifyEmail
+class Customer extends Authenticatable //implements MustVerifyEmail
 {
     use Notifiable, HasFactory;
 
