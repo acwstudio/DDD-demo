@@ -121,8 +121,7 @@
                             <li><a href="#">GUEST</a>
                                 <ul class="sub-menu">
                                     <li><a href="{{ route('shop.login') }}">Login</a></li>
-                                    <li><a href="#">Register</a></li>
-{{--                                    <li><a href="{{ route('shop.register') }}">Register</a></li>--}}
+                                    <li><a href="{{ route('shop.register') }}">Register</a></li>
                                 </ul>
                             </li>
                         @endauth
