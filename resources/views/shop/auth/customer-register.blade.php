@@ -14,7 +14,7 @@
                 <div class="col-lg-7 col-md-6 col-12 mb-30">
                     <div class="login-register-form">
                         <h3>Register Form</h3>
-                        <form method="POST" action="{{ url('shop/register') }}">
+                        <form method="POST" action="{{ url('/register') }}">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-6 col-12 mb-20">

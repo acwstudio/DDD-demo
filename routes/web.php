@@ -33,3 +33,4 @@ Route::post('/logout', [ShopLogoutController::class, 'logout'])->name('shop.logo
 
 //Register Routes
 Route::get('/register', [ShopRegisterController::class, 'showRegisterForm'])->name('shop.register');
+Route::post('/register', [ShopRegisterController::class, 'register']);

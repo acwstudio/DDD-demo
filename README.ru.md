@@ -163,7 +163,7 @@
 
 Сделаем коммит [#6](https://github.com/acwstudio/DDD-demo/commit/67750e400c3352b2a90c4a96d9e54660cb5765e3)
 
-**Валидация данных из формы**
+**Валидация данных**
 
 Создадим класс **`App/Http/Shop/Customers/Requests/ShopLoginRequest.php`** который будет отвечать за валидацию.
 
@@ -251,4 +251,15 @@
 
 Жмем пункт меню **Register** все работает.
 
-Сделаем коммит #11
+Сделаем коммит [#11](https://github.com/acwstudio/DDD-demo/commit/61cab34529da3e84f14b307bbf436a774dded12b)
+
+**Валидация данных**
+
+Создадим класс **`App/Http/Shop/Customers/Requests/ShopRegisterRequest.php`** который будет отвечать за валидацию.
+
+В контроллере **`App/Http/Shop/Customers/Controllers/ShopRegisterController.php`** создадим пока пустой метод 
+**`register`**, внедрим в него созданный **`App/Http/Shop/Customers/Requests/ShopRegisterRequest.php`** и вернем 
+**`$request->all()`**. В файле **`routes/web.php`** укажем роут к этому методу. Проверим как работает валидация, 
+наберем пароль меньше 8 знаков, или email, который уже существует и проч.
+
+Сделаем коммит #12
