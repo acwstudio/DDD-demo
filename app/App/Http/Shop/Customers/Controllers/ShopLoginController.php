@@ -23,6 +23,7 @@ class ShopLoginController extends Controller
     public function __construct(ShopLoginService $loginService)
     {
         $this->loginService = $loginService;
+        $this->middleware('guest');
     }
 
     /**

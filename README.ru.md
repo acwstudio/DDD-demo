@@ -354,6 +354,13 @@
 Вполне возможно, что мы еще вернемся и продолжим рефакторинг уже класса 
 **`App/Http/Shop/Customers/Services/ShopLoginService.php`**, если к этому будут предпосылки
 
-Сделаем коммит #17
+Сделаем коммит [#17](https://github.com/acwstudio/DDD-demo/commit/d737436c33e158cabf5290f92b639a3d957e2bcf)
+
+Продолжим с контроллером **`App/Http/Shop/Customers/Controllers/ShopRegisterController.php`**, так же вынесем 
+логику в сервисный класс **`App/Http/Shop/Customers/Services/ShopRegisterController.php`**. В принципе 
+**`ShopRegisterController.php`** не столь уж громоздкий, но есть одна фишка, если нам, например, понадобиться 
+произвести регистрацию из консоли, то мы используем этот сервисный класс.
+
+Сделаем коммит #18
 
 
