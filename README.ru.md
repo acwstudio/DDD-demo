@@ -297,4 +297,19 @@
 с сообщением что необходимо посмотреть почту и пройти верификацию. Если email по каким-то причинам не пришел 
 можно сделать запрос еще одного.
 
-Сделаем коммит #14
+Сделаем коммит [#14](https://github.com/acwstudio/DDD-demo/commit/28f3a860c29c99de61628da565a169916938ad48)
+
+### Сброс пароля
+
+- создадим контроллер **`App/Http/Shop/Customers/Controllers/ShopForgotPasswordController.php`** 
+- скопируем туда все методы из трейта **`SendsPasswordResetEmails`** пакета **`laravel/ui`** и поправим где надо. 
+- в файле **`routes/web.php`** укажем роуты к этим методам
+- создадим шаблон **`resources/views/shop/auth/customer-email.blade.php`** для формы **Send Password Reset Link**
+- создадим контроллер **`App/Http/Shop/Customers/Controllers/ShopResetPasswordController.php`** 
+- скопируем туда все методы из трейта **`ResetsPasswords`** пакета **`laravel/ui`** и поправим где надо.
+- в файле **`routes/web.php`** укажем роуты к этим методам
+- создадим шаблон **`resources/views/shop/auth/customer-reset.blade.php`** для формы **Reset Password**
+
+На форме **Log In** жмем на ссылку **Forgot your Password** и проходим процедуру сброса пароля. Все работает. 
+
+Сделаем коммит #15
