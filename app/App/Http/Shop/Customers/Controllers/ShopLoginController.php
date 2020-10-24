@@ -3,9 +3,7 @@
 
 namespace App\Http\Shop\Customers\Controllers;
 
-
 use App\Http\Shop\Customers\Requests\ShopLoginRequest;
-use App\Http\Shop\Customers\Traits\ThrottlesLogins;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -17,8 +15,6 @@ use Illuminate\Validation\ValidationException;
  */
 class ShopLoginController extends Controller
 {
-    use ThrottlesLogins;
-
     /**
      * Where to redirect users after login.
      *
@@ -26,13 +22,16 @@ class ShopLoginController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    private $throttlesLogins;
+
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param \App\Http\Shop\Customers\Services\ThrottlesLogins $throttlesLogins
      */
-    public function __construct()
+    public function __construct(\App\Http\Shop\Customers\Services\ThrottlesLogins $throttlesLogins)
     {
+        $this->throttlesLogins = $throttlesLogins;
         $this->middleware('guest')->except('logout');
     }
 
@@ -59,11 +58,11 @@ class ShopLoginController extends Controller
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
-        if ($this->hasTooManyLoginAttempts($request)) {
+        if ($this->throttlesLogins->hasTooManyLoginAttempts($request)) {
 
-            $this->fireLockoutEvent($request);
+            $this->throttlesLogins->fireLockoutEvent($request);
 
-            return $this->sendLockoutResponse($request);
+            return $this->throttlesLogins->sendLockoutResponse($request);
         }
 
         if ($this->attemptLogin($request)) {
@@ -73,7 +72,7 @@ class ShopLoginController extends Controller
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this
         // user surpasses their maximum number of attempts they will get locked out.
-        $this->incrementLoginAttempts($request);
+        $this->throttlesLogins->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
 
@@ -113,7 +112,7 @@ class ShopLoginController extends Controller
     {
         $request->session()->regenerate();
 
-        $this->clearLoginAttempts($request);
+        $this->throttlesLogins->clearLoginAttempts($request);
 
         if ($response = $this->authenticated($request, $this->guard()->user())) {
             return $response;

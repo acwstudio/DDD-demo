@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Shop\Customers\Traits;
+namespace App\Http\Shop\Customers\Services;
 
 
 use App\Http\Shop\Customers\Requests\ShopLoginRequest;
@@ -13,10 +13,10 @@ use Illuminate\Validation\ValidationException;
 use Lang;
 
 /**
- * Trait ThrottlesLogins
- * @package App\Http\Shop\Customers\Traits
+ * Class ThrottlesLogins
+ * @package App\Http\Shop\Customers\Services
  */
-trait ThrottlesLogins
+class ThrottlesLogins
 {
     /**
      * Determine if the user has too many failed login attempts.
@@ -24,7 +24,7 @@ trait ThrottlesLogins
      * @param ShopLoginRequest $request
      * @return bool
      */
-    protected function hasTooManyLoginAttempts(ShopLoginRequest $request)
+    public function hasTooManyLoginAttempts(Request $request)
     {
         return $this->limiter()->tooManyAttempts(
             $this->throttleKey($request), $this->maxAttempts()
@@ -37,7 +37,7 @@ trait ThrottlesLogins
      * @param ShopLoginRequest $request
      * @return void
      */
-    protected function incrementLoginAttempts(ShopLoginRequest $request)
+    public function incrementLoginAttempts(ShopLoginRequest $request)
     {
         $this->limiter()->hit(
             $this->throttleKey($request), $this->decayMinutes() * 60
@@ -51,7 +51,7 @@ trait ThrottlesLogins
      * @return string | void
      *
      */
-    protected function sendLockoutResponse(ShopLoginRequest $request)
+    public function sendLockoutResponse(ShopLoginRequest $request)
     {
         $seconds = $this->limiter()->availableIn(
             $this->throttleKey($request)
@@ -72,7 +72,7 @@ trait ThrottlesLogins
      * @param Request $request
      * @return void
      */
-    protected function clearLoginAttempts(ShopLoginRequest $request)
+    public function clearLoginAttempts(ShopLoginRequest $request)
     {
         $this->limiter()->clear($this->throttleKey($request));
     }
@@ -83,7 +83,7 @@ trait ThrottlesLogins
      * @param Request $request
      * @return void
      */
-    protected function fireLockoutEvent(ShopLoginRequest $request)
+    public function fireLockoutEvent(Request $request)
     {
         event(new Lockout($request));
     }
@@ -94,7 +94,7 @@ trait ThrottlesLogins
      * @param Request $request
      * @return string
      */
-    protected function throttleKey(ShopLoginRequest $request)
+    protected function throttleKey(Request $request)
     {
         return \Str::lower($request->input('email')).'|'.$request->ip();
     }
