@@ -3,6 +3,8 @@
 use App\Http\Shop\Customers\Controllers\ShopLoginController;
 use App\Http\Shop\Customers\Controllers\ShopLogoutController;
 use App\Http\Shop\Customers\Controllers\ShopRegisterController;
+use App\Http\Shop\Customers\Controllers\ShopVerifyController;
+use App\Http\Shop\ShopHomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,9 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('shop.pages.shop');
-});
+Route::get('/', [ShopHomeController::class, 'showHomePage'])->name('home');
 
 /**************************************
  ******* Authentication Routes ********
@@ -34,3 +34,8 @@ Route::post('/logout', [ShopLogoutController::class, 'logout'])->name('shop.logo
 //Register Routes
 Route::get('/register', [ShopRegisterController::class, 'showRegisterForm'])->name('shop.register');
 Route::post('/register', [ShopRegisterController::class, 'register']);
+
+// Email Verification Routes
+Route::get('email/verify', [ShopVerifyController::class, 'show'])->name('verification.notice');
+Route::get('email/verify/{id}/{hash}', [ShopVerifyController::class, 'verify'])->name('verification.verify');
+Route::post('email/resend', [ShopVerifyController::class, 'resend'])->name('verification.resend');

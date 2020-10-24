@@ -103,7 +103,7 @@
                             </ul>
                         </li>
                         <li><a href="contact.html">CONTACT</a></li>
-                        @auth('customer')
+                        @auth()
 {{--                            <li><a href="{{ route('shop.account') }}">{{ Auth::guard('customer')->user()->name }}</a>--}}
                             <li><a href="#">{{ Auth::guard('customer')->user()->name }}</a>
                                 <ul class="sub-menu">

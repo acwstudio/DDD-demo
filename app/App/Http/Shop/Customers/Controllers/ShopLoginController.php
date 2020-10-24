@@ -33,7 +33,7 @@ class ShopLoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:customer')->except('logout');
+        $this->middleware('guest')->except('logout');
     }
 
     /**
