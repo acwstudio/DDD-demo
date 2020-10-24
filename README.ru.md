@@ -342,6 +342,18 @@
 
 Трейт **`App/Http/Shop/Customers/Traits/ThrottlesLogins.php`** удалим
 
-Сделаем коммит #16
+Сделаем коммит [#16](https://github.com/acwstudio/DDD-demo/commit/84082f94b79016bb3c1deffa6dcd38a83afa289f)
+
+После того как сделал коммит обратил внимание, что класс **`ThrottlesLogins.php`**, будет более логично 
+переименовать в **`ShopThrottlesLoginsService.php`**
+
+Следующим шагом вынесем всю логику из контроллера **`App/Http/Shop/Customers/Controllers/ShopLoginController.php`** 
+в отдельный сервисный класс **`App/Http/Shop/Customers/Services/ShopLoginService.php`**. Отлично, наш контроллер 
+теперь не занят множеством обязанностей и выглядит лаконично.
+
+Вполне возможно, что мы еще вернемся и продолжим рефакторинг уже класса 
+**`App/Http/Shop/Customers/Services/ShopLoginService.php`**, если к этому будут предпосылки
+
+Сделаем коммит #17
 
 

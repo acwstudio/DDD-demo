@@ -3,8 +3,6 @@
 
 namespace App\Http\Shop\Customers\Services;
 
-
-use App\Http\Shop\Customers\Requests\ShopLoginRequest;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Cache\RateLimiter;
 use Illuminate\Http\Request;
@@ -13,15 +11,15 @@ use Illuminate\Validation\ValidationException;
 use Lang;
 
 /**
- * Class ThrottlesLogins
+ * Class ShopThrottlesLoginsService
  * @package App\Http\Shop\Customers\Services
  */
-class ThrottlesLogins
+class ShopThrottlesLoginsService
 {
     /**
      * Determine if the user has too many failed login attempts.
      *
-     * @param ShopLoginRequest $request
+     * @param Request $request
      * @return bool
      */
     public function hasTooManyLoginAttempts(Request $request)
@@ -34,10 +32,10 @@ class ThrottlesLogins
     /**
      * Increment the login attempts for the user.
      *
-     * @param ShopLoginRequest $request
+     * @param Request $request
      * @return void
      */
-    public function incrementLoginAttempts(ShopLoginRequest $request)
+    public function incrementLoginAttempts(Request $request)
     {
         $this->limiter()->hit(
             $this->throttleKey($request), $this->decayMinutes() * 60
@@ -47,11 +45,10 @@ class ThrottlesLogins
     /**
      * Redirect the user after determining they are locked out.
      *
-     * @param ShopLoginRequest $request
+     * @param Request $request
      * @return string | void
-     *
      */
-    public function sendLockoutResponse(ShopLoginRequest $request)
+    public function sendLockoutResponse(Request $request)
     {
         $seconds = $this->limiter()->availableIn(
             $this->throttleKey($request)
@@ -72,7 +69,7 @@ class ThrottlesLogins
      * @param Request $request
      * @return void
      */
-    public function clearLoginAttempts(ShopLoginRequest $request)
+    public function clearLoginAttempts(Request $request)
     {
         $this->limiter()->clear($this->throttleKey($request));
     }
