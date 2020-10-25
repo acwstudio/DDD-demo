@@ -168,7 +168,7 @@
 Создадим класс **`App/Http/Shop/Customers/Requests/ShopLoginRequest.php`** который будет отвечать за валидацию.
 
 В контроллере **`App/Http/Shop/Customers/Controllers/ShopLoginController.php`** создадим пока пустой метод 
-**`login`**, внедрим в него созданный **`App/Http/Shop/Customers/Requests/ShopLoginRequest.php`** и вернем 
+**`login`**, инжектим в него созданный **`App/Http/Shop/Customers/Requests/ShopLoginRequest.php`** и вернем 
 **`$request->all()`**. В файле **`routes/web.php`** укажем роут к этому методу. Проверим как работает валидация, 
 наберем пароль меньше 8 знаков, а затем 8 или больше. Валидация работает.
 
@@ -258,7 +258,7 @@
 Создадим класс **`App/Http/Shop/Customers/Requests/ShopRegisterRequest.php`** который будет отвечать за валидацию.
 
 В контроллере **`App/Http/Shop/Customers/Controllers/ShopRegisterController.php`** создадим пока пустой метод 
-**`register`**, внедрим в него созданный **`App/Http/Shop/Customers/Requests/ShopRegisterRequest.php`** и вернем 
+**`register`**, инжектим в него созданный **`App/Http/Shop/Customers/Requests/ShopRegisterRequest.php`** и вернем 
 **`$request->all()`**. В файле **`routes/web.php`** укажем роут к этому методу. Проверим как работает валидация, 
 наберем пароль меньше 8 знаков, или email, который уже существует и проч.
 
@@ -319,9 +319,9 @@
 - Файловая структура приобрела упрядоченый вид, что позволяет без труда найти местоположение кода регистрации и 
 аутентификации пользователей приложения **Shop**. 
 - Весь код сосредоточен в одном месте и более прозрачен для изменений и понимания логики работы. В то время 
-как использование пакетов аутентификации размывает прозрачность делая многие вещи за программиста (например 
-вместо явного написания роутов в файле **`routes/web.php`** вызывается метод auth(), который содержит все роуты 
-внутри пакета).
+как использование пакетов аутентификации размазывает код между приложением и пакетом, затуманивает прозрачность 
+кода магией внутри пакета, делая многие вещи за программиста (например вместо явного написания роутов в файле 
+**`routes/web.php`** вызывается метод auth(), который содержит все роуты внутри пакета).
 - Роуты прописаны явным образом в файле **`routes/web.php`**.
 
 Тем не менее, есть поводы для проведения рефакторинга. Контроллеры перегружены логикой, применение трейта 
@@ -357,10 +357,16 @@
 Сделаем коммит [#17](https://github.com/acwstudio/DDD-demo/commit/d737436c33e158cabf5290f92b639a3d957e2bcf)
 
 Продолжим с контроллером **`App/Http/Shop/Customers/Controllers/ShopRegisterController.php`**, так же вынесем 
-логику в сервисный класс **`App/Http/Shop/Customers/Services/ShopRegisterController.php`**. В принципе 
+логику в сервисный класс **`App/Http/Shop/Customers/Services/ShopRegisterService.php`**. В принципе 
 **`ShopRegisterController.php`** не столь уж громоздкий, но есть одна фишка, если нам, например, понадобиться 
 произвести регистрацию из консоли, то мы используем этот сервисный класс.
 
-Сделаем коммит #18
+Сделаем коммит [#18](https://github.com/acwstudio/DDD-demo/commit/914316d646bcd2bd43b3d6a997407bba2bea9ff9)
 
+Переходим к рефакторингу верификации по email. Выносим логику из контроллера 
+**`App/Http/Shop/Customers/Controllers/ShopVerifyController.php`** в сервисный класс
+**`App/Http/Shop/Customers/Services/ShopVerifyService.php`**
 
+Проверяем, все работает
+
+Сделаем коммит #19

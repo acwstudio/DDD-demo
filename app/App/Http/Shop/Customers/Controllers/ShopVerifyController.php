@@ -3,10 +3,7 @@
 
 namespace App\Http\Shop\Customers\Controllers;
 
-
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Auth\Events\Verified;
+use App\Http\Shop\Customers\Services\ShopVerifyService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -17,24 +14,20 @@ use Illuminate\Routing\Controller;
  */
 class ShopVerifyController extends Controller
 {
-//    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    /**
-     * Where to redirect users after verification.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $verifyService;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ShopVerifyService $verifyService)
     {
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
+
+        $this->verifyService = $verifyService;
     }
 
     /**
@@ -47,31 +40,7 @@ class ShopVerifyController extends Controller
      */
     public function verify(Request $request)
     {
-        if (! hash_equals((string) $request->route('id'), (string) $request->user()->getKey())) {
-            throw new AuthorizationException;
-        }
-
-        if (! hash_equals((string) $request->route('hash'), sha1($request->user()->getEmailForVerification()))) {
-            throw new AuthorizationException;
-        }
-
-        if ($request->user()->hasVerifiedEmail()) {
-            return $request->wantsJson()
-                ? new JsonResponse([], 204)
-                : redirect($this->redirectPath());
-        }
-
-        if ($request->user()->markEmailAsVerified()) {
-            event(new Verified($request->user()));
-        }
-
-        if ($response = $this->verified($request)) {
-            return $response;
-        }
-
-        return $request->wantsJson()
-            ? new JsonResponse([], 204)
-            : redirect($this->redirectPath())->with('verified', true);
+        return $this->verifyService->startVerify($request);
     }
 
     /**
@@ -93,17 +62,7 @@ class ShopVerifyController extends Controller
      */
     public function resend(Request $request)
     {
-        if ($request->user()->hasVerifiedEmail()) {
-            return $request->wantsJson()
-                ? new JsonResponse([], 204)
-                : redirect($this->redirectPath());
-        }
-
-        $request->user()->sendEmailVerificationNotification();
-
-        return $request->wantsJson()
-            ? new JsonResponse([], 202)
-            : back()->with('resent', true);
+        return $this->verifyService->startResend($request);
     }
 
     /**
@@ -116,21 +75,7 @@ class ShopVerifyController extends Controller
     {
         $title = 'Verify';
         return $request->user()->hasVerifiedEmail()
-            ? redirect($this->redirectPath())
+            ? redirect($this->verifyService->redirectPath())
             : view('shop.auth.customer-verify', compact('title'));
-    }
-
-    /**
-     * Get the post register / login redirect path.
-     *
-     * @return string
-     */
-    public function redirectPath()
-    {
-        if (method_exists($this, 'redirectTo')) {
-            return $this->redirectTo();
-        }
-
-        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/';
     }
 }
