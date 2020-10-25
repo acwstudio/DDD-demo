@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Shop\Customers\Services;
+namespace Domain\Customers\Actions;
 
 
 use App\Http\Shop\Customers\Requests\ShopLoginRequest;
@@ -9,12 +9,13 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Support\ThrottlesLoginsService;
 
 /**
- * Class ShopLoginService
- * @package App\Http\Shop\Customers\Services
+ * Class CustomerLoginAction
+ * @package Domain\Customers\Actions
  */
-class ShopLoginService
+class CustomerLoginAction
 {
     /**
      * Where to redirect users after login.
@@ -22,26 +23,22 @@ class ShopLoginService
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
-
     protected $throttlesLoginsService;
 
     /**
-     * ShopLoginService constructor.
-     * @param ShopThrottlesLoginsService $throttlesLoginsService
+     * CustomerLoginAction constructor.
+     * @param ThrottlesLoginsService $throttlesLoginsService
      */
-    public function __construct(ShopThrottlesLoginsService $throttlesLoginsService)
+    public  function __construct(ThrottlesLoginsService $throttlesLoginsService)
     {
         $this->throttlesLoginsService = $throttlesLoginsService;
     }
 
     /**
-     * Handle a login request to the application.
-     *
-     * @param ShopLoginRequest $request
-     * @return string | void
-     *
+     * @param Request $request
+     * @return
      */
-    public function startLogin(ShopLoginRequest $request)
+    public function execute(Request $request)
     {
         if ($this->throttlesLoginsService->hasTooManyLoginAttempts($request)) {
 
@@ -119,11 +116,10 @@ class ShopLoginService
     /**
      * Get the failed login response instance.
      *
-     * @param ShopLoginRequest $request
+     * @param Request $request
      * @return string | void
-     *
      */
-    public function sendFailedLoginResponse(ShopLoginRequest $request)
+    public function sendFailedLoginResponse(Request $request)
     {
         throw ValidationException::withMessages([
             $this->username() => [trans('auth.failed')],
@@ -161,6 +157,6 @@ class ShopLoginService
             return $this->redirectTo();
         }
 
-        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
+        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/';
     }
 }

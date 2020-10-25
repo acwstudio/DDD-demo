@@ -4,7 +4,7 @@
 namespace App\Http\Shop\Customers\Controllers;
 
 use App\Http\Shop\Customers\Requests\ShopLoginRequest;
-use App\Http\Shop\Customers\Services\ShopLoginService;
+use Domain\Customers\Actions\CustomerLoginAction;
 use Illuminate\Routing\Controller;
 
 /**
@@ -13,17 +13,17 @@ use Illuminate\Routing\Controller;
  */
 class ShopLoginController extends Controller
 {
-    private $loginService;
+    protected $loginAction;
 
     /**
      * Create a new controller instance.
      *
-     * @param ShopLoginService $loginService
+     * @param CustomerLoginAction $loginAction
      */
-    public function __construct(ShopLoginService $loginService)
+    public function __construct(CustomerLoginAction $loginAction)
     {
-        $this->loginService = $loginService;
         $this->middleware('guest');
+        $this->loginAction = $loginAction;
     }
 
     /**
@@ -46,7 +46,6 @@ class ShopLoginController extends Controller
      */
     public function login(ShopLoginRequest $request)
     {
-        return $this->loginService->startLogin($request);
-
+        return $this->loginAction->execute($request);
     }
 }

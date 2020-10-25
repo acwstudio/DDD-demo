@@ -334,8 +334,8 @@
 ### Рефакторим модуль `Customers`
 
 Начнем с того, что переделаем трейт **`App/Http/Shop/Customers/Traits/ThrottlesLogins.php`** в класс 
-**`App/Http/Shop/Customers/Services/ThrottlesLogins.php`**, который затем инжектим в конструкторе контроллера
-**`App/Http/Shop/Customers/Controllers/ShopLoginController.php`**
+**`App/Http/Shop/Customers/Services/ThrottlesLoginsService.php`**, который затем инжектим в конструкторе 
+контроллера **`App/Http/Shop/Customers/Controllers/ShopLoginController.php`**
 
 Теперь методы, используемые для ограничения неудачных попыток залогиниться, более очевидны в коде контроллера 
 и это облегчает программисту жизнь.
@@ -399,9 +399,20 @@
 
 Таким образом, перенесем все сервисные классы в доменный слой как экшены
 
-- **`Domain/Customers/Actions/CustomerRegisterAction.php`** сделаем коммит #21
+- **`Domain/Customers/Actions/CustomerRegisterAction.php`** 
+
+сделаем коммит [#21](https://github.com/acwstudio/DDD-demo/commit/1bc6095ab268c47d4774ab2786cbe8e28c0418f7)
+
 - **`Domain/Customers/Actions/CustomerLoginAction.php`**
+
+Интересная ситуация возникла с **`App/Http/Shop/Customers/Services/ThrottlesLoginsService.php`**, потому что 
+этот класс реально сервис, а не экшен. Пожалуй что настало время воспользоваться **`app/Support`**. 
+
+- **`Support/ThrottlesLoginsService.php`** 
+
+сделаем коммит #22
+
 - **`Domain/Customers/Actions/CustomerForgotPasswordAction.php`**
 - **`Domain/Customers/Actions/CustomerResetPasswordAction.php`**
-- **`Domain/Customers/Actions/CustomerThrotlesLoginsAction.php`**
+
 - **`Domain/Customers/Actions/CustomerVerifyAction.php`**

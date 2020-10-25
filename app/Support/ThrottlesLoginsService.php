@@ -1,7 +1,8 @@
 <?php
 
 
-namespace App\Http\Shop\Customers\Services;
+namespace Support;
+
 
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Cache\RateLimiter;
@@ -11,10 +12,10 @@ use Illuminate\Validation\ValidationException;
 use Lang;
 
 /**
- * Class ShopThrottlesLoginsService
- * @package App\Http\Shop\Customers\Services
+ * Class ThrottlesLoginsService
+ * @package Support
  */
-class ShopThrottlesLoginsService
+class ThrottlesLoginsService
 {
     /**
      * Determine if the user has too many failed login attempts.
