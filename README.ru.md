@@ -380,4 +380,28 @@
 
 Проверяем, все работает
 
-Сделаем коммит #20
+Сделаем коммит [#20](https://github.com/acwstudio/DDD-demo/commit/98e411304b200e8524b8fe0ca5172c4bcd3ef058)
+
+### Новый рефакторинг модуля **`Customers`**
+
+Данный рефакторинг будет связан с решением перенести сервисные классы модуля из слоя приложения в доменный слой.
+ 
+Поводом послужила вот эта [статья](https://stitcher.io/blog/laravel-beyond-crud-03-actions). Логика следующая. 
+Допустим мы захотим дать админам возможность регистрировать пользователя из консоли. Отлично, у нас уже есть 
+сервисный класс **`App/Http/Shop/Customers/Services/ShopRegisterService.php`**, который мы можем использовать в 
+консольном приложении, но, согласитесь, как-то странно, что этот класс будет использован в разных приложениях,
+но принадлежать модулю одного из этих приложений. Логично, если он не будет принадлежать ни одному из приложений, 
+а будет принадлежать некой третьей стороне. такой стороной, очевидно может быть домен **`Customers`**.
+
+В выше указаной статье, предлагается называть такой класс не сервисом, а экшеном. Эта статья является третьей в 
+серии статей о **DDD style** в **Laravel**. Вот ссылка на первую статью под названием
+[Domain oriented Laravel](https://stitcher.io/blog/laravel-beyond-crud-01-domain-oriented-laravel).
+
+Таким образом, перенесем все сервисные классы в доменный слой как экшены
+
+- **`Domain/Customers/Actions/CustomerRegisterAction.php`** сделаем коммит #21
+- **`Domain/Customers/Actions/CustomerLoginAction.php`**
+- **`Domain/Customers/Actions/CustomerForgotPasswordAction.php`**
+- **`Domain/Customers/Actions/CustomerResetPasswordAction.php`**
+- **`Domain/Customers/Actions/CustomerThrotlesLoginsAction.php`**
+- **`Domain/Customers/Actions/CustomerVerifyAction.php`**

@@ -1,19 +1,19 @@
 <?php
 
 
-namespace App\Http\Shop\Customers\Services;
+namespace Domain\Customers\Actions;
 
-use App\Http\Shop\Customers\Requests\ShopRegisterRequest;
 use App\Providers\RouteServiceProvider;
 use Domain\Customers\Models\Customer;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 /**
- * Class ShopRegisterService
- * @package App\Http\Shop\Customers\Services
+ * Class CustomerRegisterAction
+ * @package Domain\Customers\Actions
  */
-class ShopRegisterService
+class CustomerRegisterAction
 {
     /**
      * Where to redirect users after login.
@@ -22,11 +22,23 @@ class ShopRegisterService
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+
+    protected $customer;
+
     /**
-     * @param ShopRegisterRequest $request
-     * @return JsonResponse
+     * CustomerRegisterAction constructor.
+     * @param Customer $customer
      */
-    public function startRegister(ShopRegisterRequest $request)
+    public function __construct(Customer $customer)
+    {
+        $this->customer = $customer;
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function execute(Request $request)
     {
         event(new Registered($user = $this->create($request->all())));
 
@@ -49,7 +61,7 @@ class ShopRegisterService
      */
     protected function create(array $data)
     {
-        return Customer::create([
+        return $this->customer->create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => \Hash::make($data['password']),
@@ -73,7 +85,7 @@ class ShopRegisterService
      * @param  mixed  $user
      * @return mixed
      */
-    protected function registered(ShopRegisterRequest $request, $user)
+    protected function registered(Request $request, $user)
     {
         //
     }

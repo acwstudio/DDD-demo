@@ -3,9 +3,8 @@
 
 namespace App\Http\Shop\Customers\Controllers;
 
-
 use App\Http\Shop\Customers\Requests\ShopRegisterRequest;
-use App\Http\Shop\Customers\Services\ShopRegisterService;
+use Domain\Customers\Actions\CustomerRegisterAction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
@@ -15,17 +14,17 @@ use Illuminate\Routing\Controller;
  */
 class ShopRegisterController extends Controller
 {
-    protected $registerService;
+    protected $registerAction;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(ShopRegisterService $registerService)
+    public function __construct(CustomerRegisterAction $registerAction)
     {
         $this->middleware('guest');
-        $this->registerService = $registerService;
+        $this->registerAction = $registerAction;
     }
 
     /**
@@ -43,7 +42,7 @@ class ShopRegisterController extends Controller
      */
     public function register(ShopRegisterRequest $request)
     {
-        return $this->registerService->startRegister($request);
+        return $this->registerAction->execute($request);
     }
 
 }
