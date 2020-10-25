@@ -369,4 +369,15 @@
 
 Проверяем, все работает
 
-Сделаем коммит #19
+Сделаем коммит [#19](https://github.com/acwstudio/DDD-demo/commit/ff00ba26acb6360fbfefa77054236122068f2480)
+
+Рефакторим сброс пароля.
+
+Создаем два сервисных класса **`App/Http/Shop/Customers/Services/ShopResetPasswordService.php`** и 
+**`App/Http/Shop/Customers/Services/ShopForgotPasswordService.php`** куда выносим соответственно логику из
+контроллеров **`App/Http/Shop/Customers/Controllers/ShopResetPasswordController.php`** и 
+**`App/Http/Shop/Customers/Controllers/ShopForgotPasswordController.php`**
+
+Проверяем, все работает
+
+Сделаем коммит #20
