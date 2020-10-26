@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Shop\Customers\Services;
+namespace Domain\Customers\Actions;
 
 
 use App\Providers\RouteServiceProvider;
@@ -11,10 +11,10 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
- * Class ShopVerifyService
- * @package App\Http\Shop\Customers\Services
+ * Class CustomerVerifyAction
+ * @package Domain\Customers\Actions
  */
-class ShopVerifyService
+class CustomerVerifyAction
 {
     /**
      * Where to redirect users after verification.
@@ -24,14 +24,11 @@ class ShopVerifyService
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
-     * Mark the authenticated user's email address as verified.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return JsonResponse
-     *
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @param Request $request
+     * @return JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws AuthorizationException
      */
-    public function startVerify(Request $request)
+    public function execute(Request $request)
     {
         if (! hash_equals((string) $request->route('id'), (string) $request->user()->getKey())) {
             throw new AuthorizationException;
@@ -72,27 +69,6 @@ class ShopVerifyService
     }
 
     /**
-     * Resend the email verification notification.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    public function startResend(Request $request)
-    {
-        if ($request->user()->hasVerifiedEmail()) {
-            return $request->wantsJson()
-                ? new JsonResponse([], 204)
-                : redirect($this->redirectPath());
-        }
-
-        $request->user()->sendEmailVerificationNotification();
-
-        return $request->wantsJson()
-            ? new JsonResponse([], 202)
-            : back()->with('resent', true);
-    }
-
-    /**
      * Get the post register / login redirect path.
      *
      * @return string
@@ -105,4 +81,5 @@ class ShopVerifyService
 
         return property_exists($this, 'redirectTo') ? $this->redirectTo : '/';
     }
+
 }

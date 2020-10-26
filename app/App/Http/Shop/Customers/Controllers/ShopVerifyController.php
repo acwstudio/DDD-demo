@@ -3,7 +3,8 @@
 
 namespace App\Http\Shop\Customers\Controllers;
 
-use App\Http\Shop\Customers\Services\ShopVerifyService;
+use Domain\Customers\Actions\CustomerResendAction;
+use Domain\Customers\Actions\CustomerVerifyAction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -14,20 +15,22 @@ use Illuminate\Routing\Controller;
  */
 class ShopVerifyController extends Controller
 {
-    protected $verifyService;
+    protected $verifyAction;
+    protected $resendAction;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(ShopVerifyService $verifyService)
+    public function __construct(CustomerVerifyAction $verifyAction, CustomerResendAction $resendAction)
     {
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
 
-        $this->verifyService = $verifyService;
+        $this->verifyAction = $verifyAction;
+        $this->resendAction = $resendAction;
     }
 
     /**
@@ -40,18 +43,7 @@ class ShopVerifyController extends Controller
      */
     public function verify(Request $request)
     {
-        return $this->verifyService->startVerify($request);
-    }
-
-    /**
-     * The user has been verified.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return mixed
-     */
-    protected function verified(Request $request)
-    {
-        //
+        return $this->verifyAction->execute($request);
     }
 
     /**
@@ -62,7 +54,7 @@ class ShopVerifyController extends Controller
      */
     public function resend(Request $request)
     {
-        return $this->verifyService->startResend($request);
+        return $this->resendAction->execute($request);
     }
 
     /**
@@ -75,7 +67,7 @@ class ShopVerifyController extends Controller
     {
         $title = 'Verify';
         return $request->user()->hasVerifiedEmail()
-            ? redirect($this->verifyService->redirectPath())
+            ? redirect($this->verifyAction->redirectPath())
             : view('shop.auth.customer-verify', compact('title'));
     }
 }

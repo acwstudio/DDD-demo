@@ -405,14 +405,20 @@
 
 - **`Domain/Customers/Actions/CustomerLoginAction.php`**
 
-Интересная ситуация возникла с **`App/Http/Shop/Customers/Services/ThrottlesLoginsService.php`**, потому что 
+Интересная ситуация возникла с **`App/Http/Shop/Customers/Services/ShopThrottlesLoginsService.php`**, потому что 
 этот класс реально сервис, а не экшен. Пожалуй что настало время воспользоваться **`app/Support`**. 
 
 - **`Support/ThrottlesLoginsService.php`** 
 
-сделаем коммит #22
+сделаем коммит [#22](https://github.com/acwstudio/DDD-demo/commit/75957b8c14b848bb653e87749327965d95f504c9)
+
+Сервисный класс **`App/Http/Shop/Customers/Services/ShopVerifyService.php`** по сути содержит два экшена 
+**`startVerify`** и **`startResend`** поэтому разобъем его на два экшена.
+
+- **`Domain/Customers/Actions/CustomerVerifyAction.php`**
+- **`Domain/Customers/Actions/CustomerResendAction.php`**
+
+сделаем коммит #23
 
 - **`Domain/Customers/Actions/CustomerForgotPasswordAction.php`**
 - **`Domain/Customers/Actions/CustomerResetPasswordAction.php`**
-
-- **`Domain/Customers/Actions/CustomerVerifyAction.php`**
