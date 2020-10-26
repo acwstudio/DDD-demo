@@ -451,7 +451,13 @@
 
 Несколько фековых фдминов появились в базе данных.
 
-сделаем коммит #25
+сделаем коммит [#25](https://github.com/acwstudio/DDD-demo/commit/b1f4f179b120570f8a33b66652abb28558dcf47f)
 
-- проведем рефакторинг с целью явного указания **`guard`** для **`Customers`**
+- проведем рефакторинг с целью явного указания **`guard`** для **`Customers`**.
+
+Упс, обнаружилось, что контроллер **`App/Http/Shop/Customers/Controllers/ShopLogoutController.php`** не имеет 
+экшена. Это не мешает ему правильно работать, но для однообразия, создадим ему экшен 
+**`Domain/Customers/Actions/CustomerLogoutAction.php`**
+
+сделаем коммит #26
 

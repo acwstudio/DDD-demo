@@ -141,7 +141,7 @@ class CustomerResetPasswordAction
      */
     public function broker()
     {
-        return Password::broker();
+        return Password::broker('customer');
     }
 
     /**
@@ -151,7 +151,7 @@ class CustomerResetPasswordAction
      */
     protected function guard()
     {
-        return \Auth::guard();
+        return \Auth::guard('customer');
     }
 
     /**

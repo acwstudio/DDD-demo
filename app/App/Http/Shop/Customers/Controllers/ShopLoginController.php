@@ -22,7 +22,7 @@ class ShopLoginController extends Controller
      */
     public function __construct(CustomerLoginAction $loginAction)
     {
-        $this->middleware('guest');
+        $this->middleware('guest:customer');
         $this->loginAction = $loginAction;
     }
 

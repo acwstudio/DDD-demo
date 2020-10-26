@@ -75,7 +75,7 @@ class CustomerRegisterAction
      */
     protected function guard()
     {
-        return \Auth::guard();
+        return \Auth::guard('customer');
     }
 
     /**

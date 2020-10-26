@@ -3,8 +3,7 @@
 
 namespace App\Http\Shop\Customers\Controllers;
 
-
-use Illuminate\Http\JsonResponse;
+use Domain\Customers\Actions\CustomerLogoutAction;
 use Illuminate\Http\Request;
 
 /**
@@ -13,6 +12,17 @@ use Illuminate\Http\Request;
  */
 class ShopLogoutController
 {
+    protected $logoutAction;
+
+    /**
+     * ShopLogoutController constructor.
+     * @param CustomerLogoutAction $logoutAction
+     */
+    public function __construct(CustomerLogoutAction $logoutAction)
+    {
+        $this->logoutAction = $logoutAction;
+    }
+
     /**
      * Log the user out of the application.
      *
@@ -21,39 +31,7 @@ class ShopLogoutController
      */
     public function logout(Request $request)
     {
-        $this->guard()->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        if ($response = $this->loggedOut($request)) {
-            return $response;
-        }
-
-        return $request->wantsJson()
-            ? new JsonResponse([], 204)
-            : redirect('/');
+        return $this->logoutAction->execute($request);
     }
 
-    /**
-     * The user has logged out of the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return mixed
-     */
-    protected function loggedOut(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Get the guard to be used during authentication.
-     *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
-     */
-    protected function guard()
-    {
-        return \Auth::guard();
-    }
 }

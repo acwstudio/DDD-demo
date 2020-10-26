@@ -23,7 +23,7 @@ class ShopRegisterController extends Controller
      */
     public function __construct(CustomerRegisterAction $registerAction)
     {
-        $this->middleware('guest');
+        $this->middleware('guest:customer');
         $this->registerAction = $registerAction;
     }
 

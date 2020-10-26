@@ -143,7 +143,7 @@ class CustomerLoginAction
      */
     public function guard()
     {
-        return \Auth::guard();
+        return \Auth::guard('customer');
     }
 
     /**

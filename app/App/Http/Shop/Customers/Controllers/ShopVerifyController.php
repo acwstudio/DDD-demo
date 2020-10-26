@@ -25,8 +25,8 @@ class ShopVerifyController extends Controller
      */
     public function __construct(CustomerVerifyAction $verifyAction, CustomerResendAction $resendAction)
     {
-        $this->middleware('auth');
-        $this->middleware('signed')->only('verify');
+        $this->middleware('auth:customer');
+        $this->middleware('signed:customer')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
 
         $this->verifyAction = $verifyAction;
