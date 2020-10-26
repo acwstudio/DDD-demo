@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Shop\Customers\Services;
+namespace Domain\Customers\Actions;
 
 
 use Illuminate\Http\JsonResponse;
@@ -10,10 +10,10 @@ use Illuminate\Validation\ValidationException;
 use Password;
 
 /**
- * Class ShopForgotPasswordService
- * @package App\Http\Shop\Customers\Services
+ * Class CustomerForgotPasswordAction
+ * @package Domain\Customers\Actions
  */
-class ShopForgotPasswordService
+class CustomerForgotPasswordAction
 {
     /**
      * Send a reset link to the given user.
@@ -22,7 +22,7 @@ class ShopForgotPasswordService
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      * @throws ValidationException
      */
-    public function startSendResetLinkEmail(Request $request)
+    public function execute(Request $request)
     {
         $this->validateEmail($request);
 

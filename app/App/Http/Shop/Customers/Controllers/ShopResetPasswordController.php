@@ -4,7 +4,7 @@
 namespace App\Http\Shop\Customers\Controllers;
 
 use App\Http\Shop\Customers\Requests\ShopResetPasswordRequest;
-use App\Http\Shop\Customers\Services\ShopResetPasswordService;
+use Domain\Customers\Actions\CustomerResetPasswordAction;
 use Illuminate\Http\Request;
 
 /**
@@ -13,15 +13,15 @@ use Illuminate\Http\Request;
  */
 class ShopResetPasswordController
 {
-    protected $resetPasswordService;
+    protected $resetPasswordAction;
 
     /**
      * ShopResetPasswordController constructor.
-     * @param ShopResetPasswordService $resetPasswordService
+     * @param CustomerResetPasswordAction $resetPasswordAction
      */
-    public function __construct(ShopResetPasswordService $resetPasswordService)
+    public function __construct(CustomerResetPasswordAction $resetPasswordAction)
     {
-        $this->resetPasswordService = $resetPasswordService;
+        $this->resetPasswordAction = $resetPasswordAction;
     }
 
 
@@ -51,7 +51,7 @@ class ShopResetPasswordController
      */
     public function reset(ShopResetPasswordRequest $request)
     {
-        return $this->resetPasswordService->startReset($request);
+        return $this->resetPasswordAction->execute($request);
     }
 
 }

@@ -418,7 +418,11 @@
 - **`Domain/Customers/Actions/CustomerVerifyAction.php`**
 - **`Domain/Customers/Actions/CustomerResendAction.php`**
 
-сделаем коммит #23
+сделаем коммит [#23](https://github.com/acwstudio/DDD-demo/commit/051e796369e97e40b2b86a37b622300642024af6)
+
+Последние два экшена
 
 - **`Domain/Customers/Actions/CustomerForgotPasswordAction.php`**
 - **`Domain/Customers/Actions/CustomerResetPasswordAction.php`**
+
+Сделаем коммит #24

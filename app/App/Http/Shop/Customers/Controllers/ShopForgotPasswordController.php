@@ -3,7 +3,7 @@
 
 namespace App\Http\Shop\Customers\Controllers;
 
-use App\Http\Shop\Customers\Services\ShopForgotPasswordService;
+use Domain\Customers\Actions\CustomerForgotPasswordAction;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -13,15 +13,15 @@ use Illuminate\Validation\ValidationException;
  */
 class ShopForgotPasswordController
 {
-    protected $forgotPasswordService;
+    protected $forgotPasswordAction;
 
     /**
      * ShopForgotPasswordController constructor.
-     * @param ShopForgotPasswordService $forgotPasswordService
+     * @param CustomerForgotPasswordAction $forgotPasswordAction
      */
-    public function __construct(ShopForgotPasswordService $forgotPasswordService)
+    public function __construct(CustomerForgotPasswordAction $forgotPasswordAction)
     {
-        $this->forgotPasswordService = $forgotPasswordService;
+        $this->forgotPasswordAction = $forgotPasswordAction;
     }
 
     /**
@@ -44,6 +44,6 @@ class ShopForgotPasswordController
      */
     public function sendResetLinkEmail(Request $request)
     {
-        return $this->forgotPasswordService->startSendResetLinkEmail($request);
+        return $this->forgotPasswordAction->execute($request);
     }
 }
