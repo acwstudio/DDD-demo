@@ -3,14 +3,15 @@
 
 namespace Database\Seeders;
 
-use Domain\Customers\Models\Customer;
+
+use Domain\Admins\Models\Admin;
 use Illuminate\Database\Seeder;
 
 /**
- * Class CustomerSeeder
+ * Class AdminSeeder
  * @package Database\Seeders
  */
-class CustomerSeeder extends Seeder
+class AdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,16 +20,16 @@ class CustomerSeeder extends Seeder
      */
     public function run()
     {
-        if (Customer::all()->count()) {
-            foreach (Customer::all() as $item) {
+        if (Admin::all()->count()) {
+            foreach (Admin::all() as $item) {
                 $item->delete();
             }
         }
 
-        Customer::factory()->times(10)->create();
+        Admin::factory()->times(5)->create();
 
-        foreach (Customer::all() as $item) {
-            $email = strtolower(str_replace(' ', '.', $item->name)) . '@customer.loc';
+        foreach (Admin::all() as $item) {
+            $email = strtolower(str_replace(' ', '.', $item->name)) . '@admin.loc';
             $item->update([
                 'email' => $email,
                 'password' => \Hash::make('12345678')
