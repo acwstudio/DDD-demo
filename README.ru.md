@@ -459,5 +459,11 @@
 экшена. Это не мешает ему правильно работать, но для однообразия, создадим ему экшен 
 **`Domain/Customers/Actions/CustomerLogoutAction.php`**
 
-сделаем коммит #26
+сделаем коммит [#26](https://github.com/acwstudio/DDD-demo/commit/a7457e6bfb563ff4e4ee8ee010601f2077700219)
+
+- разделение файла **`routes/web.php`** на два: **`routes/shop.php`** и **`routes/admin.php`** с очевидной целью 
+разделить роуты для **Shop** и для **Admin Panel**. Это повлечет за собой некоторые правки в 
+**`App/Providers/RouteServiceProvider.php`**. может еще где, смотрите коммит.
+
+сделаем коммит #27
 
