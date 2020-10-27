@@ -25,7 +25,7 @@ class CustomerResetPasswordAction
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::HOME_SHOP;
 
     /**
      * Reset the given user's password.

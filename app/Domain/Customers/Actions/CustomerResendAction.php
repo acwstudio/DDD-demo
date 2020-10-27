@@ -19,7 +19,7 @@ class CustomerResendAction
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::HOME_SHOP;
 
     /**
      * Resend the email verification notification.

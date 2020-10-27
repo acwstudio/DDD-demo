@@ -20,7 +20,7 @@ class CustomerRegisterAction
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::HOME_SHOP;
 
 
     protected $customer;

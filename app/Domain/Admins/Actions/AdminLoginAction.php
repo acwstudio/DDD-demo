@@ -1,57 +1,38 @@
 <?php
 
 
-namespace Domain\Customers\Actions;
+namespace Domain\Admins\Actions;
 
 
-use App\Http\Shop\Customers\Requests\ShopLoginRequest;
+use App\Http\AdminPanel\Admins\Requests\AdminLoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Support\ThrottlesLoginsService;
 
 /**
- * Class CustomerLoginAction
- * @package Domain\Customers\Actions
+ * Class AdminLoginAction
+ * @package Domain\Admins\Actions
  */
-class CustomerLoginAction
+class AdminLoginAction
 {
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME_SHOP;
-    protected $throttlesLoginsService;
+    protected $redirectTo = RouteServiceProvider::HOME_ADMIN;
 
-    /**
-     * CustomerLoginAction constructor.
-     * @param ThrottlesLoginsService $throttlesLoginsService
-     */
-    public  function __construct(ThrottlesLoginsService $throttlesLoginsService)
-    {
-        $this->throttlesLoginsService = $throttlesLoginsService;
-    }
 
     /**
      * @param Request $request
-     * @return
+     * @return mixed
      */
     public function execute(Request $request)
     {
-        if ($this->throttlesLoginsService->hasTooManyLoginAttempts($request)) {
-
-            $this->throttlesLoginsService->fireLockoutEvent($request);
-
-            return $this->throttlesLoginsService->sendLockoutResponse($request);
-        }
-
         if ($this->attemptLogin($request)) {
             return $this->sendLoginResponse($request);
         }
-
-        $this->throttlesLoginsService->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
     }
@@ -90,8 +71,6 @@ class CustomerLoginAction
     {
         $request->session()->regenerate();
 
-        $this->throttlesLoginsService->clearLoginAttempts($request);
-
         if ($response = $this->authenticated($request, $this->guard()->user())) {
             return $response;
         }
@@ -108,7 +87,7 @@ class CustomerLoginAction
      * @param  mixed  $user
      * @return mixed
      */
-    public function authenticated(ShopLoginRequest $request, $user)
+    public function authenticated(Request $request, $user)
     {
         //
     }
@@ -143,7 +122,7 @@ class CustomerLoginAction
      */
     public function guard()
     {
-        return \Auth::guard('customer');
+        return \Auth::guard('admin');
     }
 
     /**

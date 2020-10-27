@@ -11,6 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('admin.pages.home');
-});
+use App\Http\AdminPanel\AdminHomeController;
+use App\Http\AdminPanel\Admins\Controllers\AdminLoginController;
+
+Route::get('/', [AdminHomeController::class, 'showHomePage']);
+
+/**************************************
+ ******* Authentication Routes ********
+ **************************************/
+
+//Login Routes
+Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/login', [AdminLoginController::class, 'login'])->name('admin');
+
