@@ -2,7 +2,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-{{--    <a href="{{ route('admins.home') }}" class="brand-link">--}}
+    <a href="{{ route('admin.home') }}" class="brand-link">
         <img src="{{ asset('admin/dist/img/AdminLTELogo.png') }}"
              alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
              style="opacity: .8">
@@ -18,8 +18,7 @@
                      class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-{{--                <a href="#" class="d-block">{{ Auth::user()->name }}</a>--}}
-                <a href="#" class="d-block">Tom</a>
+                <a href="#" class="d-block">{{ Auth::user()->name }}</a>
             </div>
         </div>
 
@@ -41,8 +40,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#"
-{{--                            <a href="{{ route('admins.home') }}"--}}
+                            <a href="{{ route('admin.home') }}"
                                class="nav-link">
 {{--                               class="nav-link {{ $viewModel->menuItems['admins.home'][0] }}">--}}
                                 <i class="far fa-circle nav-icon"></i>

@@ -506,4 +506,12 @@
 - Создадим шаблон страницы **Log In**
 - Создадим **`App/Httml/AdminPanel/AdminHomeController.php`** и поправим роут.
 
-сделаем коммит #29
+сделаем коммит [#29](https://github.com/acwstudio/DDD-demo/commit/3f3698f5b7a0dcf72b1ceddb74e10301d19d797d)
+
+### Разлогинивание пользователя типа **`admins`**
+
+- Создадим роут в файле **`routes/admin.php`**
+- Создадим контроллер **`App/Http/AdminPanel/Admins/Controllers/AdmunLogoutController`**
+- Создадим экшен **`Domain/Admins/Actions/AdmunLogoutAction`**
+
+сделаем коммит #30

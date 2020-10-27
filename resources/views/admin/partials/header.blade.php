@@ -131,24 +131,20 @@
                     <i class="far fa-user"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-item dropdown-header">Tom</span>
-{{--                    <span class="dropdown-item dropdown-header">{{ Auth::user()->name }}</span>--}}
+                    <span class="dropdown-item dropdown-header">{{ Auth::user()->name }}</span>
                     <div class="dropdown-divider"></div>
-{{--                    <a href="{{ route('admins.logout') }}" class="dropdown-item"--}}
-                    <a href="#" class="dropdown-item"
+                    <a href="{{ route('admin.logout') }}" class="dropdown-item"
                        onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
                         <i class="fas fa-sign-out-alt mr-2"></i> Logout
                     </a>
-{{--                    <form id="logout-form" action="{{ route('admins.logout') }}"--}}
-                    <form id="logout-form" action="#"
+                    <form id="logout-form" action="{{ route('admin.logout') }}"
                           method="POST" style="display: none;">
                         @csrf
                     </form>
                     <div class="dropdown-divider"></div>
 
-                    <a href="#" class="dropdown-item dropdown-footer">tom@admin.loc</a>
-{{--                    <a href="#" class="dropdown-item dropdown-footer">{{ Auth::user()->email }}</a>--}}
+                    <a href="#" class="dropdown-item dropdown-footer">{{ Auth::user()->email }}</a>
                 </div>
             </li>
         </ul>

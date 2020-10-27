@@ -13,8 +13,9 @@
 
 use App\Http\AdminPanel\AdminHomeController;
 use App\Http\AdminPanel\Admins\Controllers\AdminLoginController;
+use App\Http\AdminPanel\Admins\Controllers\AdminLogoutController;
 
-Route::get('/', [AdminHomeController::class, 'showHomePage']);
+Route::get('/', [AdminHomeController::class, 'showHomePage'])->name('admin.home');
 
 /**************************************
  ******* Authentication Routes ********
@@ -23,4 +24,8 @@ Route::get('/', [AdminHomeController::class, 'showHomePage']);
 //Login Routes
 Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/login', [AdminLoginController::class, 'login'])->name('admin');
+
+//Logout Routes
+Route::post('/logout', [AdminLogoutController::class, 'logout'])->name('admin.logout');
+
 
