@@ -11,7 +11,10 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.copyDirectory('resources/shop/css', 'public/shop/css')
+mix.copyDirectory('node_modules/admin-lte/plugins', 'public/admin/plugins')
+    .copyDirectory('node_modules/admin-lte/dist', 'public/admin/dist')
+
+    .copyDirectory('resources/shop/css', 'public/shop/css')
     .copyDirectory('resources/shop/fonts', 'public/shop/fonts')
     .copyDirectory('resources/shop/js', 'public/shop/js')
 ;

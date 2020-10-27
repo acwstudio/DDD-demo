@@ -66,7 +66,7 @@
 
 Сделаем коммит [#3](https://github.com/acwstudio/DDD-demo/commit/3fc71cd7d93e54dae148d6ac10a18fed8c17aea4)
 
-### Готовим фронтенд
+### Готовим фронтенд для Shop
 
 Прежде чем приступить к этому шагу, пофиксил немного грамматику в README.ru.md
 
@@ -449,7 +449,7 @@
 
 Выполним **`php artisan migate`** а потом **`php artisan db:seed --class=AdminSeeder`**
 
-Несколько фековых фдминов появились в базе данных.
+Несколько фейковых админов появились в базе данных.
 
 сделаем коммит [#25](https://github.com/acwstudio/DDD-demo/commit/b1f4f179b120570f8a33b66652abb28558dcf47f)
 
@@ -465,5 +465,19 @@
 разделить роуты для **Shop** и для **Admin Panel**. Это повлечет за собой некоторые правки в 
 **`App/Providers/RouteServiceProvider.php`**. может еще где, смотрите коммит.
 
-сделаем коммит #27
+сделаем коммит [#27](https://github.com/acwstudio/DDD-demo/commit/cbeab01e8b7898f65a499cb81910fca533e3b944)
+
+### Готовим фронтенд для Admin Panel
+
+В качестве темы для **Admin Panel** возьмем бесплатную **Admin LTE**. Начнем с того, что установим ее с 
+помощью пакетного менеджера **`npm install admin-lte@^3.0 --save`**
+
+- подготовим файловую структуру в директории **`public`**
+- отредактируем **`webpack.mix.js`** выполним **`npm install && npm run dev`**
+- подготовим файловую структуру для шаблонов **`resources/views/admin/`**
+- разместим шаблоны
+
+сделаем коммит #28
+
+
 
