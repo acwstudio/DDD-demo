@@ -2,7 +2,15 @@
 
 [English README](https://github.com/acwstudio/DDD-demo/blob/ddd_v1/README.md)
 
-### Вступление
+[Вступление](#intro)
+
+[Файловая структура](#file_structure)
+
+[Готовим фронтенд для Shop](#shop_frontend)
+
+### Вступление 
+
+<a name="intro"></a>
 В данном проекте я попытаюсь на практике создать такую архитектуру приложения Laravel, которая позволит вести
 командную разработку средних и больших проектов и облегчит взаимодействие с менеджментом и заказчиками. 
 
@@ -26,6 +34,8 @@
 все сделанные изменения очень удобно смотреть в коммитах.
 
 ### Файловая структура
+<a name="file_structure"></a>
+
 Дефолтную структуру Laravel придется кардинально изменить. В процессе ребилдинга будут вырисовываться контуры 
 будущего приложения. Начнем с глобальных шагов и вместо одной корневой директории **`app`** создадим три 
 новых корневых папки 
@@ -66,7 +76,8 @@
 
 Сделаем коммит [#3](https://github.com/acwstudio/DDD-demo/commit/3fc71cd7d93e54dae148d6ac10a18fed8c17aea4)
 
-### Готовим фронтенд для Shop
+### Готовим фронтенд для Shop 
+<a name="shop_frontend"></a>
 
 Прежде чем приступить к этому шагу, пофиксил немного грамматику в README.ru.md
 
@@ -456,7 +467,7 @@
 - проведем рефакторинг с целью явного указания **`guard`** для **`Customers`**.
 
 Упс, обнаружилось, что контроллер **`App/Http/Shop/Customers/Controllers/ShopLogoutController.php`** не имеет 
-экшена. Это не мешает ему правильно работать, но для однообразия, создадим ему экшен 
+экшена. Это не мешает ему правильно работать, но для единообразия, создадим ему экшен 
 **`Domain/Customers/Actions/CustomerLogoutAction.php`**
 
 сделаем коммит [#26](https://github.com/acwstudio/DDD-demo/commit/a7457e6bfb563ff4e4ee8ee010601f2077700219)
@@ -488,7 +499,7 @@
 - для каждого пользователя будет своя роль с набором разрешений
 - отсутствует возможность самостоятельной регистрации
 - зарегистрировать нового пользователя может только пользователь с ролью **`super-admin`**
-- 
+- регистрацию можно производить как через форму приложения **`AdminPanel`**, так и через консольное приложение
 
 ### Аутентификация пользователя типа `admins`
 
@@ -503,8 +514,9 @@
 - Создадим роуты в файле **`routes/admin.php`**
 - Создадим контроллер **`App/Http/AdminPanel/Admins/Controllers/AdmunLoginController`**
 - Создадим экшен **`Domain/Admins/Actions/AdmunLoginAction`**
-- Создадим шаблон страницы **Log In**
-- Создадим **`App/Httml/AdminPanel/AdminHomeController.php`** и поправим роут.
+- создадим валидационный класс **`App/Http/AdminPanel/Admins/Requests/AdmunLoginRequest`**
+- создадим шаблон страницы **Log In**
+- создадим **`App/Httml/AdminPanel/AdminHomeController.php`** и поправим роут.
 
 сделаем коммит [#29](https://github.com/acwstudio/DDD-demo/commit/3f3698f5b7a0dcf72b1ceddb74e10301d19d797d)
 
@@ -533,5 +545,14 @@
 
 Выполним команду **`php artisan migrate:refresh --seed`**
 
-сделаем коммит #31
+сделаем коммит [#31](https://github.com/acwstudio/DDD-demo/commit/196977135d3514df56d2a559186e96ea3755276e)
 
+**Регистрация через приложение `AdminPanel`**
+
+- создадим роут в файле **`routes/admin.php`**
+- создадим контроллер **`App/Http/AdminPanel/Admins/Controllers/AdmunRegisterController`**
+- создадим экшен **`Domain/Admins/Actions/AdmunRegisterAction`**
+- создадим валидационный класс **`App/Http/AdminPanel/Admins/Requests/AdmunRegisterRequest`**
+- создадим шаблон страницы **Register**
+
+сделаем коммит #32

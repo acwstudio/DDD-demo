@@ -14,6 +14,7 @@
 use App\Http\AdminPanel\AdminHomeController;
 use App\Http\AdminPanel\Admins\Controllers\AdminLoginController;
 use App\Http\AdminPanel\Admins\Controllers\AdminLogoutController;
+use App\Http\AdminPanel\Admins\Controllers\AdminRegisterController;
 
 Route::get('/', [AdminHomeController::class, 'showHomePage'])->name('admin.home');
 
@@ -28,4 +29,7 @@ Route::post('/login', [AdminLoginController::class, 'login'])->name('admin');
 //Logout Routes
 Route::post('/logout', [AdminLogoutController::class, 'logout'])->name('admin.logout');
 
+//Register Routes
+Route::get('/register', [AdminRegisterController::class, 'showRegisterForm'])->name('admin.register');
+Route::post('/register', [AdminRegisterController::class, 'register']);
 

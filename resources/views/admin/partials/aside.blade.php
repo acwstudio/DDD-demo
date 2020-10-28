@@ -106,17 +106,17 @@
                                 <p>List Admins</p>
                             </a>
                         </li>
-{{--                        <li class="nav-item">--}}
-{{--                            <a href="{{ route('admins.register') }}"--}}
-{{--                               class="nav-link {{ $viewModel->menuItems['admins.register'][0] }}">--}}
-{{--                                <i class="far fa-circle nav-icon"></i>--}}
-{{--                                <p>Register Admin--}}
+                        <li class="nav-item">
+                            <a href="{{ route('admin.register') }}"
+                               class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Register Admin
 {{--                                    @if(!$viewModel->canAction)--}}
 {{--                                        <span class="right badge badge-danger">403</span>--}}
 {{--                                    @endif--}}
-{{--                                </p>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
+                                </p>
+                            </a>
+                        </li>
 {{--                        <li class="nav-item">--}}
 {{--                            <a href="{{ route('admins.password.reset') }}"--}}
 {{--                               class="nav-link {{ $subNav == 'admin-reset' ? 'active' : '' }}">--}}
