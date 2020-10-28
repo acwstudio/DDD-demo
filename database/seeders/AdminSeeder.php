@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use Domain\Admins\Models\Admin;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 /**
  * Class AdminSeeder
@@ -13,6 +14,28 @@ use Illuminate\Database\Seeder;
  */
 class AdminSeeder extends Seeder
 {
+    /** @var array */
+    private array $roles;
+
+    /** @var array */
+    private array $names;
+
+    /** @var Admin */
+    private Admin $adminsDB;
+
+    /**
+     * AdminSeeder constructor.
+     * @param Admin $admin
+     * @param Role $role
+     */
+    public function __construct(Admin $admin, Role $role)
+    {
+        $this->adminsDB = $admin;
+
+        $this->roles = config('roles-set.seeds.roles');
+        $this->names = config('roles-set.seeds.names');
+    }
+
     /**
      * Run the database seeds.
      *
@@ -26,15 +49,29 @@ class AdminSeeder extends Seeder
             }
         }
 
-        Admin::factory()->times(5)->create();
+        Admin::factory()->times(6)->create();
 
-        foreach (Admin::all() as $item) {
-            $email = strtolower(str_replace(' ', '.', $item->name)) . '@admin.loc';
-            $item->update([
-                'email' => $email,
-                'password' => \Hash::make('12345678')
-            ]);
-            $this->command->info('email is ' . $email);
+        foreach ($this->adminsDB->all() as $key => $item) {
+
+            $data = ['role' => $this->roles[$key], 'name' => $this->names[$key]];
+            $this->updateAdmin($item, $data);
+
         }
+
+    }
+
+    /**
+     * Replace factory data to config data_seed
+     *
+     * @param Admin $item
+     */
+    private function updateAdmin(Admin $item, array $data)
+    {
+        $item->assignRole($data['role']);
+        $item->update([
+            'name' => $data['name'],
+            'email' => strtolower($data['name']) . '@admin.loc',
+            'password' => \Hash::make('12345678'),
+        ]);
     }
 }
