@@ -555,4 +555,9 @@
 - создадим валидационный класс **`App/Http/AdminPanel/Admins/Requests/AdmunRegisterRequest`**
 - создадим шаблон страницы **Register**
 
-сделаем коммит #32
+сделаем коммит [#32](https://github.com/acwstudio/DDD-demo/commit/7e468366ac52ee862dbcebbab939a8f2dce9569b)
+
+После коммита заметил, что роль на форме выбрать можно, но пользователю она не присваивается. Пофиксим это в 
+экшене **`Domain/Admins/Actions/AdmunRegisterAction`**
+
+сделаем коммит #33

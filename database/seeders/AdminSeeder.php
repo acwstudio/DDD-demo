@@ -67,11 +67,15 @@ class AdminSeeder extends Seeder
      */
     private function updateAdmin(Admin $item, array $data)
     {
+        $email = strtolower($data['name']) . '@admin.loc';
+
         $item->assignRole($data['role']);
         $item->update([
             'name' => $data['name'],
-            'email' => strtolower($data['name']) . '@admin.loc',
+            'email' => $email,
             'password' => \Hash::make('12345678'),
         ]);
+
+        $this->command->info('email is ' . $email);
     }
 }

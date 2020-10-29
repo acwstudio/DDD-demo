@@ -40,11 +40,12 @@ class AdminRegisterAction
      */
     public function execute(Request $request)
     {
-        $user = $this->create($request->all());
+        $admin = $this->create($request->all());
 
-        $this->guard()->login($user);
+        $this->guard()->login($admin);
+        $this->assigneRole($admin, $admin->id, $request);
 
-        if ($response = $this->registered($request, $user)) {
+        if ($response = $this->registered($request, $admin)) {
             return $response;
         }
 
@@ -66,6 +67,18 @@ class AdminRegisterAction
             'email' => $data['email'],
             'password' => \Hash::make($data['password']),
         ]);
+    }
+
+    /**
+     * Assigne role to admin
+     *
+     * @param int $id
+     * @param Request $request
+     */
+    private function assigneRole(Admin $admin, int $id, $request)
+    {
+        $role = $request->role ? $request->role : 'probationer';
+        $admin->find($id)->assignRole($role);
     }
 
     /**
