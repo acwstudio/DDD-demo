@@ -560,4 +560,11 @@
 После коммита заметил, что роль на форме выбрать можно, но пользователю она не присваивается. Пофиксим это в 
 экшене **`Domain/Admins/Actions/AdmunRegisterAction`**
 
-сделаем коммит #33
+сделаем коммит [#33](https://github.com/acwstudio/DDD-demo/commit/b471f1bdcfddf58dbb68bdb57c178917506658d6)
+
+Следующий шаг - добавим отправку **email** вновь зарегистрированному админу с данными регистрации. 
+
+- Создадим **`App/Http/AdminPanel/Admins/Mails/AdminRegisteredMail.php`**
+- Создадим **`resources/views/admin/emails/admin-registered.blade.php`**
+
+сделаем коммит #34

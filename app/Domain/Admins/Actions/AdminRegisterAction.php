@@ -4,6 +4,7 @@
 namespace Domain\Admins\Actions;
 
 
+use App\Http\AdminPanel\Admins\Mails\AdminRegisteredMail;
 use App\Providers\RouteServiceProvider;
 use Domain\Admins\Models\Admin;
 use Illuminate\Http\JsonResponse;
@@ -43,7 +44,10 @@ class AdminRegisterAction
         $admin = $this->create($request->all());
 
         $this->guard()->login($admin);
+
         $this->assigneRole($admin, $admin->id, $request);
+
+        $this->sendEmail($request);
 
         if ($response = $this->registered($request, $admin)) {
             return $response;
@@ -79,6 +83,14 @@ class AdminRegisterAction
     {
         $role = $request->role ? $request->role : 'probationer';
         $admin->find($id)->assignRole($role);
+    }
+
+    /**
+     * @param Request $request
+     */
+    private function sendEmail(Request $request)
+    {
+        \Mail::to($request->email)->send(new AdminRegisteredMail($request->all()));
     }
 
     /**
