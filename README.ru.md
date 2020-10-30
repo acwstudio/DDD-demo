@@ -567,4 +567,14 @@
 - Создадим **`App/Http/AdminPanel/Admins/Mails/AdminRegisteredMail.php`**
 - Создадим **`resources/views/admin/emails/admin-registered.blade.php`**
 
-сделаем коммит #34
+сделаем коммит [#34](https://github.com/acwstudio/DDD-demo/commit/d2789cd3a8809aebe73a1560958a7840ecbe84ad)
+
+**Регистрация через консоль**
+
+После коммита обратил внимание, что в случае регистрации админа нет необходимости редиректить на **HOME_ADMIN** 
+и логиниться. Удалим все лишнее.
+
+Создадим класс для валидации введеных данных **`App/Console/Admins/AdminDataValidate.php`**
+Создадим класс выполнения регистрации **`App/Console/Admins/Commands/AdminRegisterCommand.php`**
+
+создадим коммит #35

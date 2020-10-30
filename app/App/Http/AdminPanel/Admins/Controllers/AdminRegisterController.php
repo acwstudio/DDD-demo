@@ -40,10 +40,14 @@ class AdminRegisterController extends Controller
 
     /**
      * @param AdminRegisterRequest $request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function register(AdminRegisterRequest $request)
     {
-        return $this->registerAction->execute($request);
+        $this->registerAction->execute($request);
+
+        return view('admin.pages.register', compact('viewModel'));
     }
 
 }

@@ -5,9 +5,7 @@ namespace Domain\Admins\Actions;
 
 
 use App\Http\AdminPanel\Admins\Mails\AdminRegisteredMail;
-use App\Providers\RouteServiceProvider;
 use Domain\Admins\Models\Admin;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
@@ -17,12 +15,10 @@ use Illuminate\Http\Request;
 class AdminRegisterAction
 {
     /**
-     * Where to redirect users after login.
+     * Admin model.
      *
-     * @var string
+     * @var Admin
      */
-    protected $redirectTo = RouteServiceProvider::HOME_ADMIN;
-
 
     protected Admin $admin;
 
@@ -37,25 +33,16 @@ class AdminRegisterAction
 
     /**
      * @param Request $request
-     * @return JsonResponse
+     * @return void
      */
     public function execute(Request $request)
     {
         $admin = $this->create($request->all());
 
-        $this->guard()->login($admin);
-
         $this->assigneRole($admin, $admin->id, $request);
 
         $this->sendEmail($request);
 
-        if ($response = $this->registered($request, $admin)) {
-            return $response;
-        }
-
-        return $request->wantsJson()
-            ? new JsonResponse([], 201)
-            : redirect($this->redirectPath());
     }
 
     /**
@@ -91,42 +78,6 @@ class AdminRegisterAction
     private function sendEmail(Request $request)
     {
         \Mail::to($request->email)->send(new AdminRegisteredMail($request->all()));
-    }
-
-    /**
-     * Get the guard to be used during registration.
-     *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
-     */
-    protected function guard()
-    {
-        return \Auth::guard('admin');
-    }
-
-    /**
-     * The user has been registered.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     * @return mixed
-     */
-    protected function registered(Request $request, $user)
-    {
-        //
-    }
-
-    /**
-     * Get the post register / login redirect path.
-     *
-     * @return string
-     */
-    public function redirectPath()
-    {
-        if (method_exists($this, 'redirectTo')) {
-            return $this->redirectTo();
-        }
-
-        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/';
     }
 
 }
