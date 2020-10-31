@@ -6,6 +6,7 @@ namespace App\Http\AdminPanel\Admins\Controllers;
 
 use App\Http\AdminPanel\Admins\Requests\AdminRegisterRequest;
 use Domain\Admins\Actions\AdminRegisterAction;
+use Domain\Admins\Models\Admin;
 use Illuminate\Routing\Controller;
 use Spatie\Permission\Models\Role;
 
@@ -35,7 +36,7 @@ class AdminRegisterController extends Controller
     public function showRegisterForm()
     {
         $viewModel = Role::all();
-        return view('admin.pages.register', compact('viewModel'));
+        return view('admin.pages.admins.register', compact('viewModel'));
     }
 
     /**
@@ -45,9 +46,10 @@ class AdminRegisterController extends Controller
      */
     public function register(AdminRegisterRequest $request)
     {
+
         $this->registerAction->execute($request);
 
-        return view('admin.pages.register', compact('viewModel'));
+        return redirect()->route('admin.list');
     }
 
 }

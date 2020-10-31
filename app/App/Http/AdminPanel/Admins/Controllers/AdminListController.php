@@ -30,7 +30,7 @@ class AdminListController extends Controller
         $admins = Admin::all();
         $admin = Admin::find(\Auth::guard('admin')->user()->getAuthIdentifier());
 
-        return view('admin.pages.list', [
+        return view('admin.pages.admins.list', [
             'admins' => $admins,
             'admin' => $admin,
         ]);

@@ -34,7 +34,7 @@ class AdminLoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('admin.pages.login');
+        return view('admin.pages.admins.login');
     }
 
     /**

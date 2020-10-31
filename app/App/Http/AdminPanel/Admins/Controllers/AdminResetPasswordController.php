@@ -40,7 +40,7 @@ class AdminResetPasswordController extends Controller
     {
         $admin = Admin::find($id);
 
-        return view('admin.pages.password-reset', compact('admin'));
+        return view('admin.pages.admins.password-reset', compact('admin'));
     }
 
     /**
@@ -55,5 +55,7 @@ class AdminResetPasswordController extends Controller
         $admin = Admin::find($id);
 
         $this->resetPasswordAction->execute($admin, $request);
+
+        return redirect()->route('admin.list');
     }
 }
