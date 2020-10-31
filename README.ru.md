@@ -574,7 +574,34 @@
 После коммита обратил внимание, что в случае регистрации админа нет необходимости редиректить на **HOME_ADMIN** 
 и логиниться. Удалим все лишнее.
 
-Создадим класс для валидации введеных данных **`App/Console/Admins/AdminDataValidate.php`**
-Создадим класс выполнения регистрации **`App/Console/Admins/Commands/AdminRegisterCommand.php`**
+- Создадим класс для валидации введеных данных **`App/Console/Admins/AdminDataValidate.php`**
+- Создадим класс выполнения регистрации **`App/Console/Admins/Commands/AdminRegisterCommand.php`**
 
-создадим коммит #35
+создадим коммит [#35](https://github.com/acwstudio/DDD-demo/commit/b88aff3078f44e375eee9c8359618e28acc41a08)
+
+### Сброс пароля пользователя типа **`admins`**
+
+**Сброс пароля через приложение `AdminPanel`**
+
+Сброс пароля может сделать только админ с ролью **`super-admin`**. Фактически это редактирование пароля 
+конкретного админа. Чтобы открыть форму с данными этого админа, необходимо в запросе указать его **id** в 
+качестве параметра. Самый очевидный способ сделать такой запрос, это кликнуть нужную ссылку в строке списка 
+админов. Выведем таблицу со списком всех админов.
+
+- напишем роут в файле **`routes/admin.php`**
+- создадим контроллер **`App/Http/AdminPanel/Admins/Controllers/AdminListController`**
+- Создадим шаблон со списком админов
+
+Сделаем сброс пароля
+
+- Добавим в форму **LogIn** ссылку `Forgot Your Password?`
+- Напишем роуты в файле **`routes/admin.php`**
+- Создадим контроллер **`App/Http/AdminPanel/Admins/Controllers/AdminResetPasswordController.php`**
+- Создадим экшен **`App/Domain/Admins/Actions/AdminResetPasswordAction.php`**
+- Создадим валидационный класс **`App/Http/AdminPanel/Admins/Requests/AdminResetPasswordRequest.php`**
+- Создадим шаблон формы для сброса пароля 
+
+создадим коммит #36 
+
+
+

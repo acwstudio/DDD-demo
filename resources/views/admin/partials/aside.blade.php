@@ -97,8 +97,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#"
-{{--                            <a href="{{ route('admins.list') }}"--}}
+                            <a href="{{ route('admin.list') }}"
                                class="nav-link">
 {{--                               class="nav-link {{ $viewModel->menuItems['admins.list'][0] }}">--}}
 

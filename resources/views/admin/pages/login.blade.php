@@ -78,6 +78,13 @@
                     </div>
                     <!-- /.col -->
                 </div>
+                <div class="row">
+                    @if (Route::has('admin.password.request'))
+                        <a class="btn btn-link ml-50" href="{{ route('admin.password.request') }}">
+                            {{ __('Forgot Your Password?') }}
+                        </a>
+                    @endif
+                </div>
             </form>
 
             <!-- /.login-card-body -->

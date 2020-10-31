@@ -12,11 +12,14 @@
 */
 
 use App\Http\AdminPanel\AdminHomeController;
+use App\Http\AdminPanel\Admins\Controllers\AdminListController;
 use App\Http\AdminPanel\Admins\Controllers\AdminLoginController;
 use App\Http\AdminPanel\Admins\Controllers\AdminLogoutController;
 use App\Http\AdminPanel\Admins\Controllers\AdminRegisterController;
+use App\Http\AdminPanel\Admins\Controllers\AdminResetPasswordController;
 
 Route::get('/', [AdminHomeController::class, 'showHomePage'])->name('admin.home');
+Route::get('admins', [AdminListController::class, 'showList'])->name('admin.list');
 
 /**************************************
  ******* Authentication Routes ********
@@ -33,3 +36,8 @@ Route::post('/logout', [AdminLogoutController::class, 'logout'])->name('admin.lo
 Route::get('/register', [AdminRegisterController::class, 'showRegisterForm'])->name('admin.register');
 Route::post('/register', [AdminRegisterController::class, 'register']);
 
+//Reset Password Routes
+Route::get('/password/reset/show/{id}', [AdminResetPasswordController::class, 'showResetForm'])
+    ->name('admin.password.reset');
+Route::put('/password/reset/{id}', [AdminResetPasswordController::class, 'reset'])
+    ->name('admin.password.update');
