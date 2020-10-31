@@ -575,7 +575,7 @@
 и логиниться. Удалим все лишнее.
 
 - Создадим класс для валидации введеных данных **`App/Console/Admins/AdminDataValidate.php`**
-- Создадим класс выполнения регистрации **`App/Console/Admins/Commands/AdminRegisterCommand.php`**
+- Создадим команду для регистрации **`App/Console/Admins/Commands/AdminRegisterCommand.php`**
 
 создадим коммит [#35](https://github.com/acwstudio/DDD-demo/commit/b88aff3078f44e375eee9c8359618e28acc41a08)
 
@@ -601,7 +601,13 @@
 - Создадим валидационный класс **`App/Http/AdminPanel/Admins/Requests/AdminResetPasswordRequest.php`**
 - Создадим шаблон формы для сброса пароля 
 
-создадим коммит #36 
+создадим коммит [#36](https://github.com/acwstudio/DDD-demo/commit/0f8c69f6106ede6f78903472de4805e2c9498589)
+
+**Сброс пароля через Console`**
+
+- Создадим команду для сброса пароля **`App/Console/Admins/Commands/AdminResetPasswordCommand.php`**
+
+создадм коммит #37
 
 
 

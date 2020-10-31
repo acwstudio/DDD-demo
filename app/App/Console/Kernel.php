@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Admins\Commands\AdminRegisterCommand;
+use App\Console\Admins\Commands\AdminResetPasswordCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -19,6 +20,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         AdminRegisterCommand::class,
+        AdminResetPasswordCommand::class,
     ];
 
     /**
