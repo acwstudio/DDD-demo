@@ -103,6 +103,6 @@ class CustomerForgotPasswordAction
      */
     public function broker()
     {
-        return Password::broker('customer');
+        return Password::broker('customers');
     }
 }

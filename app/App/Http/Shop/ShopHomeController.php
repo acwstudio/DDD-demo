@@ -5,7 +5,6 @@ namespace App\Http\Shop;
 
 use Domain\Customers\Models\Customer;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * Class ShopHomeController
@@ -13,22 +12,21 @@ use Illuminate\Support\Facades\Auth;
  */
 class ShopHomeController extends Controller
 {
+    public function __construct()
+    {
+        //$this->middleware('web-shop');
+    }
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function showHomePage()
     {
-        $customer = Auth::user();
+        /** @var Customer $customer */
+        $customer = \Auth::guard('customer')->user();
 
-        if ($customer) {
-            /** @var Customer $customer */
-            if ($customer->hasVerifiedEmail()) {
-                return view('shop.pages.shop');
-            } else {
-                return redirect()->route('verification.notice');
-            }
-        }
+        $viewModel = new ShopViewModel($customer);
 
-        return view('shop.pages.shop');
+        return view('shop.pages.shop', ['viewModel' => $viewModel]);
     }
 }

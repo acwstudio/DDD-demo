@@ -26,12 +26,11 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
-
             if (Auth::guard($guard)->check()) {
                 if ($guard === 'admin') {
                     return redirect(RouteServiceProvider::HOME_ADMIN);
                 }
-                if ($guard === 'shop') {
+                if ($guard === 'customer') {
                     return redirect(RouteServiceProvider::HOME_SHOP);
                 }
             }

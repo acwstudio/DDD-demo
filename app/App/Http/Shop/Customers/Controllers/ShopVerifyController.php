@@ -3,6 +3,7 @@
 
 namespace App\Http\Shop\Customers\Controllers;
 
+use App\Http\Shop\Customers\ViewModels\CustomerViewModel;
 use Domain\Customers\Actions\CustomerResendAction;
 use Domain\Customers\Actions\CustomerVerifyAction;
 use Illuminate\Http\JsonResponse;
@@ -65,9 +66,9 @@ class ShopVerifyController extends Controller
      */
     public function show(Request $request)
     {
-        $title = 'Verify';
+        $viewModel = new CustomerViewModel('Verify');
         return $request->user()->hasVerifiedEmail()
             ? redirect($this->verifyAction->redirectPath())
-            : view('shop.auth.customer-verify', compact('title'));
+            : view('shop.auth.customer-verify', compact('viewModel'));
     }
 }

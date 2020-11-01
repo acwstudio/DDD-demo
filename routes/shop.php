@@ -51,6 +51,6 @@ Route::post('/password/email', [ShopForgotPasswordController::class, 'sendResetL
 //Reset Password Routes
 Route::get('/password/reset/{token}', [ShopResetPasswordController::class, 'showResetForm'])
     ->name('password.reset');
-Route::post('/password/reset/{$id}', [ShopResetPasswordController::class, 'reset'])
+Route::post('/password/reset', [ShopResetPasswordController::class, 'reset'])
     ->name('password.update');
 

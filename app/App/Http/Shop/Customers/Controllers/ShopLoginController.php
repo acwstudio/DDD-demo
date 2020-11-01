@@ -4,6 +4,7 @@
 namespace App\Http\Shop\Customers\Controllers;
 
 use App\Http\Shop\Customers\Requests\ShopLoginRequest;
+use App\Http\Shop\Customers\ViewModels\CustomerViewModel;
 use Domain\Customers\Actions\CustomerLoginAction;
 use Illuminate\Routing\Controller;
 
@@ -33,8 +34,9 @@ class ShopLoginController extends Controller
      */
     public function showLoginForm()
     {
-        $title = 'LogIn';
-        return view('shop.auth.customer-login', compact('title'));
+        $viewModel = new CustomerViewModel('LogIn');
+
+        return view('shop.auth.customer-login', compact('viewModel'));
     }
 
     /**

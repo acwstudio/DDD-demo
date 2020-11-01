@@ -4,10 +4,10 @@
             <div class="col">
 
                 <div class="page-banner text-center">
-                    <h1>{{ $title }}</h1>
+                    <h1>{{ $viewModel->title }}</h1>
                     <ul class="page-breadcrumb">
                         <li><a href="#">Home</a></li>
-                        <li>{{ $title }}</li>
+                        <li>{{ $viewModel->title }}</li>
                     </ul>
                 </div>
 

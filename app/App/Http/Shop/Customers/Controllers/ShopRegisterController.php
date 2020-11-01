@@ -4,6 +4,7 @@
 namespace App\Http\Shop\Customers\Controllers;
 
 use App\Http\Shop\Customers\Requests\ShopRegisterRequest;
+use App\Http\Shop\Customers\ViewModels\CustomerViewModel;
 use Domain\Customers\Actions\CustomerRegisterAction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -32,8 +33,9 @@ class ShopRegisterController extends Controller
      */
     public function showRegisterForm()
     {
-        $title = 'Register';
-        return view('shop.auth.customer-register', compact('title'));
+        $viewModel = new CustomerViewModel('Register');
+//        $title = 'Register';
+        return view('shop.auth.customer-register', compact('viewModel'));
     }
 
     /**

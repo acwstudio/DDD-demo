@@ -3,6 +3,7 @@
 
 namespace App\Http\Shop\Customers\Controllers;
 
+use App\Http\Shop\Customers\ViewModels\CustomerViewModel;
 use Domain\Customers\Actions\CustomerForgotPasswordAction;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -31,8 +32,9 @@ class ShopForgotPasswordController
      */
     public function showLinkRequestForm()
     {
-        $title = 'Send Password Reset Link';
-        return view('shop.auth.customer-email', compact('title'));
+        $viewModel = new CustomerViewModel('Send Password Reset Link');
+
+        return view('shop.auth.customer-email', compact('viewModel'));
     }
 
     /**

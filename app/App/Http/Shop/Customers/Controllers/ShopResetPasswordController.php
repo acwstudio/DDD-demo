@@ -4,6 +4,7 @@
 namespace App\Http\Shop\Customers\Controllers;
 
 use App\Http\Shop\Customers\Requests\ShopResetPasswordRequest;
+use App\Http\Shop\Customers\ViewModels\CustomerViewModel;
 use Domain\Customers\Actions\CustomerResetPasswordAction;
 use Illuminate\Http\Request;
 
@@ -35,11 +36,12 @@ class ShopResetPasswordController
      */
     public function showResetForm(Request $request)
     {
-        $title = 'Reset Password';
+//        $title = 'Reset Password';
+        $viewModel = new CustomerViewModel('Reset Password');
         $token = $request->route()->parameter('token');
 
         return view('shop.auth.customer-reset')->with(
-            ['token' => $token, 'email' => $request->email, 'title' => $title]
+            ['token' => $token, 'email' => $request->email, 'viewModel' => $viewModel]
         );
     }
 

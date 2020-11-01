@@ -141,7 +141,7 @@ class CustomerResetPasswordAction
      */
     public function broker()
     {
-        return Password::broker('customer');
+        return Password::broker('customers');
     }
 
     /**
