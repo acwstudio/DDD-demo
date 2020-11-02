@@ -5,6 +5,7 @@ namespace App\Http\AdminPanel\Admins\Controllers;
 
 
 use App\Http\AdminPanel\Admins\Requests\AdminResetPasswordRequest;
+use App\Http\AdminPanel\Admins\ViewModels\AdminResetPasswordViewModel;
 use Domain\Admins\Actions\AdminResetPasswordAction;
 use Domain\Admins\Models\Admin;
 use Illuminate\Routing\Controller;
@@ -24,7 +25,7 @@ class AdminResetPasswordController extends Controller
     public function __construct(AdminResetPasswordAction $resetPasswordAction)
     {
         $this->middleware('auth:admin');
-        $this->middleware(['role:super-admin,admin']);
+        $this->middleware(['permission:admins.reset']);
         $this->resetPasswordAction = $resetPasswordAction;
     }
 
@@ -33,14 +34,15 @@ class AdminResetPasswordController extends Controller
      *
      * If no token is present, display the link request form.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Exception
      */
     public function showResetForm(int $id)
     {
-        $admin = Admin::find($id);
+        $viewModel = new AdminResetPasswordViewModel($id);
 
-        return view('admin.pages.admins.password-reset', compact('admin'));
+        return view('admin.pages.admins.password-reset', compact('viewModel'));
     }
 
     /**

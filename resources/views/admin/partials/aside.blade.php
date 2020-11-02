@@ -123,16 +123,23 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="#"
+                               class="nav-link disabled
+                               {{ $viewModel->active === 'admin.password.reset' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Reset Password
+                                    @if ($viewModel->active === 'admin.password.reset')
+                                        <span class="right badge badge-info">{{ 'ID ' . $viewModel->adminItem->id }}</span>
+                                    @else
+                                        <span class="right badge badge-danger">ID NO</span>
+                                    @endif
+                                </p>
+                            </a>
+                        </li>
 {{--                        <li class="nav-item">--}}
-{{--                            <a href="{{ route('admins.password.reset') }}"--}}
-{{--                               class="nav-link {{ $subNav == 'admin-reset' ? 'active' : '' }}">--}}
-{{--                                <i class="far fa-circle nav-icon"></i>--}}
-{{--                                <p>Reset Password</p>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        <li class="nav-item">--}}
-{{--                            <a href="{{ route('admins.password.reset') }}"--}}
-{{--                               class="nav-link {{ $subNav == 'admin-role' ? 'active' : '' }}">--}}
+{{--                            <a href="#"--}}
+{{--                               class="nav-link ">--}}
 {{--                                <i class="far fa-circle nav-icon"></i>--}}
 {{--                                <p>Change Role</p>--}}
 {{--                            </a>--}}

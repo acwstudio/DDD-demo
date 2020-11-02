@@ -658,4 +658,11 @@
 
 Теперь наше меню, пока только в части **Admins**, работает корректно.
 
-сделаем коммит #40
+сделаем коммит [#40](https://github.com/acwstudio/DDD-demo/commit/f5bfb71558be9c3c305a1c1c988931a2f5d3b970)
+
+После коммита, увидел что еще не все **ViewModels** сделал для модуля **Admins**.
+
+- Создадим **`App/Http/AdminPanel/Admins/ViewModels/AdminResetPasswordViewModel.php`**
+- Отредактируем другие участвующие классы.
+
+сделаем коммит #41

@@ -5,40 +5,37 @@ namespace App\Http\AdminPanel\Admins\ViewModels;
 
 
 use Domain\Admins\Models\Admin;
-use Illuminate\Database\Eloquent\Collection;
 use Route;
-use Spatie\Permission\Models\Role;
 
 /**
- * Class AdminRegisterViewModel
+ * Class AdminResetPasswordViewModel
  * @package App\Http\AdminPanel\Admins\ViewModels
  */
-class AdminRegisterViewModel extends AdminViewModel
+class AdminResetPasswordViewModel extends AdminViewModel
 {
-    public $roles;
+    public $adminItem;
 
     /**
      * ShopViewModel constructor.
-     * @param Collection $admins
+     * @param int $id
      * @throws \Exception
      */
-    public function __construct()
+    public function __construct(int $id)
     {
         /** @var Admin $admin */
         $admin = \Auth::guard('admin')->user();
         $active = Route::getCurrentRoute()->getName();
         $activeGroup = 'admin';
+        $this->adminItem = Admin::find($id);
 
         parent::__construct($admin, $active, $activeGroup);
-
-        $this->roles = Role::all();
     }
 
     /**
-     * @return Collection
+     * @return Admin|\Illuminate\Database\Eloquent\Model|object|null
      */
-    public function roles()
+    public function adminItem()
     {
-        return $this->roles;
+        return $this->adminItem;
     }
 }

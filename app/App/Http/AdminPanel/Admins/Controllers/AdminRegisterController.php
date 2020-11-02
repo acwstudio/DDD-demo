@@ -27,7 +27,7 @@ class AdminRegisterController extends Controller
     public function __construct(AdminRegisterAction $registerAction)
     {
         $this->middleware('auth:admin');
-        $this->middleware(['role:super-admin,admin']);
+        $this->middleware(['permission:admins.register']);
         $this->registerAction = $registerAction;
     }
 
@@ -37,8 +37,7 @@ class AdminRegisterController extends Controller
      */
     public function showRegisterForm()
     {
-        $roles = Role::all();
-        $viewModel = new AdminRegisterViewModel($roles);
+        $viewModel = new AdminRegisterViewModel();
 
         return view('admin.pages.admins.register', compact('viewModel'));
     }

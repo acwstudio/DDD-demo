@@ -52,7 +52,7 @@
                                     <th>Email</th>
                                     <th>Role</th>
                                     <th>Date reg.</th>
-                                    <th>Actions</th>
+                                    <th>Res. Pass</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -64,7 +64,8 @@
                                     <td>{{ $admin->roles()->first()->name }}</td>
                                     <td>{{ $admin->created_at }}</td>
                                     <td>
-                                        <a href="{{ route('admin.password.reset', $admin->id) }}" type="button" class="btn btn-default">
+                                        <a href="{{ route('admin.password.reset', $admin->id) }}" type="button"
+                                           class="btn {{ $viewModel->canResetPassword ? 'btn-success' : 'disabled' }}">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                     </td>

@@ -15,6 +15,8 @@ class AdminViewModel extends ViewModel
 {
     public $canRegister;
     public $canList;
+    public $canResetPassword;
+    public $canBan;
 
     /**
      * ShopViewModel constructor.
@@ -28,6 +30,7 @@ class AdminViewModel extends ViewModel
         $this->activeGroup = $activeGroup;
         $this->canRegister = $admin->hasAnyPermission('admins.register');
         $this->canList = $admin->hasAnyPermission('admins.list');
+        $this->canResetPassword = $admin->hasAnyPermission('admins.reset');
     }
 
     /**
@@ -68,5 +71,13 @@ class AdminViewModel extends ViewModel
     public function canList()
     {
         return $this->canList;
+    }
+
+    /**
+     * @return bool
+     */
+    public function canResetPassword()
+    {
+        return $this->canResetPassword;
     }
 }

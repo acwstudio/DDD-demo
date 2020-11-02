@@ -31,7 +31,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form method="POST" action="{{ route('admin.password.update', $admin->id) }}"
+                        <form method="POST" action="{{ route('admin.password.update', $viewModel->adminItem->id) }}"
                               class="form-horizontal">
                             @csrf
                             @method('PUT')
@@ -41,7 +41,8 @@
                                     <label for="name" class="col-sm-3 col-form-label">Name</label>
                                     <div class="col-sm-9">
                                         <input id="name" type="text" class="form-control @error('name')
-                                            is-invalid @enderror" name="name" value="{{ $admin->name }}"
+                                            is-invalid @enderror" name="name"
+                                               value="{{ $viewModel->adminItem->name }}"
                                                required autocomplete="name" placeholder="Name" autofocus>
                                         @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -55,7 +56,8 @@
                                     <label for="email" class="col-sm-3 col-form-label">Email</label>
                                     <div class="col-sm-9">
                                         <input id="email" type="email" class="form-control @error('email')
-                                            is-invalid @enderror" name="email" value="{{ $admin->email }}"
+                                            is-invalid @enderror" name="email"
+                                               value="{{ $viewModel->adminItem->email }}"
                                                required autocomplete="name" placeholder="Email">
                                         @error('email')
                                         <span class="invalid-feedback" role="alert">

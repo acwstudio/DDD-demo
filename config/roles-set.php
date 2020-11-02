@@ -14,15 +14,15 @@ return [
                 'customers' => ['view', 'create', 'edit', 'delete', 'ban'],
             ],
             'manager' => [
-                'admins' => ['list', 'reset'],
+                'admins' => ['list'],
                 'customers' => ['view'],
             ],
             'moderator' => [
-                'admins' => ['list', 'reset'],
+                'admins' => ['list'],
                 'customers' => ['view', 'ban'],
             ],
             'writer' => [
-                'admins' => ['list', 'reset'],
+                'admins' => ['list'],
                 'customers' => ['view'],
             ],
             'probationer' => [
