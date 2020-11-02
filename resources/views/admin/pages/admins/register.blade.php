@@ -68,16 +68,11 @@
                                     <div class="col-sm-9">
                                         <select class="form-control" id="role" name="role">
                                             <option value="" disabled selected>Select Role</option>
-                                            @foreach($viewModel as $role)
+                                            @foreach($viewModel->roles as $role)
                                                 <option value="{{ $role->name }}"
                                                     {{ old('role') == $role->name ? 'selected' : '' }}>
                                                     {{ $role->name }}</option>
                                             @endforeach
-{{--                                            @foreach($viewModel->roles as $role)--}}
-{{--                                                <option value="{{ $role->name }}"--}}
-{{--                                                    {{ old('role') == $role->name ? 'selected' : '' }}>--}}
-{{--                                                    {{ $role->name }}</option>--}}
-{{--                                            @endforeach--}}
                                         </select>
                                     </div>
                                 </div>
@@ -110,7 +105,7 @@
                             <!-- /.card-body -->
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-info">Sign in</button>
-                                <a href="#" type="button"
+                                <a href="{{ route('admin.list') }}" type="button"
                                    class="btn btn-default float-right">Cancel</a>
                             </div>
                             <!-- /.card-footer -->

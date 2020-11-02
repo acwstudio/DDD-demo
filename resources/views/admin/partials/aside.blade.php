@@ -18,7 +18,7 @@
                      class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                <a href="#" class="d-block">{{ $viewModel->admin->name }}</a>
             </div>
         </div>
 
@@ -28,10 +28,9 @@
                 role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
-                <li class="nav-item has-treeview">
-{{--                <li class="nav-item has-treeview {{ $viewModel->menuItems['admins.home'][1] }}">--}}
-                    <a href="#" class="nav-link">
-{{--                    <a href="#" class="nav-link {{ $viewModel->menuItems['admins.home'][0] }}">--}}
+                <li class="nav-item has-treeview
+                    {{ $viewModel->activeGroup === 'dashboard' ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ $viewModel->activeGroup === 'dashboard' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -41,10 +40,11 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('admin.home') }}"
-                               class="nav-link">
-{{--                               class="nav-link {{ $viewModel->menuItems['admins.home'][0] }}">--}}
+                               class="nav-link {{ $viewModel->active === 'admin.home' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard v2</p>
+                                <p>Dashboard v2
+                                    <span class="right badge badge-success">200</span>
+                                </p>
                             </a>
                         </li>
                     </ul>
@@ -54,7 +54,6 @@
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Widgets
-                            <span class="right badge badge-danger">No Access</span>
                         </p>
                     </a>
                 </li>
@@ -85,10 +84,8 @@
                         {{--                        </li>--}}
                     </ul>
                 </li>
-                <li class="nav-item has-treeview">
-{{--                <li class="nav-item has-treeview {{ $viewModel->menuItems['admins.list'][1] }}">--}}
-                    <a href="#" class="nav-link">
-{{--                    <a href="#" class="nav-link {{ $viewModel->menuItems['admins.list'][0] }}">--}}
+                <li class="nav-item has-treeview {{ $viewModel->activeGroup === 'admin' ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ $viewModel->activeGroup === 'admin' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users-cog"></i>
                         <p>
                             Admins
@@ -98,21 +95,31 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('admin.list') }}"
-                               class="nav-link">
-{{--                               class="nav-link {{ $viewModel->menuItems['admins.list'][0] }}">--}}
-
+                               class="nav-link
+                               {{ $viewModel->active === 'admin.list' ? 'active' : '' }}
+                               {{ $viewModel->canList ? '' : 'disabled' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>List Admins</p>
+                                <p>List Admins
+                                    @if(!$viewModel->canList)
+                                        <span class="right badge badge-danger">403</span>
+                                    @else
+                                        <span class="right badge badge-success">200</span>
+                                    @endif
+                                </p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.register') }}"
-                               class="nav-link">
+                               class="nav-link
+                               {{ $viewModel->canRegister ? '' : 'disabled' }}
+                               {{ $viewModel->active === 'admin.register' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Register Admin
-{{--                                    @if(!$viewModel->canAction)--}}
-{{--                                        <span class="right badge badge-danger">403</span>--}}
-{{--                                    @endif--}}
+                                    @if(!$viewModel->canRegister)
+                                        <span class="right badge badge-danger">403</span>
+                                    @else
+                                        <span class="right badge badge-success">200</span>
+                                    @endif
                                 </p>
                             </a>
                         </li>
@@ -229,4 +236,5 @@
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
+
 </aside>

@@ -4,6 +4,7 @@
 namespace App\Http\AdminPanel\Admins\Controllers;
 
 
+use App\Http\AdminPanel\Admins\ViewModels\AdminListViewModel;
 use Domain\Admins\Actions\AdminResetPasswordAction;
 use Domain\Admins\Models\Admin;
 use Illuminate\Routing\Controller;
@@ -24,15 +25,14 @@ class AdminListController extends Controller
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Exception
      */
     public function showList()
     {
         $admins = Admin::all();
-        $admin = Admin::find(\Auth::guard('admin')->user()->getAuthIdentifier());
 
-        return view('admin.pages.admins.list', [
-            'admins' => $admins,
-            'admin' => $admin,
-        ]);
+        $viewModel = new AdminListViewModel($admins);
+
+        return view('admin.pages.admins.list', compact('viewModel'));
     }
 }

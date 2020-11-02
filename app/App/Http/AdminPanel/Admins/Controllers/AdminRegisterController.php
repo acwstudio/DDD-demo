@@ -5,6 +5,7 @@ namespace App\Http\AdminPanel\Admins\Controllers;
 
 
 use App\Http\AdminPanel\Admins\Requests\AdminRegisterRequest;
+use App\Http\AdminPanel\Admins\ViewModels\AdminRegisterViewModel;
 use Domain\Admins\Actions\AdminRegisterAction;
 use Domain\Admins\Models\Admin;
 use Illuminate\Routing\Controller;
@@ -32,10 +33,13 @@ class AdminRegisterController extends Controller
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Exception
      */
     public function showRegisterForm()
     {
-        $viewModel = Role::all();
+        $roles = Role::all();
+        $viewModel = new AdminRegisterViewModel($roles);
+
         return view('admin.pages.admins.register', compact('viewModel'));
     }
 

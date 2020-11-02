@@ -56,7 +56,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($admins as $admin)
+                                @foreach($viewModel->admins as $admin)
                                 <tr>
                                     <td>{{ $admin->id }}</td>
                                     <td>{{ $admin->name }}</td>

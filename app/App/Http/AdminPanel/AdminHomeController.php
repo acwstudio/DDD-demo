@@ -4,8 +4,10 @@
 namespace App\Http\AdminPanel;
 
 
+use App\Http\AdminPanel\Admins\ViewModels\AdminViewModel;
 use Domain\Admins\Models\Admin;
 use Illuminate\Routing\Controller;
+use Route;
 
 /**
  * Class AdminHomeController
@@ -23,6 +25,13 @@ class AdminHomeController extends Controller
      */
     public function showHomePage()
     {
-        return view('admin.pages.home');
+        /** @var Admin $admin */
+        $admin = \Auth::guard('admin')->user();
+        $routeName = Route::getCurrentRoute()->getName();
+        $activeGroup = 'dashboard';
+
+        $viewModel = new AdminViewModel($admin, $routeName, $activeGroup);
+
+        return view('admin.pages.home', compact('viewModel'));
     }
 }

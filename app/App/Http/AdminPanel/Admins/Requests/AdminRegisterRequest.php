@@ -20,10 +20,6 @@ class AdminRegisterRequest extends FormRequest
      */
     public function authorize()
     {
-        /** @var Admin $admin */
-//        $admin = \Auth::user();
-//        dd($admin->can('admins.register'));
-//        return $admin->can('admins.register');
         return true;
     }
 
