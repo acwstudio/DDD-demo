@@ -8,7 +8,9 @@ use App\Http\AdminPanel\Admins\Requests\AdminResetPasswordRequest;
 use App\Http\AdminPanel\Admins\ViewModels\AdminResetPasswordViewModel;
 use Domain\Admins\Actions\AdminResetPasswordAction;
 use Domain\Admins\Models\Admin;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Routing\Controller;
+use Illuminate\View\View;
 
 /**
  * Class AdminResetPasswordController
@@ -35,7 +37,7 @@ class AdminResetPasswordController extends Controller
      * If no token is present, display the link request form.
      *
      * @param int $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      * @throws \Exception
      */
     public function showResetForm(int $id)

@@ -7,9 +7,9 @@ namespace App\Http\AdminPanel\Admins\Controllers;
 use App\Http\AdminPanel\Admins\Requests\AdminRegisterRequest;
 use App\Http\AdminPanel\Admins\ViewModels\AdminRegisterViewModel;
 use Domain\Admins\Actions\AdminRegisterAction;
-use Domain\Admins\Models\Admin;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Routing\Controller;
-use Spatie\Permission\Models\Role;
 
 /**
  * Class AdminRegisterController
@@ -32,7 +32,7 @@ class AdminRegisterController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Factory|View
      * @throws \Exception
      */
     public function showRegisterForm()
@@ -45,7 +45,7 @@ class AdminRegisterController extends Controller
     /**
      * @param AdminRegisterRequest $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Factory|View
      */
     public function register(AdminRegisterRequest $request)
     {

@@ -11,14 +11,16 @@
 |
 */
 
-use App\Http\AdminPanel\AdminHomeController;
+
+use App\Http\AdminPanel\AdminMenuController;
 use App\Http\AdminPanel\Admins\Controllers\AdminListController;
 use App\Http\AdminPanel\Admins\Controllers\AdminLoginController;
 use App\Http\AdminPanel\Admins\Controllers\AdminLogoutController;
 use App\Http\AdminPanel\Admins\Controllers\AdminRegisterController;
 use App\Http\AdminPanel\Admins\Controllers\AdminResetPasswordController;
+use App\Http\AdminPanel\Dashboard\Controllers\DashboardHomeController;
 
-Route::get('/', [AdminHomeController::class, 'showHomePage'])->name('admin.home');
+Route::get('/', [DashboardHomeController::class, 'showHomePage'])->name('dashboard.home');
 Route::get('admins', [AdminListController::class, 'showList'])->name('admin.list');
 
 /**************************************

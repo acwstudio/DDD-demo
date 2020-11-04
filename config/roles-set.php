@@ -7,27 +7,33 @@ return [
         'permissions' => [
             'super-admin' => [
                 'admins' => ['list', 'register', 'reset', 'delete', 'ban'],
-                'customers' => ['view', 'create', 'edit', 'delete', 'ban'],
+                'customers' => ['list', 'create', 'edit', 'delete', 'ban'],
+                'dashboard' => ['home'],
             ],
             'administrator' => [
                 'admins' => ['list', 'reset'],
-                'customers' => ['view', 'create', 'edit', 'delete', 'ban'],
+                'customers' => ['list', 'create', 'edit', 'delete', 'ban'],
+                'dashboard' => ['home'],
             ],
             'manager' => [
                 'admins' => ['list'],
-                'customers' => ['view'],
+                'customers' => ['list'],
+                'dashboard' => ['home'],
             ],
             'moderator' => [
                 'admins' => ['list'],
-                'customers' => ['view', 'ban'],
+                'customers' => ['list', 'ban'],
+                'dashboard' => ['home'],
             ],
             'writer' => [
                 'admins' => ['list'],
-                'customers' => ['view'],
+                'customers' => ['list'],
+                'dashboard' => ['home'],
             ],
             'probationer' => [
                 'admins' => ['list'],
-                'customers' => ['view'],
+                'customers' => ['list'],
+                'dashboard' => ['home'],
             ],
         ]
     ]

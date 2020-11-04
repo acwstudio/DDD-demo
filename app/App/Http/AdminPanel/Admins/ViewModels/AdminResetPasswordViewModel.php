@@ -4,16 +4,17 @@
 namespace App\Http\AdminPanel\Admins\ViewModels;
 
 
+use App\Http\AdminPanel\AdminPanelViewModel;
 use Domain\Admins\Models\Admin;
-use Route;
 
 /**
  * Class AdminResetPasswordViewModel
  * @package App\Http\AdminPanel\Admins\ViewModels
  */
-class AdminResetPasswordViewModel extends AdminViewModel
+class AdminResetPasswordViewModel extends AdminPanelViewModel
 {
     public $adminItem;
+    private $admin_id;
 
     /**
      * ShopViewModel constructor.
@@ -24,11 +25,14 @@ class AdminResetPasswordViewModel extends AdminViewModel
     {
         /** @var Admin $admin */
         $admin = \Auth::guard('admin')->user();
-        $active = Route::getCurrentRoute()->getName();
-        $activeGroup = 'admin';
-        $this->adminItem = Admin::find($id);
 
-        parent::__construct($admin, $active, $activeGroup);
+        $this->adminItem = Admin::find($id);
+        $this->admin_id = $id;
+
+        parent::__construct($admin);
+
+        $this->adminItems();
+
     }
 
     /**
@@ -37,5 +41,18 @@ class AdminResetPasswordViewModel extends AdminViewModel
     public function adminItem()
     {
         return $this->adminItem;
+    }
+
+    private function adminItems()
+    {
+        $menu = $this->asideMenu->where('alias', 'admins')->first();
+        $childMenu = $menu->children->where('alias', 'reset_password')->first();
+
+        $menu->active = 'active';
+        $menu->open = 'menu-open';
+        $childMenu->badgeText = 'ID: ' . $this->admin_id;
+        $childMenu->badgeColor = 'badge-success';
+
+        $childMenu->active = 'active';
     }
 }

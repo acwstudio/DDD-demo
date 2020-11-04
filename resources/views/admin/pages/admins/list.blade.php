@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">Home</a></li>
                         <li class="breadcrumb-item active">List of Admins</li>
                     </ol>
                 </div>
@@ -46,7 +46,7 @@
                         <div class="card-body table-responsive p-0" style="height: 500px;">
                             <table class="table table-head-fixed text-nowrap">
                                 <thead>
-                                <tr>
+                                <tr class="text-center">
                                     <th>ID</th>
                                     <th>Admin</th>
                                     <th>Email</th>
@@ -57,17 +57,21 @@
                                 </thead>
                                 <tbody>
                                 @foreach($viewModel->admins as $admin)
-                                <tr>
+                                <tr class="text-center">
                                     <td>{{ $admin->id }}</td>
                                     <td>{{ $admin->name }}</td>
                                     <td>{{ $admin->email }}</td>
                                     <td>{{ $admin->roles()->first()->name }}</td>
                                     <td>{{ $admin->created_at }}</td>
                                     <td>
-                                        <a href="{{ route('admin.password.reset', $admin->id) }}" type="button"
-                                           class="btn {{ $viewModel->canResetPassword ? 'btn-success' : 'disabled' }}">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
+                                        @if($viewModel->canResetPassword)
+                                            <a href="{{ route('admin.password.reset', $admin->id) }}" type="button"
+                                               class="btn-xs btn-success">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        @else
+                                            <span class="badge badge-danger">403</span>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
