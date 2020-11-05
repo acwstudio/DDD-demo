@@ -4,6 +4,7 @@
 namespace App\Http\AdminPanel\Admins\Requests;
 
 
+use Domain\Admins\Models\Admin;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
@@ -19,7 +20,13 @@ class AdminLoginRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $user = Admin::where('email', $this->get('email'))->first();
+
+        if ($user) {
+            return $user->ban === 0 ? true : false;
+        } else {
+            return true;
+        }
     }
 
     /**

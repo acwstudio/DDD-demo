@@ -4,14 +4,14 @@
 namespace App\Http\AdminPanel\Admins\Requests;
 
 
-use Domain\Admins\Models\Admin;
+use Domain\Admins\Rules\AdminPasswordVerifyRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class AdminRegisterRequest
+ * Class AdminBanRequest
  * @package App\Http\AdminPanel\Admins\Requests
  */
-class AdminRegisterRequest extends FormRequest
+class AdminBanRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,11 +30,23 @@ class AdminRegisterRequest extends FormRequest
      */
     public function rules()
     {
-        $this->get('id');
         return [
             'name' => ['required', 'string', 'max:20'],
-            'email' => ['required', 'string', 'email', 'max:100', 'unique:admins'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8', new AdminPasswordVerifyRule($this->id)],
+            'ban' => ['boolean'],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'ban' => $this->has('ban')
+        ]);
     }
 }

@@ -3,7 +3,7 @@
 return [
     'items' => [
         'Dashboard' => ['Home'],
-        'Admins' => ['List Admins', 'Register Admin', 'Reset Password'],
+        'Admins' => ['List Admins', 'Register Admin', 'Reset Password', 'Ban Admin'],
 //        'Customers' => ['List Customers', 'Ban Customer'],
 //        'Products' => ['List Products', 'New Product'],
     ],
@@ -20,6 +20,7 @@ return [
         'list_admins' => 'admin.list',
         'register_admin' => 'admin.register',
         'reset_password' => 'admin.list',
+        'ban_admin' => 'admin.list'
 //        'list_customers' => 'customer.list',
 //        'ban_customer' => 'customer.ban',
 //        'list_products' => 'product.list',

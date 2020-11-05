@@ -13,6 +13,7 @@
 
 
 use App\Http\AdminPanel\AdminMenuController;
+use App\Http\AdminPanel\Admins\Controllers\AdminBanController;
 use App\Http\AdminPanel\Admins\Controllers\AdminListController;
 use App\Http\AdminPanel\Admins\Controllers\AdminLoginController;
 use App\Http\AdminPanel\Admins\Controllers\AdminLogoutController;
@@ -27,19 +28,23 @@ Route::get('admins', [AdminListController::class, 'showList'])->name('admin.list
  ******* Authentication Routes ********
  **************************************/
 
-//Login Routes
+// Login Routes
 Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/login', [AdminLoginController::class, 'login'])->name('admin');
 
-//Logout Routes
+// Logout Routes
 Route::post('/logout', [AdminLogoutController::class, 'logout'])->name('admin.logout');
 
-//Register Routes
+// Register Routes
 Route::get('/register', [AdminRegisterController::class, 'showRegisterForm'])->name('admin.register');
 Route::post('/register', [AdminRegisterController::class, 'register']);
 
-//Reset Password Routes
+// Reset Password Routes
 Route::get('/password/reset/show/{id}', [AdminResetPasswordController::class, 'showResetForm'])
     ->name('admin.password.reset');
 Route::put('/password/reset/{id}', [AdminResetPasswordController::class, 'reset'])
     ->name('admin.password.update');
+
+// Ban routes
+Route::get('/ban/show/{id}', [AdminBanController::class, 'showBanForm'])->name('admin.ban.show');
+Route::put('/ban/reset/{id}', [AdminBanController::class, 'ban'])->name('admin.ban.update');

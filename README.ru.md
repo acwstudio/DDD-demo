@@ -679,4 +679,24 @@
 
 Далее пришлось многое рефакторить, описать процесс довольно сложно, поэтому смотрите коммит
 
-сделаем коммит #42
+сделаем коммит [#42](https://github.com/acwstudio/DDD-demo/commit/4389866f7759e95238f9fceaedecbad7cead20e3)
+
+Дополним функционал возможностью банить пользователя типа **`Admin`**. Такую возможность будет иметь только админ 
+с ролью **`super-admin`**
+
+**Банить пользователя через Admi Panel**
+
+- добавим поле **`ban`** в таблицу **`admins`**
+- добавим в нужные валидационные классы проверку на **`ban`**
+- создадим контроллер **`App/Http/AdminPanel/Admins/Controllers/AdminBanController.php`**
+- создадим форму **`resources/views/admin/pages/admins/ban.blade.php`**
+- напишем роут в файле **`routes/admin`**
+- добавим столбец **`Set Ban`** в **`resources/views/admin/pages/admins/list.blade.php`**
+- создадим валидационный класс **`App/Http/AdminPanel/Admins/Requests/AdminBanRequest.php`**
+- создадим кастомный **Rule** класс **`Domain/Admins/Rules/AdminPasswordVerifyRule.php`**
+- создадим экшен **`Domain/Admins/Actions/AdminBanAction.php`**
+- создадим **ViewModel** **`App/Http/AdminPanel/Admins/ViewModels/AdminBanViewModel.php`**
+
+Может что-то упустил в описании, но нет времени на подробное изложение, смотрите коммит
+
+сделаем коммит #43

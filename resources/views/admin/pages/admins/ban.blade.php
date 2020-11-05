@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Edit Admin</h1>
+                    <h1>Set Ban</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Edit Admin</li>
+                        <li class="breadcrumb-item active">Set Ban</li>
                     </ol>
                 </div>
             </div>
@@ -27,11 +27,11 @@
                     <!-- Horizontal Form -->
                     <div class="card card-info">
                         <div class="card-header">
-                            <h3 class="card-title">Edit Admin</h3>
+                            <h3 class="card-title">Set Ban</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form method="POST" action="{{ route('admin.password.update', $viewModel->adminItem->id) }}"
+                        <form method="POST" action="{{ route('admin.ban.update', $viewModel->adminItem->id) }}"
                               class="form-horizontal">
                             @csrf
                             @method('PUT')
@@ -66,43 +66,28 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <!-- Old Password field -->
-                                <div class="form-group row">
-                                    <label for="oldPassword" class="col-sm-3 col-form-label">Old Password</label>
-                                    <div class="col-sm-9">
-                                        <input id="oldPassword" type="password" class="form-control
-                                               @error('oldPassword') is-invalid @enderror" name="oldPassword"
-                                               required autocomplete="old-password" placeholder="Old Password">
-                                        @error('oldPassword')
-                                        <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
                                 <!-- Password field -->
                                 <div class="form-group row">
                                     <label for="password" class="col-sm-3 col-form-label">Password</label>
                                     <div class="col-sm-9">
                                         <input id="password" type="password" class="form-control
                                                @error('password') is-invalid @enderror" name="password"
-                                               required autocomplete="new-password" placeholder="New Password">
+                                               required autocomplete="new-password" placeholder="Password">
                                         @error('password')
-                                            <span class="invalid-feedback" role="alert">
+                                        <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
                                 </div>
-                                <!-- Confirm Password field -->
+                                <!-- Ban admin field -->
                                 <div class="form-group row">
-                                    <label for="password-confirm" class="col-sm-3 col-form-label">
-                                        Confirm Password</label>
-
+                                    <label for="password" class="col-sm-3 col-form-label">Set / unset ban</label>
                                     <div class="col-sm-9">
-                                        <input id="password-confirm" type="password" class="form-control"
-                                               name="password_confirmation" required autocomplete="new-password"
-                                               placeholder="Confirm New Password">
+                                        <div class="custom-control custom-checkbox" style="padding-top: .375rem">
+                                            <input type="checkbox" class="custom-control-input" name="ban" id="ban">
+                                            <label class="custom-control-label" for="ban">ban</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -50,11 +50,13 @@ class AdminPanelViewModel extends ViewModel
 
                 if ($child->alias === 'home') {
                     $can = $this->admin->hasAnyPermission('dashboard.home');
+                    $child->state = $can ? '' : 'disabled';
                     $child->badgeText = $can ? '200' : '403';
                     $child->badgeColor = $can ? 'badge-success' : 'badge-danger';
                 }
                 if ($child->alias === 'list_admins') {
                     $can = $this->admin->hasAnyPermission('admins.list');
+                    $child->state = $can ? '' : 'disabled';
                     $child->badgeText = $can ? '200' : '403';
                     $child->badgeColor = $can ? 'badge-success' : 'badge-danger';
                 }
@@ -66,8 +68,15 @@ class AdminPanelViewModel extends ViewModel
                 }
                 if ($child->alias === 'register_admin') {
                     $can = $this->admin->hasAnyPermission('admins.register');
+                    $child->state = $can ? '' : 'disabled';
                     $child->badgeText = $can ? '200' : '403';
                     $child->badgeColor = $can ? 'badge-success' : 'badge-danger';
+                }
+                if ($child->alias === 'ban_admin') {
+                    $can = $this->admin->hasAnyPermission('admins.ban');
+                    $child->state = 'disabled';
+                    $child->badgeText = $can ? 'ID: NO' : '403';
+                    $child->badgeColor = $can ? 'badge-warning' : 'badge-danger';
                 }
             }
         }
