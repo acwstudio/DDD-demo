@@ -29,6 +29,9 @@ class AdminDataValidate
     /** @var Role | Collection */
     private Role $roles;
 
+    /** @var array  */
+    private array $ban;
+
     /**
      * AdminValidateData constructor.
      * @param Role $role
@@ -117,5 +120,21 @@ class AdminDataValidate
         ];
 
         return $this->password;
+    }
+
+    /**
+     * @return array
+     */
+    public function  askBan()
+    {
+        $this->ban = [
+            'ask' => 'Do you want ban?',
+            'field' => 'Ban',
+            'rules' => ['string'],
+            'choice' => ['unset ban', 'set ban'],
+            'message' => []
+        ];
+
+        return $this->ban;
     }
 }

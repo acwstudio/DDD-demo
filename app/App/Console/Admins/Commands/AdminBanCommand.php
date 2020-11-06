@@ -5,31 +5,31 @@ namespace App\Console\Admins\Commands;
 
 
 use App\Console\Admins\AdminDataValidate;
-use Domain\Admins\Actions\AdminResetPasswordAction;
+use Domain\Admins\Actions\AdminBanAction;
 use Domain\Admins\Models\Admin;
 use Illuminate\Console\Command;
 use Illuminate\Http\Request;
 use Validator;
 
 /**
- * Class AdminResetPasswordCommand
+ * Class AdminBanCommand
  * @package App\Console\Admins\Commands
  */
-class AdminResetPasswordCommand extends Command
+class AdminBanCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'admin:reset-password';
+    protected $signature = 'admin:ban-admin';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Update user for Admin panel';
+    protected $description = 'Ban user admin';
 
     /**
      * Create a new command instance.
@@ -46,11 +46,11 @@ class AdminResetPasswordCommand extends Command
      *
      * @param Admin $admins
      * @param AdminDataValidate $dataValidate
-     * @param AdminResetPasswordAction $resetPasswordAction
+     * @param AdminBanAction $banAction
      * @return void
      */
     public function handle(
-        Admin $admins, AdminDataValidate $dataValidate, AdminResetPasswordAction $resetPasswordAction)
+        Admin $admins, AdminDataValidate $dataValidate, AdminBanAction $banAction)
     {
         $fields = [];
 
@@ -58,16 +58,23 @@ class AdminResetPasswordCommand extends Command
 
         $admin = Admin::where('email', $fields['email'])->first();
 
-        $fields['password'] = $this->askValid($dataValidate->askPassword());
+        $ban = $this->askValid($dataValidate->askBan());
+
+        if ($ban === 'set ban'){
+            $fields['ban'] = true;
+        } else {
+            $fields['ban'] = false;
+        }
+
+        $fields['password'] = $admin->password;
         $fields['name'] = $admin->name;
 
         $request = new Request($fields);
 
-        $resetPasswordAction->execute($admin, $request);
+        $banAction->execute($admin, $request);
 
         $this->info('Admin Create Successfully');
         $this->info('Your password is ' . $fields['password']);
-
     }
 
     /**

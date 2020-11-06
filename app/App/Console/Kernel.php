@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Admins\Commands\AdminBanCommand;
 use App\Console\Admins\Commands\AdminRegisterCommand;
 use App\Console\Admins\Commands\AdminResetPasswordCommand;
 use Illuminate\Console\Scheduling\Schedule;
@@ -21,6 +22,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         AdminRegisterCommand::class,
         AdminResetPasswordCommand::class,
+        AdminBanCommand::class,
     ];
 
     /**
