@@ -11,14 +11,13 @@
 |
 */
 
-
-use App\Http\AdminPanel\AdminMenuController;
 use App\Http\AdminPanel\Admins\Controllers\AdminBanController;
 use App\Http\AdminPanel\Admins\Controllers\AdminListController;
 use App\Http\AdminPanel\Admins\Controllers\AdminLoginController;
 use App\Http\AdminPanel\Admins\Controllers\AdminLogoutController;
 use App\Http\AdminPanel\Admins\Controllers\AdminRegisterController;
 use App\Http\AdminPanel\Admins\Controllers\AdminResetPasswordController;
+use App\Http\AdminPanel\Customers\Controllers\CustomerListController;
 use App\Http\AdminPanel\Dashboard\Controllers\DashboardHomeController;
 
 Route::get('/', [DashboardHomeController::class, 'showHomePage'])->name('dashboard.home');
@@ -48,3 +47,8 @@ Route::put('/password/reset/{id}', [AdminResetPasswordController::class, 'reset'
 // Ban routes
 Route::get('/ban/show/{id}', [AdminBanController::class, 'showBanForm'])->name('admin.ban.show');
 Route::put('/ban/reset/{id}', [AdminBanController::class, 'ban'])->name('admin.ban.update');
+
+/************************************************************************************************/
+
+// Customers Routes
+Route::get('customers', [CustomerListController::class, 'showList'])->name('customer.list');

@@ -683,7 +683,7 @@
 
 Дополним функционал возможностью банить пользователя типа **`Admin`**. Такую возможность будет иметь только админ 
 
-**Банить пользователя через Admi Panel**
+**Банить пользователя через Admin Panel**
 
 - добавим поле **`ban`** в таблицу **`admins`**
 - добавим в нужные валидационные классы проверку на **`ban`**
@@ -704,4 +704,16 @@
 
 - создадим команду **`App/Console/Admins/Commands/AdminBanCommand.php`**
 
-создадим коммит #44
+создадим коммит [#44](https://github.com/acwstudio/DDD-demo/commit/42b39638c3381a4ad60f907f419453a6178f1ac3)
+
+### Управление пользователями типа Customers через Admin Panel
+
+**Вывод списка пользователей `Customers`**
+
+- создадим контроллер **`App/Http/AdminPanel/Customers/Controllers/CustomerListController.php`**
+- напишем роут в файле **`routes/admin`**
+- создадим шаблон для списка **`customers`** в файле **`resources/views/admin/pages/customers/list.blade.php`**
+- добавим пункты меню в **`config/menu-admin.php`**
+- создадим **ViewModel** **`App/Http/AdminPanel/Customers/ViewModels/CustomerListViewModel.php`**
+
+сделаем коммит #45

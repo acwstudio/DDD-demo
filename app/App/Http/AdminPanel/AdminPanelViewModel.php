@@ -47,7 +47,6 @@ class AdminPanelViewModel extends ViewModel
 
         foreach ($items as $item) {
             foreach ($item->children as $child) {
-
                 if ($child->alias === 'home') {
                     $can = $this->admin->hasAnyPermission('dashboard.home');
                     $child->state = $can ? '' : 'disabled';
@@ -77,6 +76,12 @@ class AdminPanelViewModel extends ViewModel
                     $child->state = 'disabled';
                     $child->badgeText = $can ? 'ID: NO' : '403';
                     $child->badgeColor = $can ? 'badge-warning' : 'badge-danger';
+                }
+                if ($child->alias === 'list_customers') {
+                    $can = $this->admin->hasAnyPermission('customers.list');
+                    $child->state = $can ? '' : 'disabled';
+                    $child->badgeText = $can ? '200' : '403';
+                    $child->badgeColor = $can ? 'badge-success' : 'badge-danger';
                 }
             }
         }

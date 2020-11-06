@@ -1,19 +1,22 @@
 <?php
 
 
-namespace App\Http\AdminPanel\Admins\ViewModels;
+namespace App\Http\AdminPanel\Customers\ViewModels;
+
 
 use App\Http\AdminPanel\AdminPanelViewModel;
 use Domain\Admins\Models\Admin;
+use Domain\Customers\Models\Customer;
 use Illuminate\Database\Eloquent\Collection;
 
+
 /**
- * Class AdminListViewModel
- * @package App\Http\AdminPanel\Admins\ViewModels
+ * Class CustomerListViewModel
+ * @package App\Http\AdminPanel\Customers\ViewModels
  */
-class AdminListViewModel extends AdminPanelViewModel
+class CustomerListViewModel extends AdminPanelViewModel
 {
-    public $admins;
+    public $customers;
     public $canResetPassword;
 
     /**
@@ -28,9 +31,9 @@ class AdminListViewModel extends AdminPanelViewModel
 
         parent::__construct($admin);
 
-        $this->adminItems();
+        $this->customerItems();
         $this->canResetPassword = $this->canResetPassword($admin);
-        $this->admins = Admin::all();
+        $this->customers = Customer::all();
     }
 
     /**
@@ -38,13 +41,13 @@ class AdminListViewModel extends AdminPanelViewModel
      */
     public function admins()
     {
-        return $this->admins;
+        return $this->customers;
     }
 
-    private function adminItems()
+    private function customerItems()
     {
-        $menu = $this->asideMenu->where('alias', 'admins')->first();
-        $childMenu = $menu->children->where('alias', 'list_admins')->first();
+        $menu = $this->asideMenu->where('alias', 'customers')->first();
+        $childMenu = $menu->children->where('alias', 'list_customers')->first();
 
         $menu->active = 'active';
         $menu->open = 'menu-open';
@@ -59,6 +62,6 @@ class AdminListViewModel extends AdminPanelViewModel
      */
     private function canResetPassword(Admin $admin)
     {
-        return $admin->hasAnyPermission('admins.reset');
+        return $admin->hasAnyPermission('customers.reset');
     }
 }
