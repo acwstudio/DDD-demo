@@ -14,6 +14,7 @@ use Illuminate\Database\Seeder;
 class MenuAdministratorSeeder extends Seeder
 {
     private $id;
+
     /**
      * Run the database seeds.
      *
@@ -24,45 +25,50 @@ class MenuAdministratorSeeder extends Seeder
         $menuTable = \DB::table('menu_administrators');
 
         $items = config('menu-admin.items');
-        $icons = config('menu-admin.icons');
-        $routes = config('menu-admin.routes');
-//        dd('menu-admin.routes');
-        $this->recurse($items, $icons, $routes, $menuTable);
+
+        $this->recurse($items, $menuTable);
     }
 
     /**
      * @param $items
-     * @param $icons
-     * @param $routes
      * @param Builder $menuTable
      * @param int $level
      */
-    private function recurse($items, $icons, $routes, Builder $menuTable, $level = 0)
+    private function recurse($items, Builder $menuTable, $level = 0)
     {
         foreach ($items as $key => $item) {
-            $isArray = is_array($items[$key]);
-//            dd($icons[$item]);
+            $isArray = is_array($item);
             if ($isArray) {
-                $this->id = $menuTable->insertGetId([
-                    'menu_administrator_id' => $level ? $this->id : null,
-                    'icon' => $level ? null : $icons[$key],
-                    'item' => $key,
-                    'route' => null,
-                    'alias' => strtolower(str_replace(' ', '_', $key))
-                ]);
-            } else {
-                $menuTable->insertGetId([
-                    'menu_administrator_id' => $level ? $this->id : null,
-                    'icon' => $level ? null : $icons[$item],
-                    'item' => $item,
-                    'route' => $routes[strtolower(str_replace(' ', '_', $item))],
-                    'alias' => strtolower(str_replace(' ', '_', $item))
-                ]);
+                if ($item['icon']){
+                    $this->id = $menuTable->insertGetId([
+                        'menu_administrator_id' => $level ? $this->id : null,
+                        'icon' => $item['icon'],
+                        'item' => $item['item'],
+                        'route' => $item['route'],
+                        'alias' => strtolower(str_replace(' ', '_', $item['item']))
+                    ]);
+                } elseif (!$item['route']) {
+                    $this->id = $menuTable->insertGetId([
+                        'menu_administrator_id' => $level ? $this->id : null,
+                        'icon' => $item['icon'],
+                        'item' => $item['item'],
+                        'route' => $item['route'],
+                        'alias' => strtolower(str_replace(' ', '_', $item['item']))
+                    ]);
+                } else {
+                    $menuTable->insertGetId([
+                        'menu_administrator_id' => $level ? $this->id : null,
+                        'icon' => $item['icon'],
+                        'item' => $item['item'],
+                        'route' => $item['route'],
+                        'alias' => strtolower(str_replace(' ', '_', $item['item']))
+                    ]);
+                }
+
+                $isArray ? $this->recurse($item, $menuTable, $level + 1) : null;
+
             }
-//            dump($level);
-            if ($isArray) {
-                $this->recurse($item, $icons, $routes, $menuTable, $level + 1);
-            }
+
         }
     }
 

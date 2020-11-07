@@ -43,8 +43,9 @@ class AdminPanelViewModel extends ViewModel
      */
     private function asideMenu()
     {
+//        dd($this->admin->getPermissionsViaRoles());
         $items = MenuAdministrator::where('menu_administrator_id', null)->with('children')->get();
-
+//        dd($items);
         foreach ($items as $item) {
             foreach ($item->children as $child) {
                 if ($child->alias === 'home') {
@@ -85,7 +86,7 @@ class AdminPanelViewModel extends ViewModel
                 }
             }
         }
-
+//        dd($items);
         return $items;
     }
 }

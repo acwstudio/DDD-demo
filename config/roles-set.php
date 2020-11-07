@@ -7,12 +7,12 @@ return [
         'permissions' => [
             'super-admin' => [
                 'admins' => ['list', 'register', 'reset', 'delete', 'ban'],
-                'customers' => ['list', 'create', 'edit', 'delete', 'ban'],
+                'customers' => ['list', 'register', 'reset', 'delete', 'ban'],
                 'dashboard' => ['home'],
             ],
             'administrator' => [
                 'admins' => ['list', 'reset'],
-                'customers' => ['list', 'create', 'edit', 'delete', 'ban'],
+                'customers' => ['list', 'register', 'reset', 'delete', 'ban'],
                 'dashboard' => ['home'],
             ],
             'manager' => [

@@ -716,4 +716,11 @@
 - добавим пункты меню в **`config/menu-admin.php`**
 - создадим **ViewModel** **`App/Http/AdminPanel/Customers/ViewModels/CustomerListViewModel.php`**
 
-сделаем коммит #45
+сделаем коммит [#45](https://github.com/acwstudio/DDD-demo/commit/23a4efcd40da04d385554824ec19dd2ac1850392)
+
+Сделаем некоторый рефакторинг для создания меню и его наполнения
+
+- рефакторинг конфига **`config/menu-admin`**
+- рефакторинг **`database/seeders/MenuAdministratorSeeder.php`**
+
+сделаем коммит [#46]()

@@ -47,12 +47,15 @@ class AdminBanViewModel extends AdminPanelViewModel
     {
         $menu = $this->asideMenu->where('alias', 'admins')->first();
         $childMenu = $menu->children->where('alias', 'ban_admin')->first();
+        $can = $this->admin->hasAnyPermission('admins.ban');
 
         $menu->active = 'active';
         $menu->open = 'menu-open';
-        $childMenu->badgeText = 'ID: ' . $this->admin_id;
-        $childMenu->badgeColor = 'badge-success';
 
         $childMenu->active = 'active';
+        $childMenu->state = 'disabled';
+        $childMenu->badgeText = $can ? 'ID: ' . $this->admin_id : '403';
+//        $childMenu->badgeText = 'ID: ' . $this->admin_id;
+        $childMenu->badgeColor = $can ? 'badge-warning' : 'badge-danger';
     }
 }

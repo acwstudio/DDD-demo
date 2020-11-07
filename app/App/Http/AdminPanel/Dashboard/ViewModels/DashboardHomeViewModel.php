@@ -32,10 +32,14 @@ class DashboardHomeViewModel extends AdminPanelViewModel
     {
         $menu = $this->asideMenu->where('alias', 'dashboard')->first();
         $childMenu = $menu->children->where('alias', 'home')->first();
+//        $can = $this->admin->hasAnyPermission('dashboard.home');
 
         $menu->active = 'active';
         $menu->open = 'menu-open';
 
         $childMenu->active = 'active';
+//        $childMenu->state = $can ? '' : 'disabled';
+//        $childMenu->badgeText = $can ? '200' : '403';
+//        $childMenu->badgeColor = $can ? 'badge-success' : 'badge-danger';
     }
 }

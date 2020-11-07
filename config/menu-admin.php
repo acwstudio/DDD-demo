@@ -1,29 +1,41 @@
 <?php
-
+//$row = collect();
 return [
     'items' => [
-        'Dashboard' => ['Home'],
-        'Admins' => ['List Admins', 'Register Admin', 'Reset Password', 'Ban Admin'],
-        'Customers' => ['List Customers'],
-//        'Products' => ['List Products', 'New Product'],
+
+        'Dashboard' => ['icon' => 'fa-tachometer-alt', 'item' => 'Dashboard', 'route' => null,
+            'Home' => ['icon' => null, 'item' => 'Home', 'route' => 'dashboard.home'],
+        ],
+
+        'Admins' => ['icon' => 'fa-users-cog', 'item' => 'Admins', 'route' => null,
+            'List Admins' => ['icon' => null, 'item' => 'List Admins', 'route' => 'admin.list'],
+            'Register Admin' => ['icon' => null, 'item' => 'Register Admin', 'route' => 'admin.register'],
+            'Reset Password' => ['icon' => null, 'item' => 'Reset Password', 'route' => 'admin.list'],
+            'Ban Admin' => ['icon' => null, 'item' => 'Ban Admin', 'route' => 'admin.list'],
+        ],
+
+        'Customers' => ['icon' => 'fa-users-cog', 'item' => 'Customers', 'route' => null,
+            'List Customers' => ['icon' => null, 'item' => 'List Customers', 'route' => 'customer.list'],
+//            'Register Admin' => ['icon' => null, 'item' => 'Register Admin', 'route' => 'admin.register'],
+//            'Reset Password' => ['icon' => null, 'item' => 'Reset Password', 'route' => 'admin.list'],
+//            'Ban Admin' => ['icon' => null, 'item' => 'Ban Admin', 'route' => 'admin.list'],
+        ]
     ],
 
-    'icons' => [
-        'Dashboard' => 'fa-tachometer-alt',
-        'Admins' => 'fa-users-cog',
-        'Customers' => 'fa-users-cog',
-//        'Products' => 'fa-receipt',
-    ],
+    'test-items' => [
 
-    'routes' => [
-        'home' => 'dashboard.home',
-        'list_admins' => 'admin.list',
-        'register_admin' => 'admin.register',
-        'reset_password' => 'admin.list',
-        'ban_admin' => 'admin.list',
-        'list_customers' => 'customer.list',
-//        'ban_customer' => 'customer.ban',
-//        'list_products' => 'product.list',
-//        'new_product' => 'product.new'
+        'Dashboard' => ['icon' => 'fa-tachometer-alt', 'item' => 'Dashboard', 'route' => null,
+            'Home' => ['icon' => null, 'item' => 'Home', 'route' => 'dashboard.home'],
+            'Sub Dashboard' => ['icon' => null, 'item' => 'Sub Dashboard', 'route' => null,
+                'Sub Home' => ['icon' => null, 'item' => 'Sub Home', 'route' => 'dashboard.subhome']
+            ],
+        ],
+
+        'Admins' => ['icon' => 'fa-users-cog', 'item' => 'Admins', 'route' => null,
+            'List Admins' => ['icon' => null, 'item' => 'List Admins', 'route' => 'admin.list'],
+            'Register Admin' => ['icon' => null, 'item' => 'Register Admin', 'route' => 'admin.register'],
+            'Reset Password' => ['icon' => null, 'item' => 'Reset Password', 'route' => 'admin.list'],
+            'Ban Admin' => ['icon' => null, 'item' => 'Ban Admin', 'route' => 'admin.ban'],
+        ]
     ]
 ];
