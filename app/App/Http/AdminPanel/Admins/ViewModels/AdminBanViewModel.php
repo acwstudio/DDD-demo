@@ -6,6 +6,7 @@ namespace App\Http\AdminPanel\Admins\ViewModels;
 
 use App\Http\AdminPanel\AdminPanelViewModel;
 use Domain\Admins\Models\Admin;
+use Illuminate\Database\Eloquent\Collection;
 
 
 /**
@@ -32,7 +33,8 @@ class AdminBanViewModel extends AdminPanelViewModel
 
         parent::__construct($admin);
 
-        $this->adminItems();
+        $menu = $this->asideMenu;
+        $this->adminItems($menu);
     }
 
     /**
@@ -43,19 +45,26 @@ class AdminBanViewModel extends AdminPanelViewModel
         return $this->adminItem;
     }
 
-    private function adminItems()
+    /**
+     * @param Collection $menu
+     */
+    private function adminItems($menu)
     {
-        $menu = $this->asideMenu->where('alias', 'admins')->first();
-        $childMenu = $menu->children->where('alias', 'ban_admin')->first();
-        $can = $this->admin->hasAnyPermission('admins.ban');
+        $menu->map(function ($item, $key){
+            if ($item->alias === 'admins'){
+                $item->active = 'active';
+                $item->open = 'menu-open';
+            }
+            if ($item->children){
+                if ($item->permission && $item->alias === 'ban_admin'){
+                    $item->active = 'active';
+                    $item->badgeText = 'ID: ' . $this->admin_id;
+                    $item->badgeColor = 'badge-success';
+                }
 
-        $menu->active = 'active';
-        $menu->open = 'menu-open';
+                $this->adminItems($item->children);
+            }
+        });
 
-        $childMenu->active = 'active';
-        $childMenu->state = 'disabled';
-        $childMenu->badgeText = $can ? 'ID: ' . $this->admin_id : '403';
-//        $childMenu->badgeText = 'ID: ' . $this->admin_id;
-        $childMenu->badgeColor = $can ? 'badge-warning' : 'badge-danger';
     }
 }

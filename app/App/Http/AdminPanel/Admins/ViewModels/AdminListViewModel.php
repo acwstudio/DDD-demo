@@ -15,6 +15,7 @@ class AdminListViewModel extends AdminPanelViewModel
 {
     public $admins;
     public $canResetPassword;
+    public $canBan;
 
     /**
      * AdminViewModel constructor.
@@ -28,8 +29,12 @@ class AdminListViewModel extends AdminPanelViewModel
 
         parent::__construct($admin);
 
-        $this->adminItems();
+        $menu = $this->asideMenu;
+        $this->adminItems($menu);
+
         $this->canResetPassword = $this->canResetPassword($admin);
+        $this->canBan = $this->canBan($admin);
+
         $this->admins = Admin::all();
     }
 
@@ -41,17 +46,6 @@ class AdminListViewModel extends AdminPanelViewModel
         return $this->admins;
     }
 
-    private function adminItems()
-    {
-        $menu = $this->asideMenu->where('alias', 'admins')->first();
-        $childMenu = $menu->children->where('alias', 'list_admins')->first();
-
-        $menu->active = 'active';
-        $menu->open = 'menu-open';
-
-        $childMenu->active = 'active';
-    }
-
     /**
      * @param Admin $admin
      * @return bool
@@ -61,4 +55,36 @@ class AdminListViewModel extends AdminPanelViewModel
     {
         return $admin->hasAnyPermission('admins.reset');
     }
+
+    /**
+     * @param Admin $admin
+     * @return bool
+     * @throws \Exception
+     */
+    private function canBan(Admin $admin)
+    {
+        return $admin->hasAnyPermission('admins.ban');
+    }
+
+    /**
+     * @param Collection $menu
+     */
+    private function adminItems($menu)
+    {
+        $menu->map(function ($item, $key){
+            if ($item->alias === 'admins'){
+                $item->active = 'active';
+                $item->open = 'menu-open';
+            }
+            if ($item->children){
+                if ($item->permission && $item->alias === 'list_admins'){
+                    $item->active = 'active';
+                }
+
+                $this->adminItems($item->children);
+            }
+        });
+
+    }
+
 }

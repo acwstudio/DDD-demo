@@ -23,6 +23,7 @@ class CreateMenuAdministratorsTable extends Migration
             $table->string('alias');
             $table->string('icon')->nullable();
             $table->string('route')->nullable();
+            $table->string('permission')->nullable();
             $table->timestamps();
             $table->foreign('menu_administrator_id')->references('id')->on('menu_administrators')->onDelete('cascade');
         });

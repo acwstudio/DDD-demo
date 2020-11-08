@@ -28,7 +28,8 @@ class AdminRegisterViewModel extends AdminPanelViewModel
 
         parent::__construct($admin);
 
-        $this->adminItems();
+        $menu = $this->asideMenu;
+        $this->adminItems($menu);
 
         $this->roles = Role::all();
     }
@@ -41,14 +42,24 @@ class AdminRegisterViewModel extends AdminPanelViewModel
         return $this->roles;
     }
 
-    private function adminItems()
+    /**
+     * @param Collection $menu
+     */
+    private function adminItems($menu)
     {
-        $menu = $this->asideMenu->where('alias', 'admins')->first();
-        $childMenu = $menu->children->where('alias', 'register_admin')->first();
+        $menu->map(function ($item, $key){
+            if ($item->alias === 'admins'){
+                $item->active = 'active';
+                $item->open = 'menu-open';
+            }
+            if ($item->children){
+                if ($item->permission && $item->alias === 'register_admin'){
+                    $item->active = 'active';
+                }
 
-        $menu->active = 'active';
-        $menu->open = 'menu-open';
+                $this->adminItems($item->children);
+            }
+        });
 
-        $childMenu->active = 'active';
     }
 }

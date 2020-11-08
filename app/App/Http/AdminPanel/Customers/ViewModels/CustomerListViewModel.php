@@ -3,12 +3,10 @@
 
 namespace App\Http\AdminPanel\Customers\ViewModels;
 
-
 use App\Http\AdminPanel\AdminPanelViewModel;
 use Domain\Admins\Models\Admin;
 use Domain\Customers\Models\Customer;
 use Illuminate\Database\Eloquent\Collection;
-
 
 /**
  * Class CustomerListViewModel
@@ -18,6 +16,7 @@ class CustomerListViewModel extends AdminPanelViewModel
 {
     public $customers;
     public $canResetPassword;
+    public $canBan;
 
     /**
      * AdminViewModel constructor.
@@ -31,8 +30,12 @@ class CustomerListViewModel extends AdminPanelViewModel
 
         parent::__construct($admin);
 
-        $this->customerItems();
+        $menu = $this->asideMenu;
+        $this->customerItems($menu);
+
         $this->canResetPassword = $this->canResetPassword($admin);
+        $this->canBan = $this->canBan($admin);
+
         $this->customers = Customer::all();
     }
 
@@ -44,15 +47,24 @@ class CustomerListViewModel extends AdminPanelViewModel
         return $this->customers;
     }
 
-    private function customerItems()
+    /**
+     * @param Collection $menu
+     */
+    private function customerItems($menu)
     {
-        $menu = $this->asideMenu->where('alias', 'customers')->first();
-        $childMenu = $menu->children->where('alias', 'list_customers')->first();
+        $menu->map(function ($item, $key){
+            if ($item->alias === 'customers'){
+                $item->active = 'active';
+                $item->open = 'menu-open';
+            }
+            if ($item->children){
+                if ($item->permission && $item->alias === 'list_customers'){
+                    $item->active = 'active';
+                }
 
-        $menu->active = 'active';
-        $menu->open = 'menu-open';
-
-        $childMenu->active = 'active';
+                $this->customerItems($item->children);
+            }
+        });
     }
 
     /**
@@ -63,5 +75,15 @@ class CustomerListViewModel extends AdminPanelViewModel
     private function canResetPassword(Admin $admin)
     {
         return $admin->hasAnyPermission('customers.reset');
+    }
+
+    /**
+     * @param Admin $admin
+     * @return bool
+     * @throws \Exception
+     */
+    private function canBan(Admin $admin)
+    {
+        return $admin->hasAnyPermission('customers.ban');
     }
 }

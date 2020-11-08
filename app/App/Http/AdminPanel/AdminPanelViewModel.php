@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Http\AdminPanel;
-
 
 use Domain\Admins\Models\Admin;
 use Illuminate\Database\Eloquent\Builder;
@@ -37,56 +35,48 @@ class AdminPanelViewModel extends ViewModel
         return $this->admin;
     }
 
+
     /**
-     * @return Builder[]|Collection|MenuAdministrator[]
-     * @throws \Exception
+     * @return Builder[]|Collection
      */
     private function asideMenu()
     {
-//        dd($this->admin->getPermissionsViaRoles());
         $items = MenuAdministrator::where('menu_administrator_id', null)->with('children')->get();
-//        dd($items);
-        foreach ($items as $item) {
-            foreach ($item->children as $child) {
-                if ($child->alias === 'home') {
-                    $can = $this->admin->hasAnyPermission('dashboard.home');
-                    $child->state = $can ? '' : 'disabled';
-                    $child->badgeText = $can ? '200' : '403';
-                    $child->badgeColor = $can ? 'badge-success' : 'badge-danger';
-                }
-                if ($child->alias === 'list_admins') {
-                    $can = $this->admin->hasAnyPermission('admins.list');
-                    $child->state = $can ? '' : 'disabled';
-                    $child->badgeText = $can ? '200' : '403';
-                    $child->badgeColor = $can ? 'badge-success' : 'badge-danger';
-                }
-                if ($child->alias === 'reset_password') {
-                    $can = $this->admin->hasAnyPermission('admins.reset');
-                    $child->state = 'disabled';
-                    $child->badgeText = $can ? 'ID: NO' : '403';
-                    $child->badgeColor = $can ? 'badge-warning' : 'badge-danger';
-                }
-                if ($child->alias === 'register_admin') {
-                    $can = $this->admin->hasAnyPermission('admins.register');
-                    $child->state = $can ? '' : 'disabled';
-                    $child->badgeText = $can ? '200' : '403';
-                    $child->badgeColor = $can ? 'badge-success' : 'badge-danger';
-                }
-                if ($child->alias === 'ban_admin') {
-                    $can = $this->admin->hasAnyPermission('admins.ban');
-                    $child->state = 'disabled';
-                    $child->badgeText = $can ? 'ID: NO' : '403';
-                    $child->badgeColor = $can ? 'badge-warning' : 'badge-danger';
-                }
-                if ($child->alias === 'list_customers') {
-                    $can = $this->admin->hasAnyPermission('customers.list');
-                    $child->state = $can ? '' : 'disabled';
-                    $child->badgeText = $can ? '200' : '403';
-                    $child->badgeColor = $can ? 'badge-success' : 'badge-danger';
-                }
-            }
-        }
-//        dd($items);
+
+        /** Collection $items */
+        $this->recurse($items);
+
         return $items;
+    }
+
+    /**
+     * @param Collection $items
+     * @param int $level
+     * @return void
+     */
+    private function recurse(Collection $items, $level = 0)
+    {
+        $items->map(function ($item, $key) {
+
+            if ($item->children){
+                if ($item->permission){
+                    $item->canItem = $this->admin->hasAnyPermission($item->permission);
+                    if ($item->alias === 'ban_admin' || $item->alias === 'reset_password'){
+                        $item->state = 'disabled';
+                        $item->badgeText = $item->canItem ? 'ID NO' : '403';
+                        $item->badgeColor = $item->canItem ? 'badge-warning' : 'badge-danger';
+                    } else {
+                        $item->badgeText = $item->canItem ? '200' : '403';
+                        $item->badgeColor = $item->canItem ? 'badge-success' : 'badge-danger';
+                        $item->state = $item->canItem ? '' : 'disabled';
+                    }
+
+                }
+
+                $this->recurse($item->children);
+            }
+            return $item;
+        });
+
     }
 }

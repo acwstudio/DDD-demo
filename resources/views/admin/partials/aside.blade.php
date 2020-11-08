@@ -37,22 +37,23 @@
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        @foreach($menu->children as $child)
-                            @if($child)
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="{{ route($child->route ?? '') }}"
-                                           class="nav-link {{ $child->state }} {{ $child->active }}">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>{{ $child->item }}
-                                                <span class="right badge {{ $child->badgeColor }}">
-                                                    {{ $child->badgeText }}</span>
-                                            </p>
-                                        </a>
-                                    </li>
-                                </ul>
+{{--                        @foreach($menu->children as $child)--}}
+                            @if(count($menu->children))
+                                @include('admin.partials.aside-child', ['children' => $menu->children])
+{{--                                <ul class="nav nav-treeview">--}}
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a href="{{ route($child->route ?? '') }}"--}}
+{{--                                           class="nav-link {{ $child->state }} {{ $child->active }}">--}}
+{{--                                            <i class="far fa-circle nav-icon"></i>--}}
+{{--                                            <p>{{ $child->item }}--}}
+{{--                                                <span class="right badge {{ $child->badgeColor }}">--}}
+{{--                                                    {{ $child->badgeText }}</span>--}}
+{{--                                            </p>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                </ul>--}}
                             @endif
-                        @endforeach
+{{--                        @endforeach--}}
                     </li>
                 @endforeach
 

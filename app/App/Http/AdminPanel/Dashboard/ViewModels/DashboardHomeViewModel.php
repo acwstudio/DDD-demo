@@ -6,6 +6,7 @@ namespace App\Http\AdminPanel\Dashboard\ViewModels;
 
 use App\Http\AdminPanel\AdminPanelViewModel;
 use Domain\Admins\Models\Admin;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class DashboardHomeViewModel
@@ -25,21 +26,32 @@ class DashboardHomeViewModel extends AdminPanelViewModel
 
         parent::__construct($admin);
 
-        $this->dashboardItems();
+        $menu = $this->asideMenu;
+        $this->dashboardItems($menu);
     }
 
-    private function dashboardItems()
+    /**
+     * @param Collection $menu
+     */
+    private function dashboardItems($menu)
     {
-        $menu = $this->asideMenu->where('alias', 'dashboard')->first();
-        $childMenu = $menu->children->where('alias', 'home')->first();
-//        $can = $this->admin->hasAnyPermission('dashboard.home');
+        $menu->map(function ($item, $key){
 
-        $menu->active = 'active';
-        $menu->open = 'menu-open';
+            if ($item->alias === 'dashboard'){
+                $item->active = 'active';
+                $item->open = 'menu-open';
+            }
 
-        $childMenu->active = 'active';
-//        $childMenu->state = $can ? '' : 'disabled';
-//        $childMenu->badgeText = $can ? '200' : '403';
-//        $childMenu->badgeColor = $can ? 'badge-success' : 'badge-danger';
+            if ($item->children){
+                if ($item->permission && $item->alias === 'home'){
+                    $item->active = 'active';
+                }
+
+                $this->dashboardItems($item->children);
+            }
+
+            return $item;
+        });
+
     }
 }

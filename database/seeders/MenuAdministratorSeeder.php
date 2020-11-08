@@ -45,6 +45,7 @@ class MenuAdministratorSeeder extends Seeder
                         'icon' => $item['icon'],
                         'item' => $item['item'],
                         'route' => $item['route'],
+                        'permission' => $item['permission'],
                         'alias' => strtolower(str_replace(' ', '_', $item['item']))
                     ]);
                 } elseif (!$item['route']) {
@@ -53,6 +54,7 @@ class MenuAdministratorSeeder extends Seeder
                         'icon' => $item['icon'],
                         'item' => $item['item'],
                         'route' => $item['route'],
+                        'permission' => $item['permission'],
                         'alias' => strtolower(str_replace(' ', '_', $item['item']))
                     ]);
                 } else {
@@ -61,6 +63,7 @@ class MenuAdministratorSeeder extends Seeder
                         'icon' => $item['icon'],
                         'item' => $item['item'],
                         'route' => $item['route'],
+                        'permission' => $item['permission'],
                         'alias' => strtolower(str_replace(' ', '_', $item['item']))
                     ]);
                 }

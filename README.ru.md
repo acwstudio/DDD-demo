@@ -723,4 +723,12 @@
 - рефакторинг конфига **`config/menu-admin`**
 - рефакторинг **`database/seeders/MenuAdministratorSeeder.php`**
 
-сделаем коммит [#46]()
+сделаем коммит [#46](https://github.com/acwstudio/DDD-demo/commit/820a2ceed98bc491cabb30402745bb0b1c61062d)
+
+Рефакторинг всех **ViewModels** с целью оптимизации и соответствия принципам ООП.
+
+- добавим колонку **`permission`** в таблицу **`menu_administrators`**
+- добавим в конфиг **`config/menu-admin`** сведения о **`permission`**
+- рефакторинг всех **ViewModels**
+
+сделаем коммит #47

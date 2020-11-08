@@ -81,7 +81,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if($viewModel->canResetPassword)
+                                        @if($viewModel->canBan)
                                             <a href="{{ route('admin.ban.show', $admin->id) }}" type="button"
                                                class="badge badge-success">SET BAN</a>
                                         @else
