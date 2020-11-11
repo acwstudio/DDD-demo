@@ -734,3 +734,21 @@
 сделаем коммит [#47](https://github.com/acwstudio/DDD-demo/commit/094ea14f33b38c5de0a12f76a7094031fb484337)
 
 Еще небольшой рефакторинг связанный с выводом уровня меню глубже чем второй.
+
+Я ошибался рефакторинг большой и описывать его нет сил смотрите коммит
+
+сделаем коммит [#48](https://github.com/acwstudio/DDD-demo/commit/28badd2e4b0e740a8eee235c9ac307a02bdd810d)
+
+**Баним пользователя `Customer`**
+
+- создадим контроллер **`App/Http/AdminPanel/Customers/Controllers/CustomerBanController.php`**
+- создадим экшен **`App/Domain/Customers/Actions/CustomerBanAction.php`**
+- создадим валидационный класс **`App/Http/AdminPanel/Customers/Requests/CustomerBanRequest.php`**
+- создадим правило **`App/Domain/Customers/Rules/CustomerPasswordVerifyRule.php`**
+- создадим **`ViewModel`** **`App/Http/AdminPanel/Customers/ViewModels/CustomerBanViewModel.php`**
+- Добавим колонку **`ban`** в таблицу **`cuctomers`**
+- напишем роут в файле **`routes/admin`**
+- создадим шаблон формы для бана **`customers`** в файле **`resources/views/admin/pages/customers/list.blade.php`**
+- добавим пункты меню в **`config/menu-admin.php`**
+
+создадим коммит #49

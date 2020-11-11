@@ -73,6 +73,14 @@ return [
             'permission' => 'customers.list',
             'father' => 'customers',
         ],
+
+        'ban_customer' => [
+            'icon' => null,
+            'item' => 'Ban Customer',
+            'route' => 'customer.list',
+            'permission' => 'customers.ban',
+            'father' => 'customers',
+        ],
     ],
 /********************************************************/
     'new-items' => [

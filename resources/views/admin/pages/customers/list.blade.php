@@ -80,7 +80,7 @@
                                         </td>
                                         <td>
                                             @if($viewModel->canResetPassword)
-                                                <a href="{{ route('admin.ban.show', $customer->id) }}"
+                                                <a href="{{ route('customer.ban.show', $customer->id) }}"
                                                    type="button" class="badge badge-success">SET BAN</a>
                                             @else
                                                 <span class="badge badge-danger">NO ACCESS</span>
