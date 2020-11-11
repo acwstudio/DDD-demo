@@ -15,6 +15,7 @@ use Support\AdminMenu\MenuAdministrator;
 class AdminPanelViewModel extends ViewModel
 {
     public $asideMenu;
+    public $admin;
 
     /**
      * AdminViewModel constructor.
@@ -38,45 +39,46 @@ class AdminPanelViewModel extends ViewModel
 
     /**
      * @return Builder[]|Collection
+     * @throws \Exception
      */
     private function asideMenu()
     {
-        $items = MenuAdministrator::where('menu_administrator_id', null)->with('children')->get();
+        $items = MenuAdministrator::where('level', 0)->with('children')->get();
 
         /** Collection $items */
-        $this->recurse($items);
+        $this->baseLevel($items);
 
         return $items;
     }
 
     /**
-     * @param Collection $items
-     * @param int $level
-     * @return void
+     * @param MenuAdministrator $item
+     * @throws \Exception
      */
-    private function recurse(Collection $items, $level = 0)
+    private function baseLevel(Collection $items)
     {
         $items->map(function ($item, $key) {
 
             if ($item->children){
-                if ($item->permission){
-                    $item->canItem = $this->admin->hasAnyPermission($item->permission);
+                if (is_null($item->level)){
+                    $item->hasPermission = $this->admin->hasAnyPermission($item->permission);
                     if ($item->alias === 'ban_admin' || $item->alias === 'reset_password'){
                         $item->state = 'disabled';
-                        $item->badgeText = $item->canItem ? 'ID NO' : '403';
-                        $item->badgeColor = $item->canItem ? 'badge-warning' : 'badge-danger';
+                        $item->badgeText = $item->hasPermission ? 'ID NO' : '403';
+                        $item->badgeColor = $item->hasPermission ? 'badge-warning' : 'badge-danger';
                     } else {
-                        $item->badgeText = $item->canItem ? '200' : '403';
-                        $item->badgeColor = $item->canItem ? 'badge-success' : 'badge-danger';
-                        $item->state = $item->canItem ? '' : 'disabled';
+                        $item->badgeText = $item->hasPermission ? '200' : '403';
+                        $item->badgeColor = $item->hasPermission ? 'badge-success' : 'badge-danger';
+                        $item->state = $item->hasPermission ? '' : 'disabled';
                     }
 
                 }
 
-                $this->recurse($item->children);
+                $this->baseLevel($item->children);
             }
             return $item;
         });
 
     }
+
 }

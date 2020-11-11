@@ -28,7 +28,7 @@ class DashboardHomeController extends Controller
     public function showHomePage()
     {
         $viewModel = new DashboardHomeViewModel();
-
+//        dd($viewModel->asideMenu);
         return view('admin.pages.home', compact('viewModel'));
     }
 }

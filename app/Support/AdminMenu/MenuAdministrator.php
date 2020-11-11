@@ -18,7 +18,7 @@ class MenuAdministrator extends Model
      * @var array
      */
     protected $fillable = [
-        'menu_administrator_id', 'item', 'alias', 'icon', 'route'
+        'menu_administrator_id', 'item', 'alias', 'icon', 'route', 'father'
     ];
 
     /**
@@ -26,7 +26,7 @@ class MenuAdministrator extends Model
      */
     public function parent()
     {
-        return $this->belongsTo(MenuAdministrator::class, 'id', 'menu_administrator_id');
+        return $this->belongsTo(MenuAdministrator::class, 'menu_administrator_id', 'id');
     }
 
     /**

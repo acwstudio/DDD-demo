@@ -1,54 +1,143 @@
 <?php
-//$row = collect();
+
 return [
     'items' => [
-
-        'Dashboard' => ['icon' => 'fa-tachometer-alt', 'item' => 'Dashboard', 'route' => null, 'permission' => null,
-            'Home' => [
-                'icon' => null, 'item' => 'Home', 'route' => 'dashboard.home', 'permission' => 'dashboard.home'
-            ],
+        'dashboard' => [
+            'icon' => 'fa-tachometer-alt',
+            'item' => 'Dashboard',
+            'route' => null,
+            'permission' => null,
+            'father' => null,
         ],
 
-        'Admins' => ['icon' => 'fa-users-cog', 'item' => 'Admins', 'route' => null, 'permission' => null,
-            'List Admins' => [
-                'icon' => null, 'item' => 'List Admins', 'route' => 'admin.list', 'permission' => 'admins.list'
-            ],
-            'Register Admin' => [
-                'icon' => null, 'item' => 'Register Admin', 'route' => 'admin.register',
-                'permission' => 'admins.register'
-            ],
-            'Reset Password' => [
-                'icon' => null, 'item' => 'Reset Password', 'route' => 'admin.list', 'permission' => 'admins.reset'
-            ],
-            'Ban Admin' => ['icon' => null, 'item' => 'Ban Admin', 'route' => 'admin.list',
-                'permission' => 'admins.ban'],
+        'home' => [
+            'icon' => null,
+            'item' => 'Home',
+            'route' => 'dashboard.home',
+            'permission' => 'dashboard.home',
+            'father' => 'dashboard',
         ],
 
-        'Customers' => ['icon' => 'fa-users-cog', 'item' => 'Customers', 'route' => null, 'permission' => null,
-            'List Customers' => [
-                'icon' => null, 'item' => 'List Customers', 'route' => 'customer.list',
-                'permission' => 'customers.list'
-            ],
-//            'Register Admin' => ['icon' => null, 'item' => 'Register Admin', 'route' => 'admin.register'],
-//            'Reset Password' => ['icon' => null, 'item' => 'Reset Password', 'route' => 'admin.list'],
-//            'Ban Admin' => ['icon' => null, 'item' => 'Ban Admin', 'route' => 'admin.list'],
-        ]
+        'admins' => [
+            'icon' => 'fa-users-cog',
+            'item' => 'Admins',
+            'route' => null,
+            'permission' => null,
+            'father' => null,
+        ],
+
+        'list_admins' => [
+            'icon' => null,
+            'item' => 'List Admins',
+            'route' => 'admin.list',
+            'permission' => 'admins.list',
+            'father' => 'admins',
+        ],
+
+        'register_admin' => [
+            'icon' => null,
+            'item' => 'Register Admin',
+            'route' => 'admin.register',
+            'permission' => 'admins.register',
+            'father' => 'admins',
+        ],
+
+        'reset_password' => [
+            'icon' => null,
+            'item' => 'Reset Password',
+            'route' => 'admin.list',
+            'permission' => 'admins.reset',
+            'father' => 'admins',
+        ],
+
+        'ban_admin' => [
+            'icon' => null,
+            'item' => 'Ban Admin',
+            'route' => 'admin.list',
+            'permission' => 'admins.ban',
+            'father' => 'admins',
+        ],
+
+        'customers' => [
+            'icon' => 'fa-users-cog',
+            'item' => 'Customers',
+            'route' => null,
+            'permission' => null,
+            'father' => null,
+        ],
+
+        'list_customers' => [
+            'icon' => null,
+            'item' => 'List Customers',
+            'route' => 'customer.list',
+            'permission' => 'customers.list',
+            'father' => 'customers',
+        ],
     ],
-
-    'test-items' => [
-
-        'Dashboard' => ['icon' => 'fa-tachometer-alt', 'item' => 'Dashboard', 'route' => null,
-            'Home' => ['icon' => null, 'item' => 'Home', 'route' => 'dashboard.home'],
-            'Sub Dashboard' => ['icon' => null, 'item' => 'Sub Dashboard', 'route' => null,
-                'Sub Home' => ['icon' => null, 'item' => 'Sub Home', 'route' => 'dashboard.subhome']
-            ],
+/********************************************************/
+    'new-items' => [
+        'dashboard' => [
+            'icon' => 'fa-tachometer-alt',
+            'item' => 'Dashboard',
+            'route' => null,
+            'permission' => null,
+            'father' => null,
         ],
-
-        'Admins' => ['icon' => 'fa-users-cog', 'item' => 'Admins', 'route' => null,
-            'List Admins' => ['icon' => null, 'item' => 'List Admins', 'route' => 'admin.list'],
-            'Register Admin' => ['icon' => null, 'item' => 'Register Admin', 'route' => 'admin.register'],
-            'Reset Password' => ['icon' => null, 'item' => 'Reset Password', 'route' => 'admin.list'],
-            'Ban Admin' => ['icon' => null, 'item' => 'Ban Admin', 'route' => 'admin.ban'],
-        ]
+        'sub_dashboard' => [
+            'icon' => null,
+            'item' => 'Sub Dashboard',
+            'route' => null,
+            'permission' => null,
+            'father' => 'dashboard',
+        ],
+        'sub_home' => [
+            'icon' => null,
+            'item' => 'Sub Home',
+            'route' => 'dashboard.home',
+            'permission' => 'customer.list',
+            'father' => 'sub_dashboard',
+        ],
+        'home' => [
+            'icon' => null,
+            'item' => 'Home',
+            'route' => 'dashboard.home',
+            'permission' => 'dashboard.home',
+            'father' => 'dashboard',
+        ],
+        'admins' => [
+            'icon' => 'fa-users-cog',
+            'item' => 'Admins',
+            'route' => null,
+            'permission' => null,
+            'father' => null,
+        ],
+        'list_admins' => [
+            'icon' => null,
+            'item' => 'List Admins',
+            'route' => 'admin.list',
+            'permission' => 'admins.list',
+            'father' => 'admins',
+        ],
+        'register_admin' => [
+            'icon' => null,
+            'item' => 'Register Admin',
+            'route' => 'admin.register',
+            'permission' => 'admins.register',
+            'father' => 'admins',
+        ],
+        'reset_password' => [
+            'icon' => null,
+            'item' => 'Reset Password',
+            'route' => 'admin.list',
+            'permission' => 'admins.reset',
+            'father' => 'admins',
+        ],
+        'ban_admin' => [
+            'icon' => null,
+            'item' => 'Ban Admin',
+            'route' => 'admin.list',
+            'permission' => 'admins.ban',
+            'father' => 'admins',
+        ],
     ]
 ];

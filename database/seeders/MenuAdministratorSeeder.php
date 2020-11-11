@@ -4,8 +4,11 @@
 namespace Database\Seeders;
 
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Seeder;
+use Support\AdminMenu\MenuAdministrator;
 
 /**
  * Class MenuAdministratorSeeder
@@ -26,53 +29,48 @@ class MenuAdministratorSeeder extends Seeder
 
         $items = config('menu-admin.items');
 
-        $this->recurse($items, $menuTable);
+        foreach ($items as $key => $item){
+            if ($item['icon']){
+                $level = 0;
+            } elseif ($item['route']){
+                $level = null;
+            } else {
+                $level = 1;
+            }
+            $this->id = $menuTable->insertGetId([
+                'icon' => $item['icon'],
+                'item' => $item['item'],
+                'route' => $item['route'],
+                'permission' => $item['permission'],
+                'alias' => strtolower(str_replace(' ', '_', $item['item'])),
+                'father' => $item['father'],
+                'level' => $level
+            ]);
+        }
+
+        $menuTable->get()->map(function ($item, $key) use($menuTable) {
+
+            $this->fatherId($item);
+            return $item;
+
+        });
+
     }
 
     /**
-     * @param $items
-     * @param Builder $menuTable
-     * @param int $level
+     * @param $father
+     * @return mixed|null
      */
-    private function recurse($items, Builder $menuTable, $level = 0)
+    private function fatherId($item)
     {
-        foreach ($items as $key => $item) {
-            $isArray = is_array($item);
-            if ($isArray) {
-                if ($item['icon']){
-                    $this->id = $menuTable->insertGetId([
-                        'menu_administrator_id' => $level ? $this->id : null,
-                        'icon' => $item['icon'],
-                        'item' => $item['item'],
-                        'route' => $item['route'],
-                        'permission' => $item['permission'],
-                        'alias' => strtolower(str_replace(' ', '_', $item['item']))
-                    ]);
-                } elseif (!$item['route']) {
-                    $this->id = $menuTable->insertGetId([
-                        'menu_administrator_id' => $level ? $this->id : null,
-                        'icon' => $item['icon'],
-                        'item' => $item['item'],
-                        'route' => $item['route'],
-                        'permission' => $item['permission'],
-                        'alias' => strtolower(str_replace(' ', '_', $item['item']))
-                    ]);
-                } else {
-                    $menuTable->insertGetId([
-                        'menu_administrator_id' => $level ? $this->id : null,
-                        'icon' => $item['icon'],
-                        'item' => $item['item'],
-                        'route' => $item['route'],
-                        'permission' => $item['permission'],
-                        'alias' => strtolower(str_replace(' ', '_', $item['item']))
-                    ]);
-                }
+        $fatherId = \DB::table('menu_administrators')->where('alias', $item->father)->first();
 
-                $isArray ? $this->recurse($item, $menuTable, $level + 1) : null;
-
-            }
-
+        if ($fatherId){
+            \DB::table('menu_administrators')->where('id', $item->id)->update([
+                'menu_administrator_id' => $fatherId->id
+            ]);
         }
+
     }
 
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Http\AdminPanel\Admins\ViewModels;
-
 
 use App\Http\AdminPanel\AdminPanelViewModel;
 use Domain\Admins\Models\Admin;
@@ -29,7 +27,7 @@ class AdminRegisterViewModel extends AdminPanelViewModel
         parent::__construct($admin);
 
         $menu = $this->asideMenu;
-        $this->adminItems($menu);
+        $this->registerItems($menu);
 
         $this->roles = Role::all();
     }
@@ -45,21 +43,43 @@ class AdminRegisterViewModel extends AdminPanelViewModel
     /**
      * @param Collection $menu
      */
-    private function adminItems($menu)
+    private function registerItems(Collection $menu)
     {
-        $menu->map(function ($item, $key){
+        foreach ($menu as $item) {
+            /** @var Collection $item */
             if ($item->alias === 'admins'){
+
                 $item->active = 'active';
                 $item->open = 'menu-open';
-            }
-            if ($item->children){
-                if ($item->permission && $item->alias === 'register_admin'){
-                    $item->active = 'active';
-                }
 
-                $this->adminItems($item->children);
+                $this->recurse($item->children);
+
             }
+        }
+
+    }
+
+    /**
+     * @param Collection $items
+     */
+    private function recurse(Collection $items)
+    {
+        $items->map(function ($item, $key) {
+
+            /*********************************
+             * the block for middle level only
+             *********************************/
+//                if ($item->alias === 'any alias'){
+//                    $item->open = 'menu-open';
+//                    $item->active = 'active';
+//                    $this->recurse($item->children);
+//                }
+            /********************************/
+
+            if ($item->alias === 'register_admin') {
+                $item->active = 'active';
+            }
+            return $item;
         });
-
     }
 }

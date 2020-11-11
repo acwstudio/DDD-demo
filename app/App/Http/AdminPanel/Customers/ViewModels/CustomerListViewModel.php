@@ -31,7 +31,7 @@ class CustomerListViewModel extends AdminPanelViewModel
         parent::__construct($admin);
 
         $menu = $this->asideMenu;
-        $this->customerItems($menu);
+        $this->listItems($menu);
 
         $this->canResetPassword = $this->canResetPassword($admin);
         $this->canBan = $this->canBan($admin);
@@ -50,20 +50,44 @@ class CustomerListViewModel extends AdminPanelViewModel
     /**
      * @param Collection $menu
      */
-    private function customerItems($menu)
+    private function listItems($menu)
     {
-        $menu->map(function ($item, $key){
+        foreach ($menu as $item) {
+            /** @var Collection $item */
             if ($item->alias === 'customers'){
+
                 $item->active = 'active';
                 $item->open = 'menu-open';
-            }
-            if ($item->children){
-                if ($item->permission && $item->alias === 'list_customers'){
-                    $item->active = 'active';
-                }
 
-                $this->customerItems($item->children);
+                $this->recurse($item->children);
+
             }
+        }
+
+    }
+
+    /**
+     * @param Collection $items
+     */
+    private function recurse(Collection $items)
+    {
+        $items->map(function ($item, $key){
+
+            /*********************************
+            the block for middle level only
+             *********************************/
+//                if ($item->alias === 'any alias'){
+//                    $item->open = 'menu-open';
+//                    $item->active = 'active';
+//                    $this->recurse($item->children);
+//                }
+            /********************************/
+
+            if ($item->alias === 'list_customers'){
+                $item->active = 'active';
+            }
+
+            return $item;
         });
     }
 
