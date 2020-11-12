@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Console\Admins\Commands\AdminBanCommand;
 use App\Console\Admins\Commands\AdminRegisterCommand;
 use App\Console\Admins\Commands\AdminResetPasswordCommand;
+use App\Console\Customers\Commands\CustomerBanCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -23,6 +24,7 @@ class Kernel extends ConsoleKernel
         AdminRegisterCommand::class,
         AdminResetPasswordCommand::class,
         AdminBanCommand::class,
+        CustomerBanCommand::class,
     ];
 
     /**

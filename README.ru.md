@@ -751,4 +751,9 @@
 - создадим шаблон формы для бана **`customers`** в файле **`resources/views/admin/pages/customers/list.blade.php`**
 - добавим пункты меню в **`config/menu-admin.php`**
 
-создадим коммит #49
+создадим коммит [#49](https://github.com/acwstudio/DDD-demo/commit/cf487e12658f1086a877df7c2153d4fbb9fc8b53)
+
+- создадим команду **`App/Console/Customers/Commands/CustomerBanCommand.php`**
+- создадим валидационный класс **`App/Console/Customers/CustomerDataValidate.php`**
+
+создадим коммит #50

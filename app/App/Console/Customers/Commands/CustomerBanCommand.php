@@ -1,35 +1,35 @@
 <?php
 
 
-namespace App\Console\Admins\Commands;
+namespace App\Console\Customers\Commands;
 
 
-use App\Console\Admins\AdminDataValidate;
-use Domain\Admins\Actions\AdminBanAction;
-use Domain\Admins\Models\Admin;
+use App\Console\Customers\CustomerDataValidate;
+use Domain\Customers\Actions\CustomerBanAction;
+use Domain\Customers\Models\Customer;
 use Illuminate\Console\Command;
 use Illuminate\Http\Request;
 use Validator;
 
 /**
- * Class AdminBanCommand
- * @package App\Console\Admins\Commands
+ * Class CustomerBanCommand
+ * @package App\Console\Customers\Commands
  */
-class AdminBanCommand extends Command
+class CustomerBanCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'admin:ban-admin';
+    protected $signature = 'customer:ban-customer';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Ban user admin';
+    protected $description = 'Ban user customer';
 
     /**
      * Create a new command instance.
@@ -42,21 +42,18 @@ class AdminBanCommand extends Command
     }
 
     /**
-     * Execute the console command.
-     *
-     * @param Admin $admins
-     * @param AdminDataValidate $dataValidate
-     * @param AdminBanAction $banAction
-     * @return void
+     * @param Customer $customers
+     * @param CustomerDataValidate $dataValidate
+     * @param CustomerBanAction $banAction
      */
     public function handle(
-        Admin $admins, AdminDataValidate $dataValidate, AdminBanAction $banAction)
+        Customer $customers, CustomerDataValidate $dataValidate, CustomerBanAction $banAction)
     {
         $fields = [];
 
-        $fields['email'] = $this->askValid($dataValidate->choiceEmail($admins));
+        $fields['email'] = $this->askValid($dataValidate->choiceEmail($customers));
 
-        $admin = Admin::where('email', $fields['email'])->first();
+        $admin = Customer::where('email', $fields['email'])->first();
 
         $ban = $this->askValid($dataValidate->askBan());
 
@@ -73,13 +70,13 @@ class AdminBanCommand extends Command
 
         $banAction->execute($admin, $request);
 
-        $this->info('Admin Create Successfully');
+        $this->info('Customer Create Successfully');
         $this->info('Your password is ' . $fields['password']);
     }
 
     /**
      * @param array $data
-     * @return mixed
+     * @return array|mixed|string
      */
     protected function askValid(array $data)
     {
