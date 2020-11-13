@@ -756,4 +756,22 @@
 - создадим команду **`App/Console/Customers/Commands/CustomerBanCommand.php`**
 - создадим валидационный класс **`App/Console/Customers/CustomerDataValidate.php`**
 
-создадим коммит #50
+создадим коммит [#50](https://github.com/acwstudio/DDD-demo/commit/205d4fc5815fa482d1720e648e458e9db6a21fa7)
+
+### Домен `Products`
+
+- Создадим каталог для домена **`Products`** и модель **`App/Domain/Products/Models/Product.php`**
+
+Для демонстрации применения паттерна **DTO** (Data Transfer Object) модель **`Product`** будет содержать большое 
+количество полей, характеризующих товар.
+
+- Создадим таблицу **`products`**
+- Создадим фабрику **`database/factories/ProductFactory.php`**
+- Создадим сид **`database/seeders/ProductSeeder.php`**
+- Создадим модель **`Domain/Products/Models/Product.php`**
+
+сделаем коммит [#51](https://github.com/acwstudio/DDD-demo/commit/6aaab47cf590b31ddd799ad21b5cbcc6e037d2ad)
+
+- Привяжем админа который заполнял карточку товара к позиции товара.
+
+сделаем коммит #52

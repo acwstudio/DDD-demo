@@ -23,7 +23,6 @@ class PermissionSeeder extends Seeder
 
         foreach ($permissions as $key => $permission) {
             foreach ($permissions[$key] as $item) {
-                dump($item);
                 \DB::table('permissions')->insert([
                     'name' => $key . '.' . $item,
                     'guard_name' => 'admin'

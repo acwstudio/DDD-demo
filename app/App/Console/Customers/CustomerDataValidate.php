@@ -10,7 +10,7 @@ use Spatie\Permission\Models\Role;
 
 /**
  * Class CustomerDataValidate
- * @package App\Console\Admins
+ * @package App\Console\Customers
  */
 class CustomerDataValidate
 {
@@ -24,22 +24,7 @@ class CustomerDataValidate
     private array $password;
 
     /** @var array  */
-    private array $role;
-
-    /** @var Role | Collection */
-    private Role $roles;
-
-    /** @var array  */
     private array $ban;
-
-    /**
-     * CustomerValidateData constructor.
-     * @param Role $role
-     */
-    public function __construct(Role $role)
-    {
-        $this->roles = $role;
-    }
 
     /**
      * @return array
@@ -88,22 +73,6 @@ class CustomerDataValidate
         ];
 
         return $this->email;
-    }
-
-    /**
-     * @return array
-     */
-    public function choiceRole()
-    {
-        $this->role = [
-            'ask' => "What is the role?",
-            'field' => 'Role',
-            'rules' => ['required', 'string'],
-            'choice' => $this->roles->pluck('name')->toArray(),
-            'message' => [],
-        ];
-
-        return $this->role;
     }
 
     /**

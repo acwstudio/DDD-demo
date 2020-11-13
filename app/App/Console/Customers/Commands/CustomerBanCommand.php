@@ -53,7 +53,7 @@ class CustomerBanCommand extends Command
 
         $fields['email'] = $this->askValid($dataValidate->choiceEmail($customers));
 
-        $admin = Customer::where('email', $fields['email'])->first();
+        $customer = Customer::where('email', $fields['email'])->first();
 
         $ban = $this->askValid($dataValidate->askBan());
 
@@ -63,12 +63,12 @@ class CustomerBanCommand extends Command
             $fields['ban'] = false;
         }
 
-        $fields['password'] = $admin->password;
-        $fields['name'] = $admin->name;
+        $fields['password'] = $customer->password;
+        $fields['name'] = $customer->name;
 
         $request = new Request($fields);
 
-        $banAction->execute($admin, $request);
+        $banAction->execute($customer, $request);
 
         $this->info('Customer Create Successfully');
         $this->info('Your password is ' . $fields['password']);

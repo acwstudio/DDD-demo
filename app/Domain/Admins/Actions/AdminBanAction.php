@@ -36,7 +36,7 @@ class AdminBanAction
         return $admin->update([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => \Hash::make($request->password),
+            'password' => $request->password,
             'email_verified_at' => $request->email_verified_at,
             'ban' => $request->ban,
             'remember_token' => $request->remember_token,
