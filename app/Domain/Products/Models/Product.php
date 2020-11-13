@@ -4,6 +4,7 @@
 namespace Domain\Products\Models;
 
 
+use Domain\Admins\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,4 +26,12 @@ class Product extends Model
         'min_price', 'sale_price', 'buy_price', 'archived', 'published', 'weight', 'volume', 'reserve',
         'in_transit', 'quantity'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
+    }
 }
