@@ -25,7 +25,7 @@ class CreateProductsTable extends Migration
             $table->string('type');
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->string('barcode');
-            $table->integer('stock');
+            $table->string('stock');
             $table->decimal('min_price');
             $table->decimal('buy_price');
             $table->decimal('sale_price');

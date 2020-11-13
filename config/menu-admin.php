@@ -81,6 +81,22 @@ return [
             'permission' => 'customers.ban',
             'father' => 'customers',
         ],
+
+        'products' => [
+            'icon' => 'fa-shopping-bag',
+            'item' => 'Products',
+            'route' => null,
+            'permission' => null,
+            'father' => null,
+        ],
+
+        'list_products' => [
+            'icon' => null,
+            'item' => 'List Products',
+            'route' => 'product.list',
+            'permission' => 'products.list',
+            'father' => 'products',
+        ],
     ],
 /********************************************************/
     'new-items' => [

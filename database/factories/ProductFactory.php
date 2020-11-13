@@ -29,6 +29,9 @@ class ProductFactory extends Factory
     public function definition()
     {
         $type = ['goods', 'service'];
+        $stock = ['stock #1', 'stock #2', 'stock #3'];
+
+
         $buy_price = $this->faker->randomFloat($nbMaxDecimals = 2, $min = 1, $max = 500);
         $sale_price = $buy_price * 1.20;
         $min_price = $buy_price * 1.15;
@@ -40,7 +43,7 @@ class ProductFactory extends Factory
         $canAdmins = [];
 
         foreach ($admins as $key => $admin){
-            if ($admin->hasAnyPermission('product.create')){
+            if ($admin->hasAnyPermission('products.create')){
                 $canAdmins[$key] = $admin->id;
             }
         }
@@ -53,7 +56,7 @@ class ProductFactory extends Factory
             'type' => $type[array_rand($type, 1)],
             'admin_id' => $canAdmins[array_rand($canAdmins, 1)],
             'barcode' => $this->faker->ean13,
-            'stock' => $this->faker->numberBetween($min = 0, $max = 20),
+            'stock' => $stock[array_rand($stock, 1)],
             'buy_price' => $buy_price,
             'min_price' => $min_price,
             'sale_price' => $sale_price,

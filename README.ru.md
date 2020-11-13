@@ -765,6 +765,8 @@
 Для демонстрации применения паттерна **DTO** (Data Transfer Object) модель **`Product`** будет содержать большое 
 количество полей, характеризующих товар.
 
+**Заполнение таблицы `products`** фейковыми данными
+
 - Создадим таблицу **`products`**
 - Создадим фабрику **`database/factories/ProductFactory.php`**
 - Создадим сид **`database/seeders/ProductSeeder.php`**
@@ -774,4 +776,16 @@
 
 - Привяжем админа который заполнял карточку товара к позиции товара.
 
-сделаем коммит #52
+сделаем коммит [#52](https://github.com/acwstudio/DDD-demo/commit/42e8bf726bd3a1c1afce81d11bbc00aac0e88179)
+
+### Модуль **`Products`** приложения **`AdminPanel`**
+
+**Вывод сприска товаров в таблицу**
+
+- создадим контроллер **`App/Http/AdminPanel/Products/Controllers/ProductListController.php`**
+- пропишем роут в **`routes/admin.php`**
+- создадим класс представления **`App/Http/AdminPanel/Products/ViewModels/ProductListViewModel.php`**
+- добавим пункты меню в файле **`config/menu-admin.php`**
+- создадим шаблон для вывода списка товаров **`resorces/views/admin/pages/products/list.blade.php`**
+
+сделаем коммит #53
