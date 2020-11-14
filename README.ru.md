@@ -780,7 +780,7 @@
 
 ### Модуль **`Products`** приложения **`AdminPanel`**
 
-**Вывод сприска товаров в таблицу**
+**Вывод списка товаров в таблицу**
 
 - создадим контроллер **`App/Http/AdminPanel/Products/Controllers/ProductListController.php`**
 - пропишем роут в **`routes/admin.php`**
@@ -788,4 +788,14 @@
 - добавим пункты меню в файле **`config/menu-admin.php`**
 - создадим шаблон для вывода списка товаров **`resorces/views/admin/pages/products/list.blade.php`**
 
-сделаем коммит #53
+сделаем коммит [#53](https://github.com/acwstudio/DDD-demo/commit/75bc35b59367a4e6ed0b27a1261f0044a3c02808)
+
+**`Вывод карточки товара`**
+
+- создадим контроллер **`App/Http/AdminPanel/Products/Controllers/ProductListController.php`**
+- пропишем роут в **`routes/admin.php`**
+- создадим класс представления **`App/Http/AdminPanel/Products/ViewModels/ProductItemViewModel.php`**
+- добавим пункты меню в файле **`config/menu-admin.php`**
+- создадим шаблон для вывода карточки товара **`resorces/views/admin/pages/products/item.blade.php`**
+
+сделаем коммит #54

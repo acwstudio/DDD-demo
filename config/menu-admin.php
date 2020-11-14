@@ -97,6 +97,14 @@ return [
             'permission' => 'products.list',
             'father' => 'products',
         ],
+
+        'show_product' => [
+            'icon' => null,
+            'item' => 'Show Product',
+            'route' => 'product.list',
+            'permission' => 'products.show',
+            'father' => 'products',
+        ],
     ],
 /********************************************************/
     'new-items' => [

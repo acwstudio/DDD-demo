@@ -10,79 +10,45 @@ use Domain\Products\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * Class ProductListViewModel
+ * Class ProductItemViewModel
  * @package App\Http\AdminPanel\Products\ViewModels
  */
-class ProductListViewModel extends AdminPanelViewModel
+class ProductItemViewModel extends AdminPanelViewModel
 {
-    public $products;
-    public $canArchived;
-    public $canPublished;
-    public $canShowItem;
+    public $productItem;
+    private $product_id;
 
     /**
      * AdminViewModel constructor.
+     * @param int $id
      * @throws \Exception
      */
-    public function __construct()
+    public function __construct(int $id)
     {
         /** @var Admin $admin */
         $admin = \Auth::guard('admin')->user();
 
         parent::__construct($admin);
 
+        $this->productItem = Product::find($id);
+        $this->product_id = $id;
+
         $menu = $this->asideMenu;
-        $this->listItems($menu);
-
-        $this->canArchived = $this->canArchived($admin);
-        $this->canPublished = $this->canPublished($admin);
-        $this->canShowItem = $this->canShowItem($admin);
-
-        $this->products = Product::all();
+        $this->showProduct($menu);
     }
 
     /**
-     * @return Collection
+     * @return Admin|\Illuminate\Database\Eloquent\Model|object|null
      */
-    public function products()
+    public function productItem()
     {
-        return $this->products;
-    }
-
-    /**
-     * @param Admin $admin
-     * @return bool
-     * @throws \Exception
-     */
-    private function canArchived(Admin $admin)
-    {
-        return $admin->hasAnyPermission('products.archived');
-    }
-
-    /**
-     * @param Admin $admin
-     * @return bool
-     * @throws \Exception
-     */
-    private function canPublished(Admin $admin)
-    {
-        return $admin->hasAnyPermission('products.published');
-    }
-
-    /**
-     * @param Admin $admin
-     * @return bool
-     * @throws \Exception
-     */
-    private function canShowItem(Admin $admin)
-    {
-        return $admin->hasAnyPermission('products.show');
+        return $this->productItem;
     }
 
     /**
      * @param Collection $menu
      */
-    private function listItems($menu)
+    private function showProduct($menu)
     {
         foreach ($menu as $item) {
             /** @var Collection $item */
@@ -114,12 +80,12 @@ class ProductListViewModel extends AdminPanelViewModel
 //                }
             /********************************/
 
-            if ($item->alias === 'list_products'){
+            if ($item->alias === 'show_product'){
                 $item->active = 'active';
+                $item->badgeText = 'ID: ' . $this->product_id;
+                $item->badgeColor = 'badge-success';
             }
-
             return $item;
         });
     }
-
 }

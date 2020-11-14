@@ -55,6 +55,7 @@
                                     <th>Published</th>
                                     <th>Quantity</th>
                                     <th>Set Archive</th>
+                                    <th>Show Item</th>
                                     <th>Set Publish</th>
                                 </tr>
                                 </thead>
@@ -84,6 +85,14 @@
                                             @if($viewModel->canArchived)
                                                 <a href="#" type="button"
                                                    class="badge badge-success">SET ARCHIVE</a>
+                                            @else
+                                                <span class="badge badge-danger">NO ACCESS</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($viewModel->canShowItem)
+                                                <a href="{{ route('product.item', $product->id ) }}" type="button"
+                                                   class="badge badge-success">SHOW ITEM</a>
                                             @else
                                                 <span class="badge badge-danger">NO ACCESS</span>
                                             @endif
