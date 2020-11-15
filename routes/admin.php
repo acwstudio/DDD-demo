@@ -20,6 +20,7 @@ use App\Http\AdminPanel\Admins\Controllers\AdminResetPasswordController;
 use App\Http\AdminPanel\Customers\Controllers\CustomerBanController;
 use App\Http\AdminPanel\Customers\Controllers\CustomerListController;
 use App\Http\AdminPanel\Dashboard\Controllers\DashboardHomeController;
+use App\Http\AdminPanel\Products\Controllers\ProductEditController;
 use App\Http\AdminPanel\Products\Controllers\ProductItemController;
 use App\Http\AdminPanel\Products\Controllers\ProductListController;
 
@@ -73,6 +74,12 @@ Route::get('products', [ProductListController::class, 'showList'])->name('produc
 
 // Product item Route
 Route::get('products/{id}', [ProductItemController::class, 'showItem'])->name('product.item');
+
+// Product edit Routes
+Route::get('/products/{id}/edit', [ProductEditController::class, 'showEditForm'])
+    ->name('product.edit');
+Route::put('/product/{id}', [ProductEditController::class, 'update'])
+    ->name('product.update');
 
 // Archived Rotes
 //Route::get('customer/ban/show/{id}', [CustomerBanController::class, 'showBanForm'])->name('customer.ban.show');

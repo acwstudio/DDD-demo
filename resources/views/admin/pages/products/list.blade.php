@@ -77,7 +77,7 @@
                                             @if($product->published)
                                                 <span class="badge badge-success">PUBLISHED</span>
                                             @else
-                                                <span class="badge badge-danger">CHEKING</span>
+                                                <span class="badge badge-warning">MODERATION</span>
                                             @endif
                                         </td>
                                         <td>{{ $product->quantity }}</td>

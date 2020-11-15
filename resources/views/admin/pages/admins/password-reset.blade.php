@@ -58,7 +58,7 @@
                                         <input id="email" type="email" class="form-control @error('email')
                                             is-invalid @enderror" name="email"
                                                value="{{ $viewModel->adminItem->email }}"
-                                               required autocomplete="name" placeholder="Email">
+                                               required autocomplete="email" placeholder="Email">
                                         @error('email')
                                         <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

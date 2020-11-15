@@ -105,6 +105,14 @@ return [
             'permission' => 'products.show',
             'father' => 'products',
         ],
+
+        'edit_product' => [
+            'icon' => null,
+            'item' => 'Edit Product',
+            'route' => 'product.list',
+            'permission' => 'products.edit',
+            'father' => 'products',
+        ]
     ],
 /********************************************************/
     'new-items' => [

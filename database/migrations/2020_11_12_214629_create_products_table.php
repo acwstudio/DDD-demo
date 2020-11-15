@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->string('category_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->string('vendor_code');
             $table->string('type');
             $table->unsignedBigInteger('admin_id')->nullable();
@@ -33,9 +33,9 @@ class CreateProductsTable extends Migration
             $table->boolean('published')->default(true);
             $table->decimal('weight', 10, 3);
             $table->decimal('volume', 10, 3);
-            $table->integer('reserve');
-            $table->decimal('in_transit');
-            $table->decimal('quantity');
+            $table->bigInteger('reserve');
+            $table->bigInteger('in_transit');
+            $table->bigInteger('quantity');
             $table->timestamps();
         });
     }

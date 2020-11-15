@@ -82,7 +82,7 @@
                                 </div>
                                 <!-- Ban admin field -->
                                 <div class="form-group row">
-                                    <label for="password" class="col-sm-3 col-form-label">Set / unset ban</label>
+                                    <label for="ban" class="col-sm-3 col-form-label">Set / unset ban</label>
                                     <div class="col-sm-9">
                                         <div class="custom-control custom-checkbox" style="padding-top: .375rem">
                                             <input type="checkbox" class="custom-control-input" name="ban" id="ban">

@@ -8,15 +8,17 @@ use App\Http\AdminPanel\AdminPanelViewModel;
 use Domain\Admins\Models\Admin;
 use Domain\Products\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
+use Spatie\Permission\Models\Role;
 
 /**
- * Class ProductItemViewModel
+ * Class ProductEditViewModel
  * @package App\Http\AdminPanel\Products\ViewModels
  */
-class ProductItemViewModel extends AdminPanelViewModel
+class ProductEditViewModel extends AdminPanelViewModel
 {
     public $productItem;
     private $product_id;
+    public $admins;
 
     /**
      * AdminViewModel constructor.
@@ -35,15 +37,16 @@ class ProductItemViewModel extends AdminPanelViewModel
 
         $menu = $this->asideMenu;
         $this->showProduct($menu);
+        $this->admins = Admin::all();
     }
 
     /**
-     * @return Admin|\Illuminate\Database\Eloquent\Model|object|null
+     * @return Collection
      */
-//    public function productItem()
-//    {
-//        return $this->productItem;
-//    }
+    public function admins()
+    {
+        return $this->admins;
+    }
 
     /**
      * @param Collection $menu
@@ -80,7 +83,7 @@ class ProductItemViewModel extends AdminPanelViewModel
 //                }
             /********************************/
 
-            if ($item->alias === 'show_product'){
+            if ($item->alias === 'edit_product'){
                 $item->active = 'active';
                 $item->badgeText = 'ID: ' . $this->product_id;
                 $item->badgeColor = 'badge-success';

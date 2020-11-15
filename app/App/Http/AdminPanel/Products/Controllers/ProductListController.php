@@ -5,6 +5,7 @@ namespace App\Http\AdminPanel\Products\Controllers;
 
 
 use App\Http\AdminPanel\Products\ViewModels\ProductListViewModel;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 /**
@@ -25,10 +26,10 @@ class ProductListController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Exception
      */
-    public function showList()
+    public function showList(Request $request)
     {
         $viewModel = new ProductListViewModel();
-//        dd($viewModel->products);
+
         return view('admin.pages.products.list', compact('viewModel'));
     }
 }

@@ -29,6 +29,7 @@ class ProductItemController extends Controller
     {
         $viewModel = new ProductItemViewModel($id);
 //        dd($viewModel);
+
         return view('admin.pages.products.item', compact('viewModel'));
     }
 }

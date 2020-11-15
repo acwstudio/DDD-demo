@@ -63,7 +63,9 @@ class AdminPanelViewModel extends ViewModel
                 if (is_null($item->level)){
                     $item->hasPermission = $this->admin->hasAnyPermission($item->permission);
                     if ($item->alias === 'ban_admin' || $item->alias === 'reset_password'
-                        || $item->alias === 'ban_customer' || $item->alias === 'show_product'){
+                        || $item->alias === 'ban_customer' || $item->alias === 'show_product'
+                        || $item->alias === 'edit_product'
+                    ){
                         $item->state = 'disabled';
                         $item->badgeText = $item->hasPermission ? 'ID NO' : '403';
                         $item->badgeColor = $item->hasPermission ? 'badge-warning' : 'badge-danger';

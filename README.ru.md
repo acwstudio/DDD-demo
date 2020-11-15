@@ -790,7 +790,7 @@
 
 сделаем коммит [#53](https://github.com/acwstudio/DDD-demo/commit/75bc35b59367a4e6ed0b27a1261f0044a3c02808)
 
-**`Вывод карточки товара`**
+**Вывод карточки товара**
 
 - создадим контроллер **`App/Http/AdminPanel/Products/Controllers/ProductListController.php`**
 - пропишем роут в **`routes/admin.php`**
@@ -798,4 +798,25 @@
 - добавим пункты меню в файле **`config/menu-admin.php`**
 - создадим шаблон для вывода карточки товара **`resorces/views/admin/pages/products/item.blade.php`**
 
-сделаем коммит #54
+сделаем коммит [#54](https://github.com/acwstudio/DDD-demo/commit/e50b7f9c42129b2653ce3f0980879fc1b957a9fa)
+
+### Зачем нужен DTO и как его использовать в Laravel
+
+Источником послужила вот эта [статья](https://stitcher.io/blog/laravel-beyond-crud-02-working-with-data). В ней 
+все подробно объясняется, поэтому не буду повторяться, опишу лишь только последовательность сделанных мною шагов 
+в демо приложении.
+
+- установим пакет **`composer require spatie/data-transfer-object`**
+
+Для демонстрации данного паттерна, добавим возможность редактирования товара. Чтобы вручную не создавать массив 
+данных товара возьмем его из **`FormRequest`** и обернем в **DTO**
+
+- создадим контроллер **`App/Http/AdminPanel/Products/Controllers/ProductEditController.php`**
+- создадим валидационный класс **`App/Http/AdminPanel/Products/Requests/ProductEditRequest.php`**
+- добавим пункт меню в конфиге **`config/menu-admin.php`**
+- пропишем роуты в **`routes/admin.php`**
+- создадим шаблон для формы редактирования товара **`resorces/views/admin/pages/products/edit.blade.php`**
+- создадим класс представления **`App/Http/AdminPanel/Products/ViewModels/ProductEditViewModel.php`**
+- создадим **DTO** **`Domain/Products/DTO/ProductData`**. Этот **DTO** будет формироваться из **`FormRequest`**
+
+сделаем коммит #55
