@@ -30,25 +30,25 @@ class ProductData extends DataTransferObject
 
     public string $stock;
 
-    public string $buyPrice;
+    public float $buy_price;
 
-    public string $min_price;
+    public float $min_price;
 
-    public string $sale_price;
+    public float $sale_price;
 
     public bool $archived;
 
     public bool $published;
 
-    public string $weight;
+    public float $weight;
 
-    public string $volume;
+    public float $volume;
 
-    public string $reserve;
+    public int $reserve;
 
-    public string $in_transit;
+    public int $in_transit;
 
-    public string $quantity;
+    public int $quantity;
 
     /**
      * @param Request $request
@@ -65,17 +65,16 @@ class ProductData extends DataTransferObject
             'admin' => Admin::find($request->get('admin_id')),
             'barcode' => $request->get('barcode'),
             'stock' => $request->get('stock'),
-            'buyPrice' => $request->get('buy_price'),
-            'min_price' => $request->get('min_price'),
-            'sale_price' => $request->get('sale_price'),
+            'buy_price' => (float)$request->get('buy_price'),
+            'min_price' => (float)$request->get('min_price'),
+            'sale_price' => (float)$request->get('sale_price'),
             'archived' => $request->get('archived'),
             'published' => $request->get('published'),
-            'weight' => $request->get('weight'),
-            'volume' => $request->get('volume'),
-            'reserve' => $request->get('reserve'),
-            'in_transit' => $request->get('in_transit'),
-            'quantity' => $request->get('quantity'),
+            'weight' => (float)$request->get('weight'),
+            'volume' => (float)$request->get('volume'),
+            'reserve' => (int)$request->get('reserve'),
+            'in_transit' => (int)$request->get('in_transit'),
+            'quantity' => (int)$request->get('quantity'),
         ]);
     }
-
 }

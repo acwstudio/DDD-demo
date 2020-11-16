@@ -54,9 +54,8 @@
                                     <th>Archived</th>
                                     <th>Published</th>
                                     <th>Quantity</th>
-                                    <th>Set Archive</th>
                                     <th>Show Item</th>
-                                    <th>Set Publish</th>
+                                    <th>Edit Item</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -82,14 +81,6 @@
                                         </td>
                                         <td>{{ $product->quantity }}</td>
                                         <td>
-                                            @if($viewModel->canArchived)
-                                                <a href="#" type="button"
-                                                   class="badge badge-success">SET ARCHIVE</a>
-                                            @else
-                                                <span class="badge badge-danger">NO ACCESS</span>
-                                            @endif
-                                        </td>
-                                        <td>
                                             @if($viewModel->canShowItem)
                                                 <a href="{{ route('product.item', $product->id ) }}" type="button"
                                                    class="badge badge-success">SHOW ITEM</a>
@@ -98,9 +89,9 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if($viewModel->canPublished)
-                                                <a href="#" type="button"
-                                                   class="badge badge-success">SET PUBLISH</a>
+                                            @if($viewModel->canEdit)
+                                                <a href="{{ route('product.edit', $product->id ) }}" type="button"
+                                                   class="badge badge-success">EDIT ITEM</a>
                                             @else
                                                 <span class="badge badge-danger">NO ACCESS</span>
                                             @endif

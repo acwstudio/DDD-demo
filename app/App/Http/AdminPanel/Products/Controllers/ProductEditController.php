@@ -4,7 +4,9 @@ namespace App\Http\AdminPanel\Products\Controllers;
 
 use App\Http\AdminPanel\Products\Requests\ProductEditRequest;
 use App\Http\AdminPanel\Products\ViewModels\ProductEditViewModel;
+use Domain\Products\Actions\ProductUpdateAction;
 use Domain\Products\DTO\ProductData;
+use Domain\Products\Models\Product;
 use Illuminate\Routing\Controller;
 
 /**
@@ -31,10 +33,7 @@ class ProductEditController extends Controller
     public function showEditForm(int $id)
     {
         $viewModel = new ProductEditViewModel($id);
-//        $data = new ProductData([
-//            'name' => 'Andrey',
-//        ]);
-//        dd($data);
+
         return view('admin.pages.products.edit', compact('viewModel'));
     }
 
@@ -42,9 +41,14 @@ class ProductEditController extends Controller
      * @param ProductEditRequest $editRequest
      * @param $id
      */
-    public function update(ProductEditRequest $editRequest, $id)
+    public function update(ProductEditRequest $editRequest, $id, ProductUpdateAction $updateAction)
     {
         $data = ProductData::fromRequest($editRequest);
-        dd($data);
+//        $data1 = ProductData::fromCommand();
+//        dd($data);
+        $product = Product::find($id);
+        $updateAction->execute($product, $data);
+//        dd($product);
+        return redirect()->route('product.list');
     }
 }

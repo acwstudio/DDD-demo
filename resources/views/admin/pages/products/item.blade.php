@@ -138,6 +138,17 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="card-footer">
+                                    @if($viewModel->canEdit)
+                                        <a href="{{ route('product.edit', $viewModel->productItem->id) }}"
+                                           type="button" class="btn btn-info float-left">Edit Product</a>
+                                    @else
+                                        <button class="btn btn-danger float-left" disabled>Edit Product</button>
+                                    @endif
+
+                                    <a href="{{ route('product.list') }}" type="button"
+                                       class="btn btn-info float-right">Return to List</a>
+                                </div>
                             </form>
                         </div>
                     </div>

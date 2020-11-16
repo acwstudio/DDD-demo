@@ -17,6 +17,7 @@ class ProductItemViewModel extends AdminPanelViewModel
 {
     public $productItem;
     private $product_id;
+    public $canEdit;
 
     /**
      * AdminViewModel constructor.
@@ -33,6 +34,8 @@ class ProductItemViewModel extends AdminPanelViewModel
         $this->productItem = Product::find($id);
         $this->product_id = $id;
 
+        $this->canEdit = $this->canEdit($admin);
+
         $menu = $this->asideMenu;
         $this->showProduct($menu);
     }
@@ -44,6 +47,16 @@ class ProductItemViewModel extends AdminPanelViewModel
 //    {
 //        return $this->productItem;
 //    }
+
+    /**
+     * @param Admin $admin
+     * @return bool
+     * @throws \Exception
+     */
+    private function canEdit(Admin $admin)
+    {
+        return $admin->hasAnyPermission('products.edit');
+    }
 
     /**
      * @param Collection $menu

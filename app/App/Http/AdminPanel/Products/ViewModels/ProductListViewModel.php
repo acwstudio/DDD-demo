@@ -16,8 +16,7 @@ use Illuminate\Database\Eloquent\Collection;
 class ProductListViewModel extends AdminPanelViewModel
 {
     public $products;
-    public $canArchived;
-    public $canPublished;
+    public $canEdit;
     public $canShowItem;
 
     /**
@@ -34,8 +33,7 @@ class ProductListViewModel extends AdminPanelViewModel
         $menu = $this->asideMenu;
         $this->listItems($menu);
 
-        $this->canArchived = $this->canArchived($admin);
-        $this->canPublished = $this->canPublished($admin);
+        $this->canEdit = $this->canEdit($admin);
         $this->canShowItem = $this->canShowItem($admin);
 
         $this->products = Product::all();
@@ -54,19 +52,9 @@ class ProductListViewModel extends AdminPanelViewModel
      * @return bool
      * @throws \Exception
      */
-    private function canArchived(Admin $admin)
+    private function canEdit(Admin $admin)
     {
-        return $admin->hasAnyPermission('products.archived');
-    }
-
-    /**
-     * @param Admin $admin
-     * @return bool
-     * @throws \Exception
-     */
-    private function canPublished(Admin $admin)
-    {
-        return $admin->hasAnyPermission('products.published');
+        return $admin->hasAnyPermission('products.edit');
     }
 
     /**

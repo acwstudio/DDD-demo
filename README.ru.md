@@ -819,4 +819,10 @@
 - создадим класс представления **`App/Http/AdminPanel/Products/ViewModels/ProductEditViewModel.php`**
 - создадим **DTO** **`Domain/Products/DTO/ProductData`**. Этот **DTO** будет формироваться из **`FormRequest`**
 
-сделаем коммит #55
+сделаем коммит [#55](https://github.com/acwstudio/DDD-demo/commit/c333da4c18c66242a6538f274db118f63e31d664)
+
+Доведем редактирование **`Product`** до логического завершения
+
+- создадим экшен **`Domain/Products/Actions/ProductUpdateAction.php`**
+
+сделаем коммит #56
