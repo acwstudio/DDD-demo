@@ -59,19 +59,17 @@ class CustomerBanCommand extends Command
 
         if ($ban === 'set ban'){
             $fields['ban'] = true;
+            $message = $fields['email'] . ' banned Successfully';
         } else {
             $fields['ban'] = false;
+            $message = $fields['email'] . ' unbanned Successfully';
         }
-
-        $fields['password'] = $customer->password;
-        $fields['name'] = $customer->name;
 
         $request = new Request($fields);
 
         $banAction->execute($customer, $request);
 
-        $this->info('Customer Create Successfully');
-        $this->info('Your password is ' . $fields['password']);
+        $this->info($message);
     }
 
     /**

@@ -4,6 +4,7 @@
 namespace Domain\Admins\Actions;
 
 
+use App\Http\AdminPanel\Admins\Mails\AdminBanMail;
 use App\Http\AdminPanel\Admins\Mails\AdminRegisteredMail;
 use Domain\Admins\Models\Admin;
 use Illuminate\Http\Request;
@@ -15,14 +16,12 @@ use Illuminate\Http\Request;
 class AdminBanAction
 {
     /**
-     * @param Admin $admin
+     * @param int $id
      * @param Request $request
      */
-    public function execute(Admin $admin, Request $request)
+    public function execute(int $id, Request $request)
     {
-        $adminId = $this->adminBan($admin, $request);
-
-        $this->sendEmail($request);
+        $this->adminBan($id, $request);
 
     }
 
@@ -31,25 +30,29 @@ class AdminBanAction
      * @param Request $request
      * @return int
      */
-    private function adminBan(Admin $admin, Request $request)
+    private function adminBan(int $id, Request $request)
     {
-        return $admin->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-            'email_verified_at' => $request->email_verified_at,
+        $admin = Admin::find($id);
+
+        $admin->update([
             'ban' => $request->ban,
-            'remember_token' => $request->remember_token,
-            'created_at' => $request->created_at,
             'updated_at' => $request->updated_at,
         ]);
+
+        $emailDetails = [
+            'name' => $admin->name,
+            'email' => $admin->email,
+            'ban' => $admin->ban,
+        ];
+
+        $this->sendEmail($emailDetails);
     }
 
     /**
-     * @param Request $request
+     * @param array $emailDetails
      */
-    private function sendEmail(Request $request)
+    private function sendEmail(array $emailDetails)
     {
-        \Mail::to($request->email)->send(new AdminRegisteredMail($request->all()));
+        \Mail::to($emailDetails['email'])->send(new AdminBanMail($emailDetails));
     }
 }

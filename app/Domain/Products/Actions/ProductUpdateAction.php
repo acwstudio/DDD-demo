@@ -6,7 +6,6 @@ namespace Domain\Products\Actions;
 
 use Domain\Products\DTO\ProductData;
 use Domain\Products\Models\Product;
-use Illuminate\Http\Request;
 
 /**
  * Class ProductUpdateAction
@@ -20,7 +19,7 @@ class ProductUpdateAction
      */
     public function execute(Product $product, ProductData $productData)
     {
-        $productId = $this->productUpdate($product, $productData);
+        $this->productUpdate($product, $productData);
     }
 
     /**

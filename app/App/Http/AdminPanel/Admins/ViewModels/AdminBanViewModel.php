@@ -5,6 +5,7 @@ namespace App\Http\AdminPanel\Admins\ViewModels;
 use App\Http\AdminPanel\AdminPanelViewModel;
 use Domain\Admins\Models\Admin;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class AdminBanViewModel
@@ -27,7 +28,7 @@ class AdminBanViewModel extends AdminPanelViewModel
 
         parent::__construct($admin);
 
-        $this->adminItem = Admin::find($id);
+        $this->adminItem = $this->adminItem($id);
         $this->admin_id = $id;
 
         $menu = $this->asideMenu;
@@ -35,11 +36,11 @@ class AdminBanViewModel extends AdminPanelViewModel
     }
 
     /**
-     * @return Admin|\Illuminate\Database\Eloquent\Model|object|null
+     * @return Admin|Model|object|null
      */
-    public function adminItem()
+    public function adminItem($id)
     {
-        return $this->adminItem;
+        return Admin::find($id);
     }
 
     /**

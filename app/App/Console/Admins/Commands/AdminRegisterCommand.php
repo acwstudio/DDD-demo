@@ -45,13 +45,10 @@ class AdminRegisterCommand extends Command
      * Execute the console command.
      *
      * @param AdminRegisterAction $registerAction
-     * @param Admin $admin
      * @param AdminDataValidate $dataValidate
      * @return void
      */
-    public function handle(AdminRegisterAction $registerAction,
-                           Admin $admin,
-                           AdminDataValidate $dataValidate)
+    public function handle(AdminRegisterAction $registerAction, AdminDataValidate $dataValidate)
     {
         $fields = [];
         date_default_timezone_set('Europe/Moscow');
@@ -67,9 +64,6 @@ class AdminRegisterCommand extends Command
 
         $request = new Request($fields);
 
-//        $dataRequest = AdminData::fromRequest($request);
-
-//        $registerAction->execute($admin, $dataRequest);
         $registerAction->execute($request);
 
         $this->info('Admin Create Successfully');

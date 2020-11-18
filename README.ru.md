@@ -817,7 +817,8 @@
 - пропишем роуты в **`routes/admin.php`**
 - создадим шаблон для формы редактирования товара **`resorces/views/admin/pages/products/edit.blade.php`**
 - создадим класс представления **`App/Http/AdminPanel/Products/ViewModels/ProductEditViewModel.php`**
-- создадим **DTO** **`Domain/Products/DTO/ProductData`**. Этот **DTO** будет формироваться из **`FormRequest`**
+- создадим **DTO** **`Domain/Products/DTO/ProductData`**. Этот **DTO** будет сформирован из данных полученных из
+**`FormRequest`**
 
 сделаем коммит [#55](https://github.com/acwstudio/DDD-demo/commit/c333da4c18c66242a6538f274db118f63e31d664)
 
@@ -825,4 +826,8 @@
 
 - создадим экшен **`Domain/Products/Actions/ProductUpdateAction.php`**
 
-сделаем коммит #56
+сделаем коммит [#56](https://github.com/acwstudio/DDD-demo/commit/6404a6b3bca9bb7394d08fd98f9d6d20e5d30f4a)
+
+Пофиксил много мелочей
+
+сделаем коммит #57

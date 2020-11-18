@@ -28,6 +28,7 @@ class AdminRegisterController extends Controller
     {
         $this->middleware('auth:admin');
         $this->middleware(['permission:admins.register']);
+
         $this->registerAction = $registerAction;
     }
 

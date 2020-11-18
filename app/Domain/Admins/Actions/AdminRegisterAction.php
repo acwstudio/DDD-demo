@@ -3,7 +3,6 @@
 
 namespace Domain\Admins\Actions;
 
-
 use App\Http\AdminPanel\Admins\Mails\AdminRegisteredMail;
 use Domain\Admins\Models\Admin;
 use Illuminate\Http\Request;
@@ -37,9 +36,9 @@ class AdminRegisterAction
      */
     public function execute(Request $request)
     {
-        $admin = $this->create($request->all());
+        $this->admin = $this->create($request->all());
 
-        $this->assigneRole($admin, $admin->id, $request);
+        $this->assigneRole($request);
 
         $this->sendEmail($request);
 
@@ -63,13 +62,13 @@ class AdminRegisterAction
     /**
      * Assigne role to admin
      *
-     * @param int $id
+     * @param Admin $admin
      * @param Request $request
      */
-    private function assigneRole(Admin $admin, int $id, $request)
+    private function assigneRole($request)
     {
         $role = $request->role ? $request->role : 'probationer';
-        $admin->find($id)->assignRole($role);
+        $this->admin->assignRole($role);
     }
 
     /**

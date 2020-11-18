@@ -115,7 +115,7 @@
                                             Hi {{ $name }},
                                         </p>
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                            Congratulations, You are registered!
+                                            'Congratulations, you have a new password!'
                                         </p>
                                         {{--                                        <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;">--}}
                                         {{--                                            <tbody>--}}
@@ -133,10 +133,10 @@
                                         {{--                                            </tbody>--}}
                                         {{--                                        </table>--}}
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                            Your login is <span style="font-weight: bold">{{ $email }}</span> your password is <span style="font-weight: bold">{{ $password }}</span>
+                                            Your login is <span style="font-weight: bold">{{ $email }}</span> your new password is <span style="font-weight: bold">{{ $password }}</span>
                                         </p>
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                             Hello {{ $name }}! We are glad to see you!
+                                            We are glad to see you again!
                                         </p>
                                     </td>
                                 </tr>

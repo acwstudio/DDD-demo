@@ -28,6 +28,7 @@ class AdminResetPasswordController extends Controller
     {
         $this->middleware('auth:admin');
         $this->middleware(['permission:admins.reset']);
+
         $this->resetPasswordAction = $resetPasswordAction;
     }
 
@@ -56,9 +57,7 @@ class AdminResetPasswordController extends Controller
      */
     public function reset(AdminResetPasswordRequest $request, $id)
     {
-        $admin = Admin::find($id);
-
-        $this->resetPasswordAction->execute($admin, $request);
+        $this->resetPasswordAction->execute($id, $request);
 
         return redirect()->route('admin.list');
     }

@@ -20,10 +20,9 @@ class CustomerBanAction
      */
     public function execute(Customer $customer, Request $request)
     {
-        $customerId = $this->customerBan($customer, $request);
+        $this->customerBan($customer, $request);
 
         $this->sendEmail($request);
-
     }
 
     /**
@@ -34,13 +33,13 @@ class CustomerBanAction
     private function customerBan(Customer $customer, Request $request)
     {
         return $customer->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-            'email_verified_at' => $request->email_verified_at,
+//            'name' => $request->name,
+//            'email' => $request->email,
+//            'password' => \Hash::make($request->password),
+//            'email_verified_at' => $request->email_verified_at,
             'ban' => $request->ban,
-            'remember_token' => $request->remember_token,
-            'created_at' => $request->created_at,
+//            'remember_token' => $request->remember_token,
+//            'created_at' => $request->created_at,
             'updated_at' => $request->updated_at,
         ]);
     }
@@ -50,6 +49,6 @@ class CustomerBanAction
      */
     private function sendEmail(Request $request)
     {
-        \Mail::to($request->email)->send(new AdminRegisteredMail($request->all()));
+//        \Mail::to($request->email)->send(new AdminRegisteredMail($request->all()));
     }
 }

@@ -26,6 +26,7 @@ class AdminBanController extends Controller
     {
         $this->middleware('auth:admin');
         $this->middleware(['permission:admins.reset']);
+
         $this->banAction = $banAction;
     }
 
@@ -48,9 +49,7 @@ class AdminBanController extends Controller
      */
     public function ban(AdminBanRequest $request, int $id)
     {
-        $admin = Admin::find($id);
-
-        $this->banAction->execute($admin, $request);
+        $this->banAction->execute($id, $request);
 
         return redirect()->route('admin.list');
     }

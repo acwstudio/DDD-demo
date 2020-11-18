@@ -7,6 +7,7 @@ namespace App\Http\AdminPanel\Admins\Controllers;
 use App\Http\AdminPanel\Admins\Requests\AdminLoginRequest;
 use Domain\Admins\Actions\AdminLoginAction;
 use Illuminate\Routing\Controller;
+use Illuminate\View\View;
 
 /**
  * Class AdminLoginController
@@ -19,7 +20,7 @@ class AdminLoginController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param AdminLoginAction $loginAction
      */
     public function __construct(AdminLoginAction $loginAction)
     {
@@ -30,7 +31,7 @@ class AdminLoginController extends Controller
     /**
      * Show the application's login form.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function showLoginForm()
     {

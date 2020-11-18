@@ -44,37 +44,33 @@ class AdminBanCommand extends Command
     /**
      * Execute the console command.
      *
-     * @param Admin $admins
      * @param AdminDataValidate $dataValidate
      * @param AdminBanAction $banAction
      * @return void
      */
-    public function handle(
-        Admin $admins, AdminDataValidate $dataValidate, AdminBanAction $banAction)
+    public function handle(AdminDataValidate $dataValidate, AdminBanAction $banAction)
     {
         $fields = [];
 
-        $fields['email'] = $this->askValid($dataValidate->choiceEmail($admins));
-
-        $admin = Admin::where('email', $fields['email'])->first();
+        $fields['email'] = $this->askValid($dataValidate->choiceEmail());
 
         $ban = $this->askValid($dataValidate->askBan());
 
         if ($ban === 'set ban'){
             $fields['ban'] = true;
+            $message = $fields['email'] . ' banned Successfully';
         } else {
             $fields['ban'] = false;
+            $message = $fields['email'] . ' unbanned Successfully';
         }
 
-        $fields['password'] = $admin->password;
-        $fields['name'] = $admin->name;
+        $admin = Admin::where('email', $fields['email'])->first();
 
         $request = new Request($fields);
 
-        $banAction->execute($admin, $request);
+        $banAction->execute($admin->id, $request);
 
-        $this->info('Admin Create Successfully');
-        $this->info('Your password is ' . $fields['password']);
+        $this->info($message);
     }
 
     /**

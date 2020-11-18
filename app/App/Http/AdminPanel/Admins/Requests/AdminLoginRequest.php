@@ -5,6 +5,7 @@ namespace App\Http\AdminPanel\Admins\Requests;
 
 
 use Domain\Admins\Models\Admin;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
@@ -40,5 +41,10 @@ class AdminLoginRequest extends FormRequest
             'email' => ['required', 'string'],
             'password' => ['required', 'string', 'min:8'],
         ];
+    }
+
+    protected function failedAuthorization()
+    {
+        throw new AuthorizationException('Sorry, you were banned.');
     }
 }

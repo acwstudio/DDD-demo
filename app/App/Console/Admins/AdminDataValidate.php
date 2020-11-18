@@ -29,16 +29,21 @@ class AdminDataValidate
     /** @var Role | Collection */
     private Role $roles;
 
+    /** @var Admin | Collection */
+    private Admin $admins;
+
     /** @var array  */
     private array $ban;
 
     /**
      * AdminValidateData constructor.
      * @param Role $role
+     * @param Admin $admins
      */
-    public function __construct(Role $role)
+    public function __construct(Role $role, Admin $admins)
     {
         $this->roles = $role;
+        $this->admins = $admins;
     }
 
     /**
@@ -77,13 +82,13 @@ class AdminDataValidate
      * @param Admin $admin
      * @return array
      */
-    public function choiceEmail(Admin $admin)
+    public function choiceEmail()
     {
         $this->email = [
             'ask' => "What's his/her email?",
             'field' => 'Email',
             'rules' => ['required', 'string', 'email', 'max:255'],
-            'choice' => $admin->pluck('email')->toArray(),
+            'choice' => $this->admins->pluck('email')->toArray(),
             'message' => [],
         ];
 

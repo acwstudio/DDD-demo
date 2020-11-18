@@ -4,6 +4,8 @@
 namespace App\Http\Shop\Customers\Requests;
 
 
+use Domain\Customers\Models\Customer;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
@@ -19,7 +21,13 @@ class ShopLoginRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $user = Customer::where('email', $this->get('email'))->first();
+
+        if ($user) {
+            return $user->ban === 0 ? true : false;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -34,4 +42,11 @@ class ShopLoginRequest extends FormRequest
             'password' => ['required', 'string', 'min:8'],
         ];
     }
+
+    protected function failedAuthorization()
+    {
+        throw new AuthorizationException('Sorry, you were banned.');
+    }
+
+
 }

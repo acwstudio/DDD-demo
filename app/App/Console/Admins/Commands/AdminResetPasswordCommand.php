@@ -44,36 +44,30 @@ class AdminResetPasswordCommand extends Command
     /**
      * Execute the console command.
      *
-     * @param Admin $admins
      * @param AdminDataValidate $dataValidate
      * @param AdminResetPasswordAction $resetPasswordAction
      * @return void
      */
-    public function handle(
-        Admin $admins, AdminDataValidate $dataValidate, AdminResetPasswordAction $resetPasswordAction)
+    public function handle(AdminDataValidate $dataValidate, AdminResetPasswordAction $resetPasswordAction)
     {
         $fields = [];
 
-        $fields['email'] = $this->askValid($dataValidate->choiceEmail($admins));
+        $fields['email'] = $this->askValid($dataValidate->choiceEmail());
 
         $admin = Admin::where('email', $fields['email'])->first();
 
         $fields['password'] = $this->askValid($dataValidate->askPassword());
-        $fields['name'] = $admin->name;
 
         $request = new Request($fields);
 
-        $resetPasswordAction->execute($admin, $request);
+        $resetPasswordAction->execute($admin->id, $request);
 
-        $this->info('Admin Create Successfully');
-        $this->info('Your password is ' . $fields['password']);
+        $this->info($admin->name . ' your password is ' . $fields['password']);
 
     }
 
     /**
-     * @param $question
-     * @param $field
-     * @param $rules
+     * @param array $data
      * @return mixed
      */
     protected function askValid(array $data)
@@ -94,8 +88,7 @@ class AdminResetPasswordCommand extends Command
     }
 
     /**
-     * @param $rules
-     * @param $fieldName
+     * @param $data
      * @param $value
      * @return string|null
      */
