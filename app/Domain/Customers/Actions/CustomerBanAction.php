@@ -5,6 +5,7 @@ namespace Domain\Customers\Actions;
 
 
 use App\Http\AdminPanel\Admins\Mails\AdminRegisteredMail;
+use App\Http\AdminPanel\Customers\Mails\CustomerBanMail;
 use Domain\Customers\Models\Customer;
 use Illuminate\Http\Request;
 
@@ -15,14 +16,12 @@ use Illuminate\Http\Request;
 class CustomerBanAction
 {
     /**
-     * @param Customer $customer
+     * @param int $id
      * @param Request $request
      */
-    public function execute(Customer $customer, Request $request)
+    public function execute(int $id, Request $request)
     {
-        $this->customerBan($customer, $request);
-
-        $this->sendEmail($request);
+        $this->customerBan($id, $request);
     }
 
     /**
@@ -30,25 +29,29 @@ class CustomerBanAction
      * @param Request $request
      * @return int
      */
-    private function customerBan(Customer $customer, Request $request)
+    private function customerBan(int $id, Request $request)
     {
-        return $customer->update([
-//            'name' => $request->name,
-//            'email' => $request->email,
-//            'password' => \Hash::make($request->password),
-//            'email_verified_at' => $request->email_verified_at,
+        $customer = Customer::find($id);
+
+        $customer->update([
             'ban' => $request->ban,
-//            'remember_token' => $request->remember_token,
-//            'created_at' => $request->created_at,
             'updated_at' => $request->updated_at,
         ]);
+
+        $emailDetails = [
+            'name' => $customer->name,
+            'email' => $customer->email,
+            'ban' => $customer->ban,
+        ];
+
+        $this->sendEmail($emailDetails);
     }
 
     /**
-     * @param Request $request
+     * @param array $emailDetails
      */
-    private function sendEmail(Request $request)
+    private function sendEmail(array $emailDetails)
     {
-//        \Mail::to($request->email)->send(new AdminRegisteredMail($request->all()));
+        \Mail::to($emailDetails['email'])->send(new CustomerBanMail($emailDetails));
     }
 }

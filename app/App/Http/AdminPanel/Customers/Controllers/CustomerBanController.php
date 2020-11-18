@@ -48,9 +48,7 @@ class CustomerBanController extends Controller
      */
     public function ban(CustomerBanRequest $request, int $id)
     {
-        $admin = Customer::find($id);
-
-        $this->banAction->execute($admin, $request);
+        $this->banAction->execute($id, $request);
 
         return redirect()->route('customer.list');
     }

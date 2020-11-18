@@ -23,8 +23,20 @@ class CustomerDataValidate
     /** @var array  */
     private array $password;
 
+    /** @var Customer | Collection */
+    private Customer $customers;
+
     /** @var array  */
     private array $ban;
+
+    /**
+     * CustomerDataValidate constructor.
+     * @param Customer $customers
+     */
+    public function __construct(Customer $customers)
+    {
+        $this->customers = $customers;
+    }
 
     /**
      * @return array
@@ -62,13 +74,13 @@ class CustomerDataValidate
      * @param Customer $customer
      * @return array
      */
-    public function choiceEmail(Customer $customer)
+    public function choiceEmail()
     {
         $this->email = [
             'ask' => "What's his/her email?",
             'field' => 'Email',
             'rules' => ['required', 'string', 'email', 'max:255'],
-            'choice' => $customer->pluck('email')->toArray(),
+            'choice' => $this->customers->pluck('email')->toArray(),
             'message' => [],
         ];
 

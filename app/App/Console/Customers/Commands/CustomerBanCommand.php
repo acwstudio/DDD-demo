@@ -46,14 +46,11 @@ class CustomerBanCommand extends Command
      * @param CustomerDataValidate $dataValidate
      * @param CustomerBanAction $banAction
      */
-    public function handle(
-        Customer $customers, CustomerDataValidate $dataValidate, CustomerBanAction $banAction)
+    public function handle(CustomerDataValidate $dataValidate, CustomerBanAction $banAction)
     {
         $fields = [];
 
-        $fields['email'] = $this->askValid($dataValidate->choiceEmail($customers));
-
-        $customer = Customer::where('email', $fields['email'])->first();
+        $fields['email'] = $this->askValid($dataValidate->choiceEmail());
 
         $ban = $this->askValid($dataValidate->askBan());
 
@@ -65,9 +62,11 @@ class CustomerBanCommand extends Command
             $message = $fields['email'] . ' unbanned Successfully';
         }
 
+        $customer = Customer::where('email', $fields['email'])->first();
+
         $request = new Request($fields);
 
-        $banAction->execute($customer, $request);
+        $banAction->execute($customer->id, $request);
 
         $this->info($message);
     }

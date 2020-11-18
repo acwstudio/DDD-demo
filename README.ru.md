@@ -828,6 +828,12 @@
 
 сделаем коммит [#56](https://github.com/acwstudio/DDD-demo/commit/6404a6b3bca9bb7394d08fd98f9d6d20e5d30f4a)
 
-Пофиксил много мелочей
+Пофиксил много мелочей (в частности, для каждой команды admin сделал свой класс Mail)
 
-сделаем коммит #57
+сделаем коммит [#57](https://github.com/acwstudio/DDD-demo/commit/e2b2817475214ac9de808a8a9710cd3f1f16f900)
+
+Сделал свой класс Mail для Customer ban
+
+сделаем коммит #58
+
+
