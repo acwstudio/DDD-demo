@@ -834,6 +834,10 @@
 
 Сделал свой класс Mail для Customer ban
 
-сделаем коммит #58
+сделаем коммит [#58](https://github.com/acwstudio/DDD-demo/commit/52dc48f5c78b4cde0fbd0987ee7508956c34ebad)
+
+Сделал рефакторинг всех **ViewModels**
+
+сделаем коммит #59
 
 

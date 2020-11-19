@@ -19,21 +19,17 @@ class DashboardHomeViewModel extends AdminPanelViewModel
      */
     public function __construct()
     {
-        /** @var Admin $admin */
-        $admin = \Auth::guard('admin')->user();
+        parent::__construct();
 
-        parent::__construct($admin);
-
-        $menu = $this->asideMenu;
-        $this->dashboardItems($menu);
+        $this->dashboardItems();
     }
 
     /**
      * @param Collection $menu
      */
-    private function dashboardItems($menu)
+    private function dashboardItems()
     {
-        foreach ($menu as $item) {
+        foreach ($this->asideMenu as $item) {
             /** @var Collection $item */
             if ($item->alias === 'dashboard'){
 

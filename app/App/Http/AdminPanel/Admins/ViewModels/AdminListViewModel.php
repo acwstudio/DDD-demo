@@ -23,18 +23,13 @@ class AdminListViewModel extends AdminPanelViewModel
      */
     public function __construct()
     {
-        /** @var Admin $admin */
-        $admin = \Auth::guard('admin')->user();
+        parent::__construct();
 
-        parent::__construct($admin);
+        $this->canResetPassword = $this->canResetPassword();
+        $this->canBan = $this->canBan();
 
-        $menu = $this->asideMenu;
-        $this->listItems($menu);
-
-        $this->canResetPassword = $this->canResetPassword($admin);
-        $this->canBan = $this->canBan($admin);
-
-        $this->admins = Admin::all();
+        $this->admins = $this->admins();
+        $this->listItems();
     }
 
     /**
@@ -42,35 +37,31 @@ class AdminListViewModel extends AdminPanelViewModel
      */
     public function admins()
     {
-        return $this->admins;
+        return Admin::all();
     }
 
     /**
-     * @param Admin $admin
      * @return bool
      * @throws \Exception
      */
-    private function canResetPassword(Admin $admin)
+    private function canResetPassword()
     {
-        return $admin->hasAnyPermission('admins.reset');
+        return $this->admin->hasAnyPermission('admins.reset');
     }
 
     /**
-     * @param Admin $admin
      * @return bool
      * @throws \Exception
      */
-    private function canBan(Admin $admin)
+    private function canBan()
     {
-        return $admin->hasAnyPermission('admins.ban');
+        return $this->admin->hasAnyPermission('admins.ban');
     }
 
-    /**
-     * @param Collection $menu
-     */
-    private function listItems($menu)
+
+    private function listItems()
     {
-        foreach ($menu as $item) {
+        foreach ($this->asideMenu as $item) {
             /** @var Collection $item */
             if ($item->alias === 'admins'){
 

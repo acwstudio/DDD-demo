@@ -24,35 +24,27 @@ class CustomerListViewModel extends AdminPanelViewModel
      */
     public function __construct()
     {
-        /** @var Admin $admin */
-        $admin = \Auth::guard('admin')->user();
+        parent::__construct();
 
+        $this->canResetPassword = $this->canResetPassword();
+        $this->canBan = $this->canBan();
 
-        parent::__construct($admin);
-
-        $menu = $this->asideMenu;
-        $this->listItems($menu);
-
-        $this->canResetPassword = $this->canResetPassword($admin);
-        $this->canBan = $this->canBan($admin);
-
-        $this->customers = Customer::all();
+        $this->customers = $this->customers();
+        $this->listItems();
     }
 
     /**
      * @return Collection
      */
-    public function admins()
+    public function customers()
     {
-        return $this->customers;
+        return Customer::all();
     }
 
-    /**
-     * @param Collection $menu
-     */
-    private function listItems($menu)
+
+    private function listItems()
     {
-        foreach ($menu as $item) {
+        foreach ($this->asideMenu as $item) {
             /** @var Collection $item */
             if ($item->alias === 'customers'){
 
@@ -92,22 +84,20 @@ class CustomerListViewModel extends AdminPanelViewModel
     }
 
     /**
-     * @param Admin $admin
      * @return bool
      * @throws \Exception
      */
-    private function canResetPassword(Admin $admin)
+    private function canResetPassword()
     {
-        return $admin->hasAnyPermission('customers.reset');
+        return $this->admin->hasAnyPermission('customers.reset');
     }
 
     /**
-     * @param Admin $admin
      * @return bool
      * @throws \Exception
      */
-    private function canBan(Admin $admin)
+    private function canBan()
     {
-        return $admin->hasAnyPermission('customers.ban');
+        return $this->admin->hasAnyPermission('customers.ban');
     }
 }

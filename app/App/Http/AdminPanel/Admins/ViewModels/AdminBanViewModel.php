@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Model;
 class AdminBanViewModel extends AdminPanelViewModel
 {
     public $adminItem;
-    private $admin_id;
 
     /**
      * ShopViewModel constructor.
@@ -23,16 +22,11 @@ class AdminBanViewModel extends AdminPanelViewModel
      */
     public function __construct(int $id)
     {
-        /** @var Admin $admin */
-        $admin = \Auth::guard('admin')->user();
-
-        parent::__construct($admin);
+        parent::__construct();
 
         $this->adminItem = $this->adminItem($id);
-        $this->admin_id = $id;
 
-        $menu = $this->asideMenu;
-        $this->banItems($menu);
+        $this->banItems();
     }
 
     /**
@@ -43,12 +37,9 @@ class AdminBanViewModel extends AdminPanelViewModel
         return Admin::find($id);
     }
 
-    /**
-     * @param Collection $menu
-     */
-    private function banItems($menu)
+    private function banItems()
     {
-        foreach ($menu as $item) {
+        foreach ($this->asideMenu as $item) {
             /** @var Collection $item */
             if ($item->alias === 'admins'){
 
@@ -80,7 +71,7 @@ class AdminBanViewModel extends AdminPanelViewModel
 
             if ($item->alias === 'ban_admin'){
                 $item->active = 'active';
-                $item->badgeText = 'ID: ' . $this->admin_id;
+                $item->badgeText = 'ID: ' . $this->adminItem->id;
                 $item->badgeColor = 'badge-success';
             }
             return $item;

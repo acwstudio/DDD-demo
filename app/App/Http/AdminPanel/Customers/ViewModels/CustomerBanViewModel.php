@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\Collection;
 class CustomerBanViewModel extends AdminPanelViewModel
 {
     public $customerItem;
-    private $customer_id;
 
     /**
      * ShopViewModel constructor.
@@ -25,32 +24,27 @@ class CustomerBanViewModel extends AdminPanelViewModel
      */
     public function __construct(int $id)
     {
-        /** @var Admin $admin */
-        $admin = \Auth::guard('admin')->user();
+        parent::__construct();
 
-        parent::__construct($admin);
+        $this->customerItem = $this->customerItem($id);
 
-        $this->customerItem = Customer::find($id);
-        $this->customer_id = $id;
-
-        $menu = $this->asideMenu;
-        $this->banItems($menu);
+        $this->banItems();
     }
 
     /**
      * @return Admin|\Illuminate\Database\Eloquent\Model|object|null
      */
-    public function customerItem()
+    public function customerItem(int $id)
     {
-        return $this->customerItem;
+        return Customer::find($id);
     }
 
     /**
      * @param Collection $menu
      */
-    private function banItems($menu)
+    private function banItems()
     {
-        foreach ($menu as $item) {
+        foreach ($this->asideMenu as $item) {
             /** @var Collection $item */
             if ($item->alias === 'customers'){
 
@@ -82,7 +76,7 @@ class CustomerBanViewModel extends AdminPanelViewModel
 
             if ($item->alias === 'ban_customer'){
                 $item->active = 'active';
-                $item->badgeText = 'ID: ' . $this->customer_id;
+                $item->badgeText = 'ID: ' . $this->customerItem->id;
                 $item->badgeColor = 'badge-success';
             }
             return $item;

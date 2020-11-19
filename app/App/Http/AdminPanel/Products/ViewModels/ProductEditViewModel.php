@@ -17,7 +17,6 @@ use Spatie\Permission\Models\Role;
 class ProductEditViewModel extends AdminPanelViewModel
 {
     public $productItem;
-    private $product_id;
     public $admins;
 
     /**
@@ -27,33 +26,38 @@ class ProductEditViewModel extends AdminPanelViewModel
      */
     public function __construct(int $id)
     {
-        /** @var Admin $admin */
-        $admin = \Auth::guard('admin')->user();
+        parent::__construct();
 
-        parent::__construct($admin);
+        $this->productItem = $this->productItem($id);
 
-        $this->productItem = Product::find($id);
-        $this->product_id = $id;
+        $this->admins = $this->admins();
 
-        $menu = $this->asideMenu;
-        $this->showProduct($menu);
-        $this->admins = Admin::all();
+        $this->showProduct();
     }
 
     /**
-     * @return Collection
+     * @return Admin[]|Collection
      */
-    public function admins()
+    private function admins()
     {
-        return $this->admins;
+        return Admin::all();
+    }
+
+    /**
+     * @param $id
+     * @return Product|Product[]|Collection|\Illuminate\Database\Eloquent\Model|null
+     */
+    public function productItem(int $id)
+    {
+        return Product::find($id);
     }
 
     /**
      * @param Collection $menu
      */
-    private function showProduct($menu)
+    private function showProduct()
     {
-        foreach ($menu as $item) {
+        foreach ($this->asideMenu as $item) {
             /** @var Collection $item */
             if ($item->alias === 'products'){
 
@@ -85,7 +89,7 @@ class ProductEditViewModel extends AdminPanelViewModel
 
             if ($item->alias === 'edit_product'){
                 $item->active = 'active';
-                $item->badgeText = 'ID: ' . $this->product_id;
+                $item->badgeText = 'ID: ' . $this->productItem->id;
                 $item->badgeColor = 'badge-success';
             }
             return $item;

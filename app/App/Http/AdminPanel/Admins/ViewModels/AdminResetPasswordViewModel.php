@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Collection;
 class AdminResetPasswordViewModel extends AdminPanelViewModel
 {
     public $adminItem;
-    private $admin_id;
 
     /**
      * ShopViewModel constructor.
@@ -24,33 +23,28 @@ class AdminResetPasswordViewModel extends AdminPanelViewModel
      */
     public function __construct(int $id)
     {
-        /** @var Admin $admin */
-        $admin = \Auth::guard('admin')->user();
+        parent::__construct();
 
-        $this->adminItem = Admin::find($id);
-        $this->admin_id = $id;
+        $this->adminItem = $this->adminItem($id);
 
-        parent::__construct($admin);
-
-        $menu = $this->asideMenu;
-        $this->resetPasswordItems($menu);
+        $this->resetPasswordItems();
 
     }
 
     /**
      * @return Admin|\Illuminate\Database\Eloquent\Model|object|null
      */
-    public function adminItem()
+    public function adminItem(int $id)
     {
-        return $this->adminItem;
+        return Admin::find($id);
     }
 
     /**
      * @param Collection $menu
      */
-    private function resetPasswordItems($menu)
+    private function resetPasswordItems()
     {
-        foreach ($menu as $item) {
+        foreach ($this->asideMenu as $item) {
             /** @var Collection $item */
             if ($item->alias === 'admins'){
 
@@ -82,7 +76,7 @@ class AdminResetPasswordViewModel extends AdminPanelViewModel
 
             if ($item->alias === 'reset_password'){
                 $item->active = 'active';
-                $item->badgeText = 'ID: ' . $this->admin_id;
+                $item->badgeText = 'ID: ' . $this->adminItem->id;
                 $item->badgeColor = 'badge-success';
             }
             return $item;

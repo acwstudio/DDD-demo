@@ -22,18 +22,19 @@ class AdminPanelViewModel extends ViewModel
      * @param Admin $admin
      * @throws \Exception
      */
-    public function __construct(Admin $admin)
+    public function __construct()
     {
-        $this->admin = $admin;
+        $this->admin = $this->admin();
+
         $this->asideMenu = $this->asideMenu();
     }
 
     /**
      * @return string
      */
-    public function admin()
+    public function admin(): Admin
     {
-        return $this->admin;
+        return \Auth::guard('admin')->user();
     }
 
 
@@ -52,8 +53,7 @@ class AdminPanelViewModel extends ViewModel
     }
 
     /**
-     * @param MenuAdministrator $item
-     * @throws \Exception
+     * @param Collection $items
      */
     private function baseLevel(Collection $items)
     {

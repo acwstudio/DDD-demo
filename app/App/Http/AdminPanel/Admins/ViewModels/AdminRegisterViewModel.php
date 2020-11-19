@@ -21,15 +21,11 @@ class AdminRegisterViewModel extends AdminPanelViewModel
      */
     public function __construct()
     {
-        /** @var Admin $admin */
-        $admin = \Auth::guard('admin')->user();
+        parent::__construct();
 
-        parent::__construct($admin);
+        $this->registerItems();
 
-        $menu = $this->asideMenu;
-        $this->registerItems($menu);
-
-        $this->roles = Role::all();
+        $this->roles = $this->roles();
     }
 
     /**
@@ -37,15 +33,15 @@ class AdminRegisterViewModel extends AdminPanelViewModel
      */
     public function roles()
     {
-        return $this->roles;
+        return Role::all();
     }
 
     /**
      * @param Collection $menu
      */
-    private function registerItems(Collection $menu)
+    private function registerItems()
     {
-        foreach ($menu as $item) {
+        foreach ($this->asideMenu as $item) {
             /** @var Collection $item */
             if ($item->alias === 'admins'){
 

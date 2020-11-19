@@ -28,7 +28,7 @@ class CustomerListController extends Controller
     public function showList()
     {
         $viewModel = new CustomerListViewModel();
-//        dd($viewModel);
+
         return view('admin.pages.customers.list', compact('viewModel'));
     }
 }

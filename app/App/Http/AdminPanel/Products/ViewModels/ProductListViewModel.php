@@ -25,18 +25,14 @@ class ProductListViewModel extends AdminPanelViewModel
      */
     public function __construct()
     {
-        /** @var Admin $admin */
-        $admin = \Auth::guard('admin')->user();
+        parent::__construct();
 
-        parent::__construct($admin);
+        $this->listItems();
 
-        $menu = $this->asideMenu;
-        $this->listItems($menu);
+        $this->canEdit = $this->canEdit();
+        $this->canShowItem = $this->canShowItem();
 
-        $this->canEdit = $this->canEdit($admin);
-        $this->canShowItem = $this->canShowItem($admin);
-
-        $this->products = Product::all();
+        $this->products = $this->products();
     }
 
     /**
@@ -44,35 +40,33 @@ class ProductListViewModel extends AdminPanelViewModel
      */
     public function products()
     {
-        return $this->products;
+        return Product::all();
     }
 
     /**
-     * @param Admin $admin
      * @return bool
      * @throws \Exception
      */
-    private function canEdit(Admin $admin)
+    private function canEdit()
     {
-        return $admin->hasAnyPermission('products.edit');
+        return $this->admin->hasAnyPermission('products.edit');
     }
 
     /**
-     * @param Admin $admin
      * @return bool
      * @throws \Exception
      */
-    private function canShowItem(Admin $admin)
+    private function canShowItem()
     {
-        return $admin->hasAnyPermission('products.show');
+        return $this->admin->hasAnyPermission('products.show');
     }
 
     /**
      * @param Collection $menu
      */
-    private function listItems($menu)
+    private function listItems()
     {
-        foreach ($menu as $item) {
+        foreach ($this->asideMenu as $item) {
             /** @var Collection $item */
             if ($item->alias === 'products'){
 
