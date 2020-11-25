@@ -52,7 +52,7 @@
                                     <th>Email</th>
                                     <th>Ban</th>
                                     <th>Date reg.</th>
-                                    <th>Reset Pass</th>
+{{--                                    <th>Reset Pass</th>--}}
                                     <th>Set Ban</th>
                                 </tr>
                                 </thead>
@@ -70,14 +70,14 @@
                                             @endif
                                         </td>
                                         <td>{{ $customer->created_at }}</td>
-                                        <td>
-                                            @if($viewModel->canResetPassword)
-                                                <a href="{{ route('admin.password.reset', $customer->id) }}"
-                                                   type="button" class="badge badge-success">RESET PASS</a>
-                                            @else
-                                                <span class="badge badge-danger">NO ACCESS</span>
-                                            @endif
-                                        </td>
+{{--                                        <td>--}}
+{{--                                            @if($viewModel->canResetPassword)--}}
+{{--                                                <a href="{{ route('admin.password.reset', $customer->id) }}"--}}
+{{--                                                   type="button" class="badge badge-success">RESET PASS</a>--}}
+{{--                                            @else--}}
+{{--                                                <span class="badge badge-danger">NO ACCESS</span>--}}
+{{--                                            @endif--}}
+{{--                                        </td>--}}
                                         <td>
                                             @if($viewModel->canResetPassword)
                                                 <a href="{{ route('customer.ban.show', $customer->id) }}"

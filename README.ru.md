@@ -838,6 +838,12 @@
 
 Сделал рефакторинг всех **ViewModels**
 
-сделаем коммит #59
+сделаем коммит [#59](https://github.com/acwstudio/DDD-demo/commit/f8745c2cb7bcde58cf394371ee773a7b890f04e3)
+
+небольшой фикс коммит #60
+
+
+
+### Shopping Cart
 
 
