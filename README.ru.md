@@ -840,7 +840,11 @@
 
 сделаем коммит [#59](https://github.com/acwstudio/DDD-demo/commit/f8745c2cb7bcde58cf394371ee773a7b890f04e3)
 
-небольшой фикс коммит #60
+небольшой фикс [#60](https://github.com/acwstudio/DDD-demo/commit/992d20575604f63f5e11c401b6fc578f8332d4cf)
+
+фикс Mixed Content: The page at '<URL>' was loaded over HTTPS
+коммит #61
+
 
 
 
