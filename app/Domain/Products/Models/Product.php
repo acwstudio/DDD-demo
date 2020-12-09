@@ -5,8 +5,10 @@ namespace Domain\Products\Models;
 
 
 use Domain\Admins\Models\Admin;
+use Domain\Products\Events\ProductCreateEvent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class Product
@@ -14,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -25,6 +27,10 @@ class Product extends Model
         'name', 'description', 'category_id', 'vendor_code', 'type', 'admin_id', 'barcode', 'stock',
         'min_price', 'sale_price', 'buy_price', 'archived', 'published', 'weight', 'volume', 'reserve',
         'in_transit', 'quantity'
+    ];
+
+    protected $dispatchesEvents = [
+        'saved' => ProductCreateEvent::class
     ];
 
     /**

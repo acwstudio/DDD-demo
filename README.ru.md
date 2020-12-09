@@ -843,11 +843,12 @@
 небольшой фикс [#60](https://github.com/acwstudio/DDD-demo/commit/992d20575604f63f5e11c401b6fc578f8332d4cf)
 
 фикс Mixed Content: The page at '<URL>' was loaded over HTTPS
-коммит #61
+коммит [#61](https://github.com/acwstudio/DDD-demo/commit/202396dee510068f1d07955e8668e283bbe9d4b4)
 
+### Отправка email по событию добавление продукта
 
+При создании нового продукта отправляется email на почту всех заинтересованных админов
 
-
-### Shopping Cart
+коммит #62
 
 
